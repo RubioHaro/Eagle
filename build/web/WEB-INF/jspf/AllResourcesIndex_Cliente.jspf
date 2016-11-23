@@ -1,0 +1,9 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<link href="../css/bootstrap.css" rel="stylesheet" type="text/css">
+<link href="../css/Estilos.css" rel="stylesheet" type="text/css"/>
+<script  src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min_1.js"></script>
+<script src="../js/ActionSlide.js" ></script>
+<script src="../js/Validacion.js" ></script>
+<script src="../js/Modals.js" ></script>

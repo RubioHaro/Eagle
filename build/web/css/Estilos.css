@@ -1,0 +1,170 @@
+/*DIGITAL LEARNING*/
+
+
+.btn-file {
+    position: relative;
+    overflow: hidden;
+}
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+    display: block;
+}
+
+body {    
+    background-image: url('../Img/Backgrounds/background-grey.jpg');
+    background-size: cover; 
+    background-attachment: fixed;
+}
+
+
+.jumbotron{   
+    background-color: transparent !important;
+    color: black;
+}
+.panel{    
+    opacity: .69 !important;
+}
+.panel-heading{
+    background-color: #666666;
+    color: white;
+}
+.panel-footer{
+    background-color: #cccccc !important;
+}
+.panel-body{
+    background-color: #cccccc !important;
+
+}
+
+
+.navbar{
+    background-color: #666666;
+}
+
+.navbar-brand:link, .navbar-brand:visited {
+    color:white !important;
+}
+.navbar-brand:hover, .navbar-brand:active {
+    color: #cccccc   !important;
+}
+
+#navbar li a:link, #navbar li a:visited{
+    color: white ;
+}
+
+#navbar li a:hover, #navbar li a:active{
+    color: #cccccc ;
+}
+
+.dropdown-menu{
+    background-color: #666666 ;
+}
+
+navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
+    color: #cccccc;
+    background-color: #666666;
+}
+
+#navbar .dropdown-menu li a:link, #navbar .dropdown-menu li a:visited{
+    background-color:  #666666;
+    color: white ;
+}
+
+#navbar .dropdown-menu li a:hover, #navbar .dropdown-menu li a:active{
+    background-color: #666666;
+    color:  #cccccc ;
+}
+
+/*RUBIO HARO RODRIGO RODOLFO */
+
+
+/* Centrar imagen formulario */
+.imgcontainer {
+    text-align: center;
+    margin: 24px 0 12px 0;
+    position: relative;
+}
+
+img.avatar {
+    height: 30%;
+    width: 25%;
+    border-radius: 50%;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content/Box */
+.modal-content {
+    background-color: white;
+    margin: 5% auto 2% auto; /* 5% from the top, 15% from the bottom and centered */
+    width: 50%; /* Could be more or less, depending on screen size */
+}
+
+
+
+/* The Close Button (x) */
+.close {
+
+    right: 15%;
+    top: 0;
+    text-decoration: none !important;
+    text-shadow:none  !important;
+    color: white  !important;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: red;
+    cursor: pointer;
+}
+
+/* Add Zoom Animation */
+.animate {
+    -webkit-animation: animatezoom 0.6s;
+    animation: animatezoom 0.6s
+}
+
+@-webkit-keyframes animatezoom {
+    from {-webkit-transform: scale(0)}
+    to {-webkit-transform: scale(1)}
+}
+
+@keyframes animatezoom {
+    from {transform: scale(0)}
+    to {transform: scale(1)}
+}
+
+/* Change styles for span and cancel button on extra small screens */
+@media screen and (max-width: 300px) {
+    span.psw {
+        display: block;
+        float: none;
+    }
+    .cancelbtn {
+        width: 100%;
+    }
+}

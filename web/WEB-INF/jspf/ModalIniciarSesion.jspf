@@ -1,0 +1,24 @@
+<%-- any content can be specified here e.g.: --%>
+<%@ page pageEncoding="UTF-8" %>
+<div id="PopWindowIniciar" class="modal">
+    <form class="modal-content animate" name="IniciarSesion" method="POST" action="Login">                                        
+        <div class="panel">
+            <div class="panel-heading">
+                Iniciar Sesion
+                <span onclick="ClickCerrarModal('PopWindowIniciar')" class="close" title="Close Modal">&times;</span>
+            </div>
+            <div class="panel-body">
+                
+                <div class="form-group has-feedback">                            
+                    <input type="text" class="form-control"  name="Usuario" required  placeholder="Usuario" id="Usuario"/>                    
+                </div>
+                <div class="form-group has-feedback">                            
+                    <input type="password" class="form-control"  name="Pass" required  placeholder="Contraseña" id="Pass"/>                    
+                </div>
+                <div class="form-group">                                                        
+                    <button class="btn btn-default center-block" onclick="return Validacion()" onsubmit="return Validacion()" type="submit" >Iniciar Sesión</button>
+                </div> 
+            </div>
+        </div> 
+    </form>
+</div>
