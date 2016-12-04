@@ -1,7 +1,7 @@
 /* 
  * New Ligths
  * Services info Web
- * Rubio Haro 
+ * Rubio Haro e Hiram Gomez 
  */
 
 function Validacion() {

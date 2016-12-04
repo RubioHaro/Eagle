@@ -1,8 +1,4 @@
-/*
- * New Ligths
- * Services info Web
- * Rubio Haro 
- */
+
 package Usuarios;
 
 import BD.ControladorDeBDD;
@@ -19,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Rod
+ * @author Hiram
  */
 public class RegistroCliente extends HttpServlet {
 

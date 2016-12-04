@@ -3,10 +3,31 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Rod/Desktop/USB/PA/Aguila/Aguila/web/Clientes/IndexClient.jsp</file>
-            <file>file:/C:/Users/Rod/Desktop/USB/PA/Aguila/Aguila/web/WEB-INF/jspf/BarraDeNavegacionCliente.html</file>
-            <file>file:/C:/Users/Rod/Desktop/USB/PA/Aguila/Aguila/web/WEB-INF/jspf/ModalCerrarSesion.jsp</file>
-            <file>file:/C:/Users/Rod/Desktop/USB/PA/Aguila/Aguila/web/js/Modals.js</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Servicios/ListaServicios.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Catalogo/Producto.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Servicios/AddService.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Usuarios/RegistroCliente.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Usuarios/Login.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Activacion/ActivarUsuario.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Catalogo/EditHeader.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/BD/ResultsSetDB.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Catalogo/Agregar.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Unidades/Unidad.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/BD/BaseDeDatos.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Catalogo/Encabezado.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Catalogo/Delete.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Usuarios/Direccion.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Catalogo/Edit.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Servicios/Servicio.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Usuarios/Consultar.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Usuarios/Usuario.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Servicios/DeleteService.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Catalogo/ListOfproducts.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Activacion/Mail.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Unidades/ListaUnidades.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/Activacion/validaUsr.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/BD/ControladorDeConexion.java</file>
+            <file>file:/E:/Aguila%20-%20copia/src/java/BD/ControladorDeBDD.java</file>
         </group>
     </open-files>
 </project-private>

@@ -5,35 +5,41 @@
     <form class="modal-content animate" name="config" method="POST" action="RegistroCliente">                                        
         <div class="panel">
             <div class="panel-heading">
-                Actualizar los datos
+                Configuración
                 <span onclick="ClickCerrarModal('PopWindowConfig')" class="close" title="Close Modal">&times;</span>
             </div>
             <div class="panel-body">    
-                Datos del Represetante
+
+                Actualizar datos de la Empresa
                 <div class="form-group has-feedback">
-                    <input type="text" class="form-control"  name="Nombre" required value="<%out.println(User.getNombre()); %>"  placeholder="Nombre" id="Nombre"/>                    
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" value="<%out.println(User.getApellidop());%>"  name="Paterno" required  placeholder="Apellido Paterno" id="Paterno"/>                    
-                    </div>
-                    <div class="col-md-6">
-                        <input type="text" class="form-control" value="<%out.println(User.getApellidom());%>" name="Materno" required  placeholder="Apellido Materno" id="Materno"/>                    
-                    </div>
-                </div><BR>
-                <div class="form-group has-feedback">                            
-                    <input type="email" class="form-control"  value="<%out.println(User.getMail());%>" name="Correo" required placeholder="Correo" id="Correo"/>                    
-                </div>
-                <div class="form-group">
                     <div class="row">
-                        <div class="col-md-12">
-                            <input type="password" class="form-control"  name="Pass" required  placeholder="Ingresa tu contraseña" id="Pass"/>                    
+                        <div class="col-md-4">
+                            <button class="btn btn-default form-control">Direccion</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-default form-control">Representante</button>
+                        </div>
+                        <div class="col-md-4">
+                            <button class="btn btn-default form-control">Contacto</button>
                         </div>
                     </div>
                 </div>
-                <div class="form-group">                                                        
-                    <button class="btn btn-default center-block" onclick="return Validacion()" onsubmit="return Validacion()" type="submit" >Actualizar</button>
-                </div> 
+                <div class="row">
+                    <div class="col-md-6">
+                        Cuenta: <%out.println(User.getMail());%>                        
+                    </div>
+                    <div class="col-md-6">
+                        Folio: <%out.println(User.getIdusuario());%>                        
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <button class="btn btn-default form-control">Cambiar contraseña</button>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div> 
     </form>

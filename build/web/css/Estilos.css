@@ -1,6 +1,8 @@
 /*DIGITAL LEARNING*/
 
-
+.azul{
+    color: whitesmoke !important;
+}
 .btn-file {
     position: relative;
     overflow: hidden;
@@ -27,10 +29,9 @@ body {
     background-attachment: fixed;
 }
 
-
-.jumbotron{   
-    background-color: transparent !important;
-    color: black;
+.jumbotron{
+    background: rgba(0, 0, 0, .5) !important;
+    color: white !important;
 }
 .panel{    
     opacity: .69 !important;

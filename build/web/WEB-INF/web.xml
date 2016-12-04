@@ -12,6 +12,42 @@
         <servlet-name>ActivarUsuario</servlet-name>
         <servlet-class>Activacion.ActivarUsuario</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddService</servlet-name>
+        <servlet-class>Servicios.AddService</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteService</servlet-name>
+        <servlet-class>Servicios.DeleteService</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SubmitCatalogo</servlet-name>
+        <servlet-class>Catalogo.SubmitCatalogo</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Delete</servlet-name>
+        <servlet-class>Catalogo.Delete</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditHeader</servlet-name>
+        <servlet-class>Catalogo.EditHeader</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Encabezado</servlet-name>
+        <servlet-class>Catalogo.Encabezado</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Agregar</servlet-name>
+        <servlet-class>Catalogo.Agregar</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Edit</servlet-name>
+        <servlet-class>Catalogo.Edit</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Consultar</servlet-name>
+        <servlet-class>Usuarios.Consultar</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -24,9 +60,51 @@
         <servlet-name>ActivarUsuario</servlet-name>
         <url-pattern>/ActivarUsuario</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddService</servlet-name>
+        <url-pattern>/AddService</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteService</servlet-name>
+        <url-pattern>/DeleteService</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SubmitCatalogo</servlet-name>
+        <url-pattern>/SubmitCatalogo</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Delete</servlet-name>
+        <url-pattern>/Delete</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditHeader</servlet-name>
+        <url-pattern>/EditHeader</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Encabezado</servlet-name>
+        <url-pattern>/Encabezado</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Agregar</servlet-name>
+        <url-pattern>/Agregar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Edit</servlet-name>
+        <url-pattern>/Edit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Consultar</servlet-name>
+        <url-pattern>/Consultar</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
+    <resource-ref>
+        <res-ref-name>juj</res-ref-name>
+        <res-type>javax.sql.DataSource</res-type>
+        <res-auth>Container</res-auth>
+        <res-sharing-scope>Shareable</res-sharing-scope>
+    </resource-ref>
 </web-app>

@@ -5,7 +5,6 @@
     <%
         String Error = "";
         try {
-            HttpSession sesion = request.getSession();
             Integer Erorres = (Integer) sesion.getAttribute("Error");
 
             if (Erorres > 0) {

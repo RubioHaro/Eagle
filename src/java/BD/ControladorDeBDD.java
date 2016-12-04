@@ -6,10 +6,16 @@
 package BD;
 
 import Activacion.Mail;
+import Catalogo.ListOfproducts;
+import Catalogo.Producto;
+import Servicios.ListaServicios;
+import Servicios.Servicio;
+import Usuarios.Direccion;
 import Usuarios.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -32,11 +38,70 @@ public class ControladorDeBDD {
         ResDB = new ResultsSetDB();
     }
 
+    public boolean ConsultarExUser(int IdUsuario) throws ClassNotFoundException {
+        ResDB = null;
+        ResDB = new ResultsSetDB();
+        Query = "SELECT * FROM Usuarios WHERE IdUsuario = '" + IdUsuario + "'; ";
+        try {
+            Control.CrearConexion();
+            res = Control.SentenciaSQL(Query);
+            return res.next();
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+            return false;
+        }
+    }
+
+    public ResultsSetDB BuscarUsuario(int Id) throws ClassNotFoundException {
+        ResDB = null;
+        ResDB = new ResultsSetDB();
+        Query = "SELECT * FROM Usuarios WHERE Idusuario = '" + Id + "'; ";
+        try {
+            Control.CrearConexion();
+            res = Control.SentenciaSQL(Query);
+            user = new Usuario();
+            if (res.next()) {
+                user.setIdusuario(res.getInt(1));
+                user.setNombre(res.getString(2));
+                user.setApellidop(res.getString(3));
+                user.setApellidom(res.getString(4));
+                user.setTipo(res.getString(5));
+                user.setMail(res.getString(6));
+                user.setEstatus(res.getInt(8));
+                Control.CerrarConexion();                
+                if (user.getTipo().equals("Colaborador")) {
+                    Query = "SELECT NivelAcceso FROM Usuarios inner join Empleados on Empleados.Idusuario = Usuarios.Idusuario WHERE Idusuario = \"" + Id + " \"; ";
+                    Control.CrearConexion();
+                    res = Control.SentenciaSQL(Query);                    
+                    user.setNivelAcceso(res.getInt(1));
+                    Control.CerrarConexion();
+                } else if (user.getTipo().equals("Cliente")) {
+                    user.setNivelAcceso(0);
+                }
+
+                ResDB.setCondicion(Boolean.TRUE);
+                ResDB.setEstaus("Usuario Obtenido");
+                ResDB.setUser(user);
+            } else {
+                Control.CerrarConexion();
+                ResDB.setCondicion(Boolean.FALSE);
+                ResDB.setEstaus("Usuario No encontrado");
+                ResDB.AgregarError();
+            }
+            res.close();
+        } catch (SQLException ex) {
+            ResDB.setCondicion(Boolean.FALSE);
+            ResDB.setEstaus("DB error: " + ex.toString());
+            ResDB.AgregarError();
+            Logger.getLogger(ControladorDeBDD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ResDB;
+    }
+    
     public ResultsSetDB BuscarUsuario(String Mail) throws ClassNotFoundException {
         ResDB = null;
         ResDB = new ResultsSetDB();
         Query = "SELECT * FROM Usuarios WHERE mail = '" + Mail + "'; ";
-        System.out.println("Query:" + Query);
         try {
             Control.CrearConexion();
             res = Control.SentenciaSQL(Query);
@@ -54,9 +119,11 @@ public class ControladorDeBDD {
                 if (user.getTipo().equals("Colaborador")) {
                     Query = "SELECT NivelAcceso FROM Usuarios inner join Empleados on Empleados.Idusuario = Usuarios.Idusuario WHERE mail = \"" + Mail + " \"; ";
                     Control.CrearConexion();
+                    res=null;
                     res = Control.SentenciaSQL(Query);
-                    Control.CerrarConexion();
                     user.setNivelAcceso(res.getInt(1));
+                    Control.CerrarConexion();
+                    
                 } else if (user.getTipo().equals("Cliente")) {
                     user.setNivelAcceso(0);
                 }
@@ -141,7 +208,6 @@ public class ControladorDeBDD {
                     ResDB.setEstaus("Contraseña Incorrecta");
                     ResDB.AgregarError();
                 }
-                System.out.println("xxxx");
                 //Se cierra Aqeui para abrir una nueva conexion con otra sentencia
                 res.close();
                 Control.CerrarConexion();
@@ -182,7 +248,7 @@ public class ControladorDeBDD {
         } else {
             Usuario Cliente;
             Cliente = ResDB.getUser();
-            mensaje = ActualizarUsuario(Cliente.getNombre(), Cliente.getApellidop(), Cliente.getApellidom(), Cliente.getMail(), 1);            
+            mensaje = ActualizarUsuario(Cliente.getNombre(), Cliente.getApellidop(), Cliente.getApellidom(), Cliente.getMail(), 1);
         }
         return mensaje;
     }
@@ -192,7 +258,7 @@ public class ControladorDeBDD {
         try {
 
             Control.CrearConexion();
-            Query = "UPDATE Usuarios SET Nombre = ?,  ApellidoP = ?,  ApellidoM = ?,  Estatus = ?  WHERE Mail = ?;";            
+            Query = "UPDATE Usuarios SET Nombre = ?,  ApellidoP = ?,  ApellidoM = ?,  Estatus = ?  WHERE Mail = ?;";
             EstamentoPreparado = Control.StatmentAction(Query);
             EstamentoPreparado.setString(1, Nombre);
             EstamentoPreparado.setString(2, apellidoP);
@@ -201,7 +267,7 @@ public class ControladorDeBDD {
             EstamentoPreparado.setString(5, Mail);
             EstamentoPreparado.executeUpdate();
             EstamentoPreparado.close();
-            Control.CerrarConexion();            
+            Control.CerrarConexion();
             return "Usuario Registrado";
 
         } catch (SQLException error) {
@@ -246,4 +312,279 @@ public class ControladorDeBDD {
 
         }
     }
+
+    //Agregar servicio del cliente
+    public String AddService(String type, int IdUsuario, String FechaSol, int costo) throws ClassNotFoundException {
+        if (ConsultarExUser(IdUsuario)) {
+            try {
+                Control.CrearConexion();
+                Query = "call ProcedureAgregarServicio('" + type + " ', '" + FechaSol + "', " + costo + ", " + IdUsuario + ", 1, 2);";
+                res = Control.SentenciaSQL(Query);
+                return "Servicio Solicitado";
+            } catch (ClassNotFoundException | SQLException e) {
+                return e.getMessage();
+            }
+
+        } else {
+            return "Error en la cuenta";
+        }
+    }
+
+    public ArrayList<String> getEncabezadoCatalogo() {
+        ArrayList<String> arreglito = new ArrayList<>();
+        try {
+
+            Control.CrearConexion();
+            Query = "select *  from PageInfo_Catalogo order by Version desc limit 0,1;";
+            res = Control.SentenciaSQL(Query);
+
+            while (res.next()) {
+                arreglito.add(res.getString(2));
+                arreglito.add(res.getString(3));
+            }
+            Control.CerrarConexion();
+
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ControladorDeBDD.class.getName()).log(Level.SEVERE, null, ex);
+            arreglito.removeAll(arreglito);
+            arreglito.add("Error: " + ex.getLocalizedMessage());
+        }
+        return arreglito;
+    }
+
+    public String setEncabezado(String Title, String subtitulo, int IDUsuario) {
+        try {
+
+            Control.CrearConexion();
+            Query = "call AñadirHeader(?,?,?);";
+            EstamentoPreparado = Control.StatmentAction(Query);
+            EstamentoPreparado.setString(1, Title);
+            EstamentoPreparado.setString(2, subtitulo);
+            EstamentoPreparado.setInt(3, IDUsuario);
+            EstamentoPreparado.executeUpdate();
+            Control.CerrarConexion();
+            return "Header Actualizado";
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ControladorDeBDD.class.getName()).log(Level.SEVERE, null, ex);
+            return ex.toString();
+        }
+    }
+
+    //Obtener Servicios del usuario mediante su email
+    public ListaServicios getLas50History() throws ClassNotFoundException, SQLException {
+        ListaServicios ServicesList = new ListaServicios();
+        try {
+
+            Control.CrearConexion();
+
+            Query = "call GetAll50Services();";
+            res = Control.SentenciaSQL(Query);
+
+            while (res.next()) {
+                Direccion direc = new Direccion();
+                Servicio service = new Servicio();
+
+                direc.setIdUsuario(res.getInt(1));
+                service.setNombre(res.getString(2));
+                service.setCorreo(res.getString(3));
+                service.setIdServicio(res.getInt(4));
+                service.setDescripcionDeServicio(res.getString(5));
+                service.setFechaSolicitud(res.getString(6));
+                service.setFechaEntrega(res.getString(7));
+                service.setCosto(res.getInt(8));
+                direc.setDelegacion(res.getString(9));
+                direc.setColonia(res.getString(10));
+                direc.setCP(res.getInt(11));
+                direc.setCalle(res.getString(12));
+                direc.setNumeroExt(res.getInt(13));
+                direc.setNumeroInt(res.getInt(14));
+                service.setDir(direc);
+                ServicesList.AñadirALista(service);
+            }
+            Control.CerrarConexion();
+            return ServicesList;
+
+        } catch (SQLException error) {
+            System.out.println("Error: " + error.toString());
+            return null;
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error: " + e.getLocalizedMessage());
+            return null;
+        }
+    }
+
+    //Obtener Servicios del usuario mediante su email
+    public ListaServicios getHistory(String Mail) throws ClassNotFoundException, SQLException {
+        ListaServicios ServicesList = new ListaServicios();
+        try {
+
+            Control.CrearConexion();
+
+            Query = "call GetServices('" + Mail + "');";
+            res = Control.SentenciaSQL(Query);
+
+            while (res.next()) {
+                Direccion direc = new Direccion();
+                Servicio service = new Servicio();
+
+                direc.setIdUsuario(res.getInt(1));
+                service.setNombre(res.getString(2));
+                service.setCorreo(res.getString(3));
+                service.setIdServicio(res.getInt(4));
+                service.setDescripcionDeServicio(res.getString(5));
+                service.setFechaSolicitud(res.getString(6));
+                service.setFechaEntrega(res.getString(7));
+                service.setCosto(res.getInt(8));
+                direc.setDelegacion(res.getString(9));
+                direc.setColonia(res.getString(10));
+                direc.setCP(res.getInt(11));
+                direc.setCalle(res.getString(12));
+                direc.setNumeroExt(res.getInt(13));
+                direc.setNumeroInt(res.getInt(14));
+                service.setDir(direc);
+                ServicesList.AñadirALista(service);
+            }
+            Control.CerrarConexion();
+            return ServicesList;
+
+        } catch (SQLException error) {
+            System.out.println("Error: " + error.toString());
+            return null;
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error: " + e.getLocalizedMessage());
+            return null;
+        }
+    }
+
+    public int ContarProductoEnServicio(String Nombre) {
+        try {
+            Control.CrearConexion();
+            Query = "call GetCountservice('"+ Nombre +"');";
+            res = Control.SentenciaSQL(Query);
+            if(res.next()) {
+                System.out.println(res.getInt(1));
+                return res.getInt(1);
+                
+            }
+            Control.CerrarConexion();
+            return 0;
+
+        } catch (SQLException error) {
+            System.out.println("Error: " + error.toString());
+            return 0;
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error: " + e.getLocalizedMessage());
+            return 0;
+        }
+    }
+
+    //Obtener Productos del usuario mediante su email
+    public ListOfproducts getProductList() throws ClassNotFoundException, SQLException {
+        ListOfproducts ListaDeProductos = new ListOfproducts();
+        try {
+            Control.CrearConexion();
+            Query = "select * from productos";
+            res = Control.SentenciaSQL(Query);
+            while (res.next()) {
+                Producto Product = new Producto(res.getInt(1), res.getString(2), res.getInt(3), res.getInt(4), res.getString(5));
+                ListaDeProductos.AñadirALista(Product);
+            }
+            Control.CerrarConexion();
+            return ListaDeProductos;
+
+        } catch (SQLException error) {
+            System.out.println("Error: " + error.toString());
+            return null;
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error: " + e.getLocalizedMessage());
+            return null;
+        }
+    }
+
+    public Producto GetProducto(int IdProducto) throws ClassNotFoundException, SQLException {
+        try {
+            Control.CrearConexion();
+            Query = "select * from productos where idProducto =" + IdProducto + ";";
+            res = Control.SentenciaSQL(Query);
+            Producto Product = new Producto();
+            while (res.next()) {
+                Product = new Producto(res.getInt(1), res.getString(2), res.getInt(3), res.getInt(4), res.getString(5));
+            }
+            Control.CerrarConexion();
+            return Product;
+
+        } catch (SQLException error) {
+            System.out.println("Error: " + error.toString());
+            return null;
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error: " + e.getLocalizedMessage());
+            return null;
+        }
+    }
+
+    //Eliminar Producto, consulta con su ID
+    public String EliminarProducto(int ID) throws ClassNotFoundException, SQLException {
+        try {
+            Control.CrearConexion();
+            Query = "call EliminarProducto(?);";
+            EstamentoPreparado = Control.StatmentAction(Query);
+            EstamentoPreparado.setInt(1, ID);
+            EstamentoPreparado.executeUpdate();
+            Control.CerrarConexion();
+            return "El producto has sido eliminado";
+
+        } catch (SQLException error) {
+            System.out.println("Error: " + error.toString());
+            return "Error: " + error.toString();
+        } catch (ClassNotFoundException error) {
+            System.out.println("Error: " + error.getLocalizedMessage());
+            return "Error: " + error.toString();
+        }
+    }
+
+    //Agregar Producto
+    public String AgregarProducto(String Nombre, int Costo, String Desc) throws ClassNotFoundException, SQLException {
+        try {
+            Control.CrearConexion();
+            Query = "call AgregarProducto(?,?,?);";
+            EstamentoPreparado = Control.StatmentAction(Query);
+            EstamentoPreparado.setString(1, Nombre);
+            EstamentoPreparado.setInt(2, Costo);
+            EstamentoPreparado.setString(3, Desc);
+            EstamentoPreparado.executeUpdate();
+            Control.CerrarConexion();
+            return "El producto has sido agregado";
+
+        } catch (SQLException error) {
+            System.out.println("Error: " + error.toString());
+            return "Error: " + error.toString();
+        } catch (ClassNotFoundException error) {
+            System.out.println("Error: " + error.getLocalizedMessage());
+            return "Error: " + error.toString();
+        }
+    }
+
+    //Modificar el Producto
+    public String ModificarProducto(String Nombre, int Costo, String Desc, int IdProducto) throws ClassNotFoundException, SQLException {
+        try {
+            Control.CrearConexion();
+            Query = "UPDATE Productos SET Nombre=?, Costo =?,  Descripcion=? WHERE IdProducto=?;";
+            EstamentoPreparado = Control.StatmentAction(Query);
+            EstamentoPreparado.setString(1, Nombre);
+            EstamentoPreparado.setInt(2, Costo);
+            EstamentoPreparado.setString(3, Desc);
+            EstamentoPreparado.setInt(4, IdProducto);
+            EstamentoPreparado.executeUpdate();
+            Control.CerrarConexion();
+            return "El producto ha sido editado";
+
+        } catch (SQLException error) {
+            System.out.println("Error: " + error.toString());
+            return "Error: " + error.toString();
+        } catch (ClassNotFoundException error) {
+            System.out.println("Error: " + error.getLocalizedMessage());
+            return "Error: " + error.toString();
+        }
+    }
+
 }

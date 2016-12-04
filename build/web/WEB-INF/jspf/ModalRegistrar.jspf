@@ -10,14 +10,14 @@
             <div class="panel-body">    
                 Datos del Represetante
                 <div class="form-group has-feedback">                            
-                    <input type="text" class="form-control"  name="Nombre" required  placeholder="Nombre" maxlength="16" id="Nombre"/>                    
+                    <input type="text" class="form-control"  name="Nombre" required  placeholder="Nombre" id="Nombre"/>                    
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <input type="text" class="form-control"  name="Paterno" required  placeholder="Apellido Paterno" maxlength="16" id="Paterno"/>                    
+                        <input type="text" class="form-control"  name="Paterno" required  placeholder="Apellido Paterno" id="Paterno"/>                    
                     </div>
                     <div class="col-md-6">
-                        <input type="text" class="form-control"  name="Materno" required  placeholder="Apellido Materno" maxlength="16" id="Materno"/>                    
+                        <input type="text" class="form-control"  name="Materno" required  placeholder="Apellido Materno"  id="Materno"/>                    
                     </div>
                 </div><BR>
                 <div class="form-group has-feedback">                            
@@ -25,22 +25,22 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <input type="password" class="form-control"  name="Pass" required  placeholder="Contraseña" maxlength="16" id="Pass"/>                    
+                        <input type="password" class="form-control"  name="Pass" required  placeholder="Contraseña" id="Pass"/>                    
                     </div>
                     <div class="col-md-6">
-                        <input type="password" class="form-control"  name="Pass_2" required  placeholder="Repetir Contraseña" maxlength="16" id="Pass_2"/>                    
+                        <input type="password" class="form-control"  name="Pass_2" required  placeholder="Repetir Contraseña"  id="Pass_2"/>                    
                     </div>
                 </div>
                 Datos de la Empresa
                 <div class="form-group has-feedback">                            
-                    <input type="text" class="form-control"  name="NombreEmpresa" required  placeholder="Nombre de la Empresa" maxlength="16" id="NombreEm"/>                    
+                    <input type="text" class="form-control"  name="NombreEmpresa" required  placeholder="Nombre de la Empresa" id="NombreEm"/>                    
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <input type="text" class="form-control"  name="Calle" required  placeholder="Calle" maxlength="16" id="Calle"/>                    
+                        <input type="text" class="form-control"  name="Calle" required  placeholder="Calle"  id="Calle"/>                    
                     </div>
                     <div class="col-md-6">
-                        <input type="text" class="form-control"  name="Colonia" required  placeholder="Colonia" maxlength="16" id="Colonia"/>                    
+                        <input type="text" class="form-control"  name="Colonia" required  placeholder="Colonia"  id="Colonia"/>                    
                     </div>
                 </div><br>
                 <div class="form-group has-feedback">     
@@ -58,7 +58,7 @@
                                 <input type="number" class="form-control"  name="CP" required  placeholder="Codigo Postal" id="CP"/>
                             </div>
                             <div class="col-md-6">
-                                <input type="number" class="form-control"  name="Delegacion" required  placeholder="Delegacion" id="Del"/>
+                                <input type="text" class="form-control"  name="Delegacion" required  placeholder="Delegacion" id="Del"/>
                             </div>
                         </div>
                     </div>

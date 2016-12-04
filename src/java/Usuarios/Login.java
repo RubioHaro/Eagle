@@ -1,8 +1,4 @@
-/*
- * New Ligths
- * Services info Web
- * Rubio Haro 
- */
+
 package Usuarios;
 
 import BD.ControladorDeBDD;
@@ -19,7 +15,7 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author Rod
+ * @author Hiram
  */
 public class Login extends HttpServlet {
 
@@ -49,7 +45,7 @@ public class Login extends HttpServlet {
                     sesion.setAttribute("Usuario", user);
                     String Tipo = user.getTipo();                    
                     if (Tipo.equals("Colaborador")) {
-                        response.sendRedirect("/Empleados/Admin/Index.jsp");
+                        response.sendRedirect("/Empleados/Admin/AdminIndex.jsp");
                     }
                     if (Tipo.equals("Cliente")) {
                         response.sendRedirect("/Clientes/IndexClient.jsp");

@@ -1,9 +1,7 @@
 <%@ page pageEncoding="UTF-8" %>
 <%
-    
-    if (User == null || User.getNombre().equals("") || User.getEstatus()==0) {
-        sesion.invalidate();
+    HttpSession sesion = request.getSession();
+    if (sesion.isNew() || sesion == null || sesion.getAttribute("Usuario") == null) {
         response.sendRedirect("/Index.jsp");
     }
-
 %>

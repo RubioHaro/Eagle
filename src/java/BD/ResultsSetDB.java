@@ -1,8 +1,3 @@
-/*
- * New Ligths
- * Services info Web
- * Rubio Haro 
- */
 
 package BD;
 
@@ -10,7 +5,7 @@ import Usuarios.Usuario;
 
 /**
  *JAVA CLASS
- * @author Rod
+ * @author Ruben
  */
 public class ResultsSetDB {
 

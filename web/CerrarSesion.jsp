@@ -1,7 +1,7 @@
 <%-- 
     Document   : CerrarSesion
     Created on : 23-nov-2016, 0:29:24
-    Author     : Rod
+    Author     : Hiram
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>

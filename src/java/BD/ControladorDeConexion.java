@@ -14,7 +14,7 @@ import java.sql.Statement;
 
 /**
  *
- * @author Alumno
+ * @author Ruben
  */
 public class ControladorDeConexion {
 

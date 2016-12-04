@@ -1,14 +1,10 @@
-/*
- * New Ligths
- * Services info Web
- * Rubio Haro 
- */
+
 
 package Usuarios;
 
 /**
  *JAVA CLASS
- * @author Rod
+ * @author Ruben
  */
 public class Usuario {
 private int Idusuario;

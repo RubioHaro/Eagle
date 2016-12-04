@@ -1,7 +1,7 @@
 /* 
  * New Ligths
  * Services info Web
- * Rubio Haro 
+ * Rubio Haro y Emilio Rodriguez
  */
 
 
@@ -10,7 +10,7 @@ var modal = document.getElementById('PopWindowIniciar');
 
 // When the user clicks anywhere outside of the modal, close it
 window.onclick = function (event) {
-    if (event.target == modal) {
+    if (event.target === modal) {
         modal.style.display = "none";
     }
 }
@@ -20,6 +20,15 @@ window.onclick = function (event) {
  */
 function ClickError() {    
     document.getElementById('PopWindowError').style.display='block';
+}
+
+/**
+ * Para cualquier modal:
+ */
+function ClickOpensModal(title,id) {
+    //alert(id);
+    document.getElementById(id).style.display='block';
+    TitleChange(title);
 }
 
 function ClickIniciarSesion(title) {    
@@ -54,4 +63,16 @@ function Configuracion(title) {
 function LogOut(title) {
     document.getElementById('PopWindowCerrarSesion').style.display='block';
     TitleChange(title);
+}
+function EncabezadoCatalogo(title) {
+    document.getElementById('PopWindowTitleCatalogo').style.display='block';
+    TitleChange(title);
+}
+
+/**
+ * Funcion confirmar el borro de los poductos
+ */
+function ClickBorrarProducto() {
+    var x = confirm('Estas seguro que deseas borrar el producto?');
+    return x;
 }

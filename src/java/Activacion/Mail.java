@@ -31,6 +31,7 @@ public class Mail {
     public boolean mensajeDeVerificacion(String correo){
         String URL= "http://localhost:8080/ActivarCuenta.jsp?Correo="+correo;
         String mensaje = "Para activar tu cuenta por favor ve al siguiente link: " + URL;
+               
         return mandaMAil(correo, "Activacion de cuenta", mensaje);
     }
     
