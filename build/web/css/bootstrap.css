@@ -1092,6 +1092,7 @@ input,
 button,
 select,
 textarea {
+  color: #333;
   font-family: inherit;
   font-size: inherit;
   line-height: inherit;

@@ -13,6 +13,7 @@
             String title = "EAGLE VISION";
 
         %>
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">                
         <%@include file="WEB-INF/jspf/Declaration.jspf" %>
         <%@include file="WEB-INF/jspf/AllResourcesIndex.jspf" %>        
@@ -29,8 +30,9 @@
                     <div class="col-md-6">
                         <h1 class="text-center azul">Mision</h1>
                         <h3 class="text-center">Desarrollar softwares que permitan solucionar problemas de ámbito académico y administrativo con el fin de facilitar las actividades. Para convertir a México en un país con desarrollo autosustentable.</h3>
-                        <h1 class="text-center azul">Vision</h1>
+                        <!--<h1 class="text-center azul">Vision</h1>
                         <h3 class="text-center">New Lights será una empresa innovadora y eficaz en el desarrollo de software, así como responsable socialmente. Siendo líder de soluciones informáticas</h3>
+                        -->
                     </div>
                 </div>
             </div>

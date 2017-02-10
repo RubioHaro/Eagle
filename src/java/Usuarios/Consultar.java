@@ -1,4 +1,3 @@
-
 package Usuarios;
 
 import BD.ControladorDeBDD;
@@ -33,25 +32,52 @@ public class Consultar extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession sesion = request.getSession();
         try (PrintWriter out = response.getWriter()) {
-            String Value = request.getParameter("optradio");
+            /*Si Ya se conoce el id*/
+            String IDCliente = request.getParameter("IDCliente");
+            String IDColaborador = request.getParameter("IDColaborador");
+
             Usuario user;
             ControladorDeBDD control = new ControladorDeBDD();
+
+            String User;
+            String Parametro;
+            String Value = "Id";
+            System.out.println("Buscando procedencia de parametros..");
+            if (IDColaborador != null) {
+                User="Empleado";
+                Parametro = IDColaborador;
+            } else if (IDCliente != null) {
+                User="Cliente";
+                Parametro = IDCliente;
+            } else {
+                Value = request.getParameter("optradio");
+                User = request.getParameter("User");
+                Parametro = request.getParameter("Buscar");
+            }
             switch (Value) {
                 case "Correo":
-                    String correo = request.getParameter("Buscar");
-                    user = control.BuscarUsuario(correo).getUser();
+                    user = control.BuscarUsuario(Parametro, "Mail", User).getUser();
                     break;
                 case "Id":
-                    int id = Integer.parseInt(request.getParameter("Buscar").trim());
-                    user = control.BuscarUsuario(id).getUser();
+                    user = control.BuscarUsuario(Parametro, "Idusuario", User).getUser();
+                    break;
+                case "Name":
+                    user = control.BuscarUsuario(Parametro, "Nombre", User).getUser();
                     break;
                 default:
                     user = null;
                     sesion.setAttribute("Error", 1);
-                    sesion.setAttribute("DescripcionError", "Nose ha encontrado");
+                    sesion.setAttribute("DescripcionError", "Parametros invaidos, ERROR LOGICO: USER-100");
                     break;
             }
+             System.out.println("Usuario:"+User);
+             System.out.println("Parametro:"+Parametro);
+             System.out.println("Value:"+Value);
+
             sesion.setAttribute("UsuarioConsultado", user);
+            System.out.println("...Parametros enviados");
+            System.out.println("...Busqueda completa");
+            System.out.println("Usuario(s) obtenido(s) :3");
             response.sendRedirect("/Empleados/Admin/Consultas.jsp");
         } catch (Exception e) {
             sesion.setAttribute("Error", 1);

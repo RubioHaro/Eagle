@@ -14,8 +14,7 @@
             String title = "EAGLE VISION";            
             Usuario User = (Usuario) sesion.getAttribute("Usuario");
         %>
-        <%@include file="../../WEB-INF/jspf/ModalError.jspf" %>        
-        
+        <%@include file="../../WEB-INF/jspf/ModalError.jspf" %>                
         <%@include file="../../WEB-INF/jspf/Declaration.jspf" %>
         <%@include file="../../WEB-INF/jspf/Empleados/Admin/AllResourcesIndex_Admin.jspf" %>
 

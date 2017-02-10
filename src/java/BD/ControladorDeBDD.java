@@ -11,6 +11,7 @@ import Catalogo.Producto;
 import Servicios.ListaServicios;
 import Servicios.Servicio;
 import Usuarios.Direccion;
+import Usuarios.TicketDeUsuarios;
 import Usuarios.Usuario;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -39,6 +40,7 @@ public class ControladorDeBDD {
     }
 
     public boolean ConsultarExUser(int IdUsuario) throws ClassNotFoundException {
+        //Revisa si el usuario si existe
         ResDB = null;
         ResDB = new ResultsSetDB();
         Query = "SELECT * FROM Usuarios WHERE IdUsuario = '" + IdUsuario + "'; ";
@@ -51,16 +53,16 @@ public class ControladorDeBDD {
             return false;
         }
     }
-
-    public ResultsSetDB BuscarUsuario(int Id) throws ClassNotFoundException {
-        ResDB = null;
-        ResDB = new ResultsSetDB();
-        Query = "SELECT * FROM Usuarios WHERE Idusuario = '" + Id + "'; ";
+    
+    public TicketDeUsuarios ObtenerListaDeColaboradores(int LimiteDeRegistros) {
+        ResDB.CrearListaDeUsuarios();
+        Query = "SELECT * FROM Usuarios inner join Empleados where usuarios.Idusuario = Empleados.Idusuario limit " + LimiteDeRegistros + ";";
         try {
             Control.CrearConexion();
             res = Control.SentenciaSQL(Query);
-            user = new Usuario();
-            if (res.next()) {
+
+            while (res.next()) {
+                user = new Usuario();
                 user.setIdusuario(res.getInt(1));
                 user.setNombre(res.getString(2));
                 user.setApellidop(res.getString(3));
@@ -68,45 +70,27 @@ public class ControladorDeBDD {
                 user.setTipo(res.getString(5));
                 user.setMail(res.getString(6));
                 user.setEstatus(res.getInt(8));
-                Control.CerrarConexion();                
-                if (user.getTipo().equals("Colaborador")) {
-                    Query = "SELECT NivelAcceso FROM Usuarios inner join Empleados on Empleados.Idusuario = Usuarios.Idusuario WHERE Idusuario = \"" + Id + " \"; ";
-                    Control.CrearConexion();
-                    res = Control.SentenciaSQL(Query);                    
-                    user.setNivelAcceso(res.getInt(1));
-                    Control.CerrarConexion();
-                } else if (user.getTipo().equals("Cliente")) {
-                    user.setNivelAcceso(0);
-                }
-
                 ResDB.setCondicion(Boolean.TRUE);
-                ResDB.setEstaus("Usuario Obtenido");
-                ResDB.setUser(user);
-            } else {
-                Control.CerrarConexion();
-                ResDB.setCondicion(Boolean.FALSE);
-                ResDB.setEstaus("Usuario No encontrado");
-                ResDB.AgregarError();
+                ResDB.setEstaus("Usuarios Obtenidos");
+                ResDB.AñadirUsuarioALista(user);
             }
+            Control.CerrarConexion();
             res.close();
-        } catch (SQLException ex) {
-            ResDB.setCondicion(Boolean.FALSE);
-            ResDB.setEstaus("DB error: " + ex.toString());
-            ResDB.AgregarError();
+        } catch (ClassNotFoundException | SQLException ex) {
             Logger.getLogger(ControladorDeBDD.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return ResDB;
+        return ResDB.getListaUsuarios();
     }
-    
-    public ResultsSetDB BuscarUsuario(String Mail) throws ClassNotFoundException {
-        ResDB = null;
-        ResDB = new ResultsSetDB();
-        Query = "SELECT * FROM Usuarios WHERE mail = '" + Mail + "'; ";
+
+    public TicketDeUsuarios ObtenerListaDeClientes(int LimiteDeRegistros) {
+        ResDB.CrearListaDeUsuarios();
+        Query = "SELECT * FROM Usuarios inner join Clientes where usuarios.Idusuario = Clientes.Idusuario limit " + LimiteDeRegistros + ";";
         try {
             Control.CrearConexion();
             res = Control.SentenciaSQL(Query);
-            user = new Usuario();
-            if (res.next()) {
+
+            while (res.next()) {
+                user = new Usuario();
                 user.setIdusuario(res.getInt(1));
                 user.setNombre(res.getString(2));
                 user.setApellidop(res.getString(3));
@@ -114,30 +98,72 @@ public class ControladorDeBDD {
                 user.setTipo(res.getString(5));
                 user.setMail(res.getString(6));
                 user.setEstatus(res.getInt(8));
-                Control.CerrarConexion();
-                System.out.println(user.getTipo());
+                ResDB.setCondicion(Boolean.TRUE);
+                ResDB.setEstaus("Usuarios Obtenidos");
+
+                ResDB.AñadirUsuarioALista(user);
+            }
+            Control.CerrarConexion();
+            res.close();
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ControladorDeBDD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ResDB.getListaUsuarios();
+    }
+
+    public ResultsSetDB BuscarUsuario(String Parametro, String Filtro, String ClienteEmpleado) throws ClassNotFoundException {
+        ResDB = null;
+        ResDB = new ResultsSetDB();
+
+        System.out.println("Generando Query...");
+        if (Filtro.equals("Nombre")) {
+            Query = "SELECT * FROM Usuarios inner join " + ClienteEmpleado + "s on " + ClienteEmpleado + "s.Idusuario = Usuarios.Idusuario WHERE Usuarios." + Filtro + " = '" + Parametro + "' or \"Usuarios.Apellidop\" = '" + Parametro + "' or \"Usuarios.Apellidom\" = '" + Parametro + "' ; ";
+        } else {
+            Query = "SELECT * FROM Usuarios inner join " + ClienteEmpleado + "s on " + ClienteEmpleado + "s.Idusuario = Usuarios.Idusuario WHERE Usuarios." + Filtro + " = '" + Parametro + "'; ";
+        }
+        System.out.println("Query Generado Con exito: " + Query);
+        try {
+            System.out.print("Generado conexion:");
+            Control.CrearConexion();
+            res = Control.SentenciaSQL(Query);
+            user = new Usuario();
+            System.out.print("MySQL server connected");
+            while (res.next()) {
+                user.setIdusuario(res.getInt(1));
+                user.setNombre(res.getString(2));
+                user.setApellidop(res.getString(3));
+                user.setApellidom(res.getString(4));
+                user.setTipo(res.getString(5));
+                user.setMail(res.getString(6));
+                user.setEstatus(res.getInt(8));
+                //System.out.println(user.getTipo());
                 if (user.getTipo().equals("Colaborador")) {
-                    Query = "SELECT NivelAcceso FROM Usuarios inner join Empleados on Empleados.Idusuario = Usuarios.Idusuario WHERE mail = \"" + Mail + " \"; ";
-                    Control.CrearConexion();
-                    res=null;
-                    res = Control.SentenciaSQL(Query);
-                    user.setNivelAcceso(res.getInt(1));
-                    Control.CerrarConexion();
-                    
+                    Query = "SELECT NivelAcceso FROM Usuarios inner join Empleados on Empleados.Idusuario = Usuarios.Idusuario WHERE Usuarios." + Filtro + " = \"" + Parametro + "\"; ";
+                    //System.out.println("Empleado Encontrado, nuevo query generado: " + Query);
+                    //System.out.println("Generando Nueva Conexion...");
+                    //System.out.println("Conexion Generada");
+                    try (ResultSet res2 = Control.SentenciaSQL(Query)) {
+                        if (res2.next()) {
+                            user.setNivelAcceso(res2.getInt(1));
+                            //System.out.println("User Getter");
+                        }
+
+                    }
                 } else if (user.getTipo().equals("Cliente")) {
                     user.setNivelAcceso(0);
                 }
-
+                System.out.println("Usuario Obtenido");
                 ResDB.setCondicion(Boolean.TRUE);
                 ResDB.setEstaus("Usuario Obtenido");
                 ResDB.setUser(user);
-            } else {
-                Control.CerrarConexion();
-                ResDB.setCondicion(Boolean.FALSE);
-                ResDB.setEstaus("Usuario No encontrado");
-                ResDB.AgregarError();
+                System.out.println("Usuario Establecido como principal");
+                ResDB.CrearListaDeUsuarios();
+                ResDB.AñadirUsuarioALista(user);
+                System.out.println("Usuario añadido a la lista de caché");
             }
+            Control.CerrarConexion();
             res.close();
+            System.out.println("Conexiones Finalizadas con exito");
         } catch (SQLException ex) {
             ResDB.setCondicion(Boolean.FALSE);
             ResDB.setEstaus("DB error: " + ex.toString());
@@ -242,7 +268,7 @@ public class ControladorDeBDD {
     public String ActivarUsuario(String Mail) throws ClassNotFoundException, SQLException {
         String mensaje;
         ResDB = null;
-        ResDB = BuscarUsuario(Mail);
+        ResDB = BuscarUsuario(Mail, "Mail", "Empleado");
         if (ResDB.getErrores() != 0) {
             mensaje = ResDB.getEstaus();
         } else {
@@ -456,15 +482,55 @@ public class ControladorDeBDD {
         }
     }
 
+    public int ContarClientes(){
+        try {
+            Control.CrearConexion();
+            Query = "SELECT COUNT(*) FROM Clientes ";
+            res = Control.SentenciaSQL(Query);
+            if (res.next()) {
+                System.out.println(res.getInt(1));
+                return res.getInt(1);
+            }
+            Control.CerrarConexion();
+            return 0;          
+        } catch (SQLException error) {
+            System.out.println("Error: " + error.toString());
+            return 0;
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error: " + e.getLocalizedMessage());
+            return 0;
+        }
+    }
+    
+    public int ContarEmpleados(){
+        try {
+            Control.CrearConexion();
+            Query = "SELECT COUNT(*) FROM Empleados ";
+            res = Control.SentenciaSQL(Query);
+            if (res.next()) {
+                System.out.println(res.getInt(1));
+                return res.getInt(1);
+            }
+            Control.CerrarConexion();
+            return 0;          
+        } catch (SQLException error) {
+            System.out.println("Error: " + error.toString());
+            return 0;
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error: " + e.getLocalizedMessage());
+            return 0;
+        }
+    }
+    
     public int ContarProductoEnServicio(String Nombre) {
         try {
             Control.CrearConexion();
-            Query = "call GetCountservice('"+ Nombre +"');";
+            Query = "call GetCountservice('" + Nombre + "');";
             res = Control.SentenciaSQL(Query);
-            if(res.next()) {
+            if (res.next()) {
                 System.out.println(res.getInt(1));
                 return res.getInt(1);
-                
+
             }
             Control.CerrarConexion();
             return 0;

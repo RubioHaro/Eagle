@@ -1,18 +1,27 @@
-
-
 package Usuarios;
 
 /**
- *JAVA CLASS
+ * JAVA CLASS
+ *
  * @author Ruben
  */
 public class Usuario {
-private int Idusuario;
+
+    private int Idusuario;
     private String Nombre;
     private String Apellidop;
     private String Apellidom;
     private String Tipo;
     private int NivelAcceso;
+    /*
+        -------------------------NivelAcceso-------------------------
+        Nivel de acceso para gestion de empleados para empleados:
+        Nivel 3: Altas, Bajas, Cambios y Consultas.
+        Nivel 2: Altas, Cambios y Consultas.
+        Nivel 1: Consultas.
+        Nivel 0: Sin acceso.
+        -------------------------------------------------------------
+    */
     private int Estatus;
     private String mail;
 
@@ -29,7 +38,7 @@ private int Idusuario;
         this.Estatus = Estatus;
         this.mail = mail;
     }
-    
+
     public int getIdusuario() {
         return Idusuario;
     }
@@ -93,5 +102,5 @@ private int Idusuario;
     public void setMail(String mail) {
         this.mail = mail;
     }
-    
+
 }
