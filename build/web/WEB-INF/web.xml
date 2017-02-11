@@ -56,6 +56,14 @@
         <servlet-name>VerPerfil</servlet-name>
         <servlet-class>Usuarios.VerPerfil</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ModificarUsuarios</servlet-name>
+        <servlet-class>Usuarios.ModificarUsuarios</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Finally</servlet-name>
+        <servlet-class>Usuarios.ModificarUsuariosFinally</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -111,6 +119,14 @@
     <servlet-mapping>
         <servlet-name>VerPerfil</servlet-name>
         <url-pattern>/VerPerfil</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarUsuarios</servlet-name>
+        <url-pattern>/ModificarUsuarios</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Finally</servlet-name>
+        <url-pattern>/Finally</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

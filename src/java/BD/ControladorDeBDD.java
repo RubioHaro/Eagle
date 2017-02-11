@@ -49,11 +49,11 @@ public class ControladorDeBDD {
             res = Control.SentenciaSQL(Query);
             return res.next();
         } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            System.out.println("Error al consultar usuario:"+ex.getMessage());
             return false;
         }
     }
-    
+
     public TicketDeUsuarios ObtenerListaDeColaboradores(int LimiteDeRegistros) {
         ResDB.CrearListaDeUsuarios();
         Query = "SELECT * FROM Usuarios inner join Empleados where usuarios.Idusuario = Empleados.Idusuario limit " + LimiteDeRegistros + ";";
@@ -115,19 +115,19 @@ public class ControladorDeBDD {
         ResDB = null;
         ResDB = new ResultsSetDB();
 
-        System.out.println("Generando Query...");
-        if (Filtro.equals("Nombre")) {
+        if (ClienteEmpleado.equals("x")) {
+            Query = "SELECT * FROM Usuarios WHERE Usuarios.Idusuario = '" + Parametro + "' ;";
+        } else if (Filtro.equals("Nombre")) {
             Query = "SELECT * FROM Usuarios inner join " + ClienteEmpleado + "s on " + ClienteEmpleado + "s.Idusuario = Usuarios.Idusuario WHERE Usuarios." + Filtro + " = '" + Parametro + "' or \"Usuarios.Apellidop\" = '" + Parametro + "' or \"Usuarios.Apellidom\" = '" + Parametro + "' ; ";
         } else {
             Query = "SELECT * FROM Usuarios inner join " + ClienteEmpleado + "s on " + ClienteEmpleado + "s.Idusuario = Usuarios.Idusuario WHERE Usuarios." + Filtro + " = '" + Parametro + "'; ";
         }
-        System.out.println("Query Generado Con exito: " + Query);
         try {
-            System.out.print("Generado conexion:");
+
             Control.CrearConexion();
             res = Control.SentenciaSQL(Query);
             user = new Usuario();
-            System.out.print("MySQL server connected");
+            
             while (res.next()) {
                 user.setIdusuario(res.getInt(1));
                 user.setNombre(res.getString(2));
@@ -152,18 +152,18 @@ public class ControladorDeBDD {
                 } else if (user.getTipo().equals("Cliente")) {
                     user.setNivelAcceso(0);
                 }
-                System.out.println("Usuario Obtenido");
+
                 ResDB.setCondicion(Boolean.TRUE);
                 ResDB.setEstaus("Usuario Obtenido");
                 ResDB.setUser(user);
-                System.out.println("Usuario Establecido como principal");
+
                 ResDB.CrearListaDeUsuarios();
                 ResDB.AñadirUsuarioALista(user);
-                System.out.println("Usuario añadido a la lista de caché");
+
             }
             Control.CerrarConexion();
             res.close();
-            System.out.println("Conexiones Finalizadas con exito");
+
         } catch (SQLException ex) {
             ResDB.setCondicion(Boolean.FALSE);
             ResDB.setEstaus("DB error: " + ex.toString());
@@ -171,6 +171,25 @@ public class ControladorDeBDD {
             Logger.getLogger(ControladorDeBDD.class.getName()).log(Level.SEVERE, null, ex);
         }
         return ResDB;
+    }
+
+    public String ModificarUsuario(String PasswordModificador,int IdUsuario, String Nombre, String apellidoP, String apellidoM) throws ClassNotFoundException {
+        String mensj;
+        try {
+            Control.CrearConexion();
+            Query = "call ProcedureGuardarCliente(?,?,?,?,?,?,?,?,?,?,?,?);";
+            EstamentoPreparado = Control.StatmentAction(Query);
+            EstamentoPreparado.setString(1, Nombre);
+            EstamentoPreparado.setString(2, apellidoP);
+            EstamentoPreparado.setString(3, apellidoM);            
+            EstamentoPreparado.executeUpdate();
+            EstamentoPreparado.close();
+            Control.CerrarConexion();
+            mensj = "Has sido registrado, consulta tu email para activar la cuenta";
+        } catch (SQLException ex) {
+            mensj = "Ha ocurrido un error:" + ex.toString();
+        }
+        return mensj;
     }
 
     public String RegistrarCliente(String Nombre, String apellidoP, String apellidoM, String Empresa, String Pass, String Mail, String colonia, int codigoPostal, int NumExt, int NumInt, String Calle, String delegacion) throws ClassNotFoundException {
@@ -482,17 +501,16 @@ public class ControladorDeBDD {
         }
     }
 
-    public int ContarClientes(){
+    public int ContarClientes() {
         try {
             Control.CrearConexion();
             Query = "SELECT COUNT(*) FROM Clientes ";
             res = Control.SentenciaSQL(Query);
             if (res.next()) {
-                System.out.println(res.getInt(1));
                 return res.getInt(1);
             }
             Control.CerrarConexion();
-            return 0;          
+            return 0;
         } catch (SQLException error) {
             System.out.println("Error: " + error.toString());
             return 0;
@@ -501,18 +519,17 @@ public class ControladorDeBDD {
             return 0;
         }
     }
-    
-    public int ContarEmpleados(){
+
+    public int ContarEmpleados() {
         try {
             Control.CrearConexion();
             Query = "SELECT COUNT(*) FROM Empleados ";
             res = Control.SentenciaSQL(Query);
             if (res.next()) {
-                System.out.println(res.getInt(1));
                 return res.getInt(1);
             }
             Control.CerrarConexion();
-            return 0;          
+            return 0;
         } catch (SQLException error) {
             System.out.println("Error: " + error.toString());
             return 0;
@@ -521,14 +538,13 @@ public class ControladorDeBDD {
             return 0;
         }
     }
-    
+
     public int ContarProductoEnServicio(String Nombre) {
         try {
             Control.CrearConexion();
             Query = "call GetCountservice('" + Nombre + "');";
             res = Control.SentenciaSQL(Query);
             if (res.next()) {
-                System.out.println(res.getInt(1));
                 return res.getInt(1);
 
             }

@@ -1,16 +1,16 @@
 <%-- 
-    Document   : Consultas
-    Created on : 01-dic-2016, 5:03:32
-    Author     : Rod e Hiram
+    Document   : ModificarUsuario
+    Created on : 10-feb-2017, 18:04:10
+    Author     : Rod
 --%>
-<%@page import="BD.ControladorDeBDD"%>
+
 <%@page import="Usuarios.Usuario"%>
 <%@include file="../../WEB-INF/jspf/ValidadorDeSesion.jspf" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
     <head>
-        <%            String title = "Consultar Usuario";
+        <%            String title = "Modificar Usuario";
             Usuario User = (Usuario) sesion.getAttribute("Usuario");
         %>
         <%@include file="../../WEB-INF/jspf/ModalError.jspf" %>        
@@ -31,59 +31,47 @@
             <div class="jumbotron">
                 <div class="row">
                     <div class="col col-md-6">
-                        <%                            if (consulta.getTipo().equals("Colaborador")) {
-                        %>
-                        <h2>Nombre:<%out.println(consulta.getNombre());%> <%out.println(consulta.getApellidop());%> <%out.println(consulta.getApellidom());%></h2>                        
-                        <h2>Identificador: <%out.println(consulta.getIdusuario());%>/<%out.println(consulta.getTipo());%> </h2>                        
-                        <div>
-                            <form method="POST" action="/ModificarUsuarios">
-                                <button name="IDUsuario" value="<%out.println(consulta.getIdusuario());%>" class="btn btn-primary">
-                                    Modificar 
-                                    <span class="glyphicon glyphicon-wrench" aria-hidden="true">                                        
-                                    </span>
-                                </button>
-                            </form>
+                        <form method="POST" action="">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="ID" class="control-label">Identificador de Usuario:</label>
+                                        <input value="ID: <%out.println(consulta.getIdusuario());%>" required class="form-control" id="disabledInput" type="text" disabled/>
 
-                            <button class="btn btn-danger">Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-                            <button class="btn btn-warning">Enviar Mensaje <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>                                
-                            <button class="btn btn-success">Pagar <span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>                                
-                        </div>
-                        <%
-                        } else {
-                            ControladorDeBDD control = new ControladorDeBDD();%>
+                                    </div>
 
-                        <h2>Tipo: <%out.println(consulta.getTipo());%></h2>
-                        <div>
-                            <form method="POST" action="/ModificarUsuarios">
-                                <button name="IDUsuario" value="<%out.println(consulta.getIdusuario());%>" class="btn btn-primary">
-                                    Modificar 
-                                    <span class="glyphicon glyphicon-wrench" aria-hidden="true">                                        
-                                    </span>
-                                </button>
-                            </form>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="Nombre">Nombre:</label>
+                                        <input value="<%out.println(consulta.getNombre());%>" type="text" required class="form-control" id="Nombre"/>
+                                    </div>
+                                </div>
+                            </div>
 
-                            <button class="btn btn-danger">Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-                            <button class="btn btn-warning">Enviar Mensaje <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
-                                <%
-                                    if (consulta.getTipo().equals("Colaborador")) {
-
-
-                                %>
-                            <button class="btn btn-success">Pagar <span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
-                                <%                                } else {
-
-                                    }
-                                %>
-                        </div>
-                        <%
-                            }
-                        %>
-
-
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="ApellidoPaterno">Apellido Paterno:</label>
+                                        <input value="<%out.println(consulta.getApellidop());%>" type="text" required class="form-control" id="ApellidoPaterno"/>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="ApellidoMaterno">Apellido Materno:</label>
+                                        <input value="<%out.println(consulta.getApellidom());%>" type="text" required class="form-control" id="ApellidoMaterno"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="Email">Correo Electronico:</label>
+                                <input value="<%out.println(consulta.getMail());%>" type="mail" class="form-control" required id="Mail"/>
+                            </div>                            
+                            <button type="submit" class="btn btn-default">Guardar</button>
+                        </form>                        
                     </div>
                     <div class="col-md-6">
                         <img alt="Foto Usuario" src="../../Img/SinImagen.png" class="img-responsive" />
-
                     </div>
                 </div>
 

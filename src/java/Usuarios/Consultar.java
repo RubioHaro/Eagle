@@ -42,7 +42,6 @@ public class Consultar extends HttpServlet {
             String User;
             String Parametro;
             String Value = "Id";
-            System.out.println("Buscando procedencia de parametros..");
             if (IDColaborador != null) {
                 User="Empleado";
                 Parametro = IDColaborador;
@@ -70,14 +69,7 @@ public class Consultar extends HttpServlet {
                     sesion.setAttribute("DescripcionError", "Parametros invaidos, ERROR LOGICO: USER-100");
                     break;
             }
-             System.out.println("Usuario:"+User);
-             System.out.println("Parametro:"+Parametro);
-             System.out.println("Value:"+Value);
-
             sesion.setAttribute("UsuarioConsultado", user);
-            System.out.println("...Parametros enviados");
-            System.out.println("...Busqueda completa");
-            System.out.println("Usuario(s) obtenido(s) :3");
             response.sendRedirect("/Empleados/Admin/Consultas.jsp");
         } catch (Exception e) {
             sesion.setAttribute("Error", 1);
