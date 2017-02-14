@@ -13,28 +13,44 @@ package Usuarios;
 public class Empleado extends Usuario{
 
     private String Antiguedad;
-    private String Tipo;
+    private String Poscicion;
     private int Salario;
     private int Edad;
     private String Sexo;
     private int NivelDeAcceso;
 
     public Empleado() {
+        super();
+    }
+    
+    public Empleado(Usuario user) {
+        super(user.getIdusuario(), user.getNombre(), user.getApellidop(),user.getApellidom(),user.getTipo(),user.getNivelAcceso(),user.getEstatus(),user.getMail());
     }
 
     public Empleado(String Antiguedad, String Tipo, int Salario, int Edad, String Sexo, int NivelDeAcceso) {
+        super();
         this.Antiguedad = Antiguedad;
-        this.Tipo = Tipo;
+        this.Poscicion = Tipo;
         this.Salario = Salario;
         this.Edad = Edad;
         this.Sexo = Sexo;
         this.NivelDeAcceso = NivelDeAcceso;
     }
 
+    public Empleado(String Antiguedad, String Tipo, int Salario, int Edad, String Sexo, int NivelDeAcceso,Usuario user) {
+        super(user.getIdusuario(), user.getNombre(), user.getApellidop(),user.getApellidom(),user.getTipo(),user.getNivelAcceso(),user.getEstatus(),user.getMail());
+        this.Antiguedad = Antiguedad;
+        this.Poscicion = Tipo;
+        this.Salario = Salario;
+        this.Edad = Edad;
+        this.Sexo = Sexo;
+        this.NivelDeAcceso = NivelDeAcceso;
+    }
+    
     public Empleado(String Antiguedad, int Salario, int Edad, String Sexo, int NivelDeAcceso, int Idusuario, String Nombre, String Apellidop, String Apellidom, String Tipo, int NivelAcceso, int Estatus, String mail) {
         super(Idusuario, Nombre, Apellidop, Apellidom, Tipo, NivelAcceso, Estatus, mail);
         this.Antiguedad = Antiguedad;
-        this.Tipo = Tipo;
+        this.Poscicion = Tipo;
         this.Salario = Salario;
         this.Edad = Edad;
         this.Sexo = Sexo;
@@ -49,12 +65,12 @@ public class Empleado extends Usuario{
         this.Antiguedad = Antiguedad;
     }
 
-    public String getTipo() {
-        return Tipo;
+    public String getPoscicion() {
+        return Poscicion;
     }
 
-    public void setTipo(String Tipo) {
-        this.Tipo = Tipo;
+    public void setPoscicion(String Poscicion) {
+        this.Poscicion = Poscicion;
     }
 
     public int getSalario() {

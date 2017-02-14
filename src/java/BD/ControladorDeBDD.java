@@ -11,6 +11,7 @@ import Catalogo.Producto;
 import Servicios.ListaServicios;
 import Servicios.Servicio;
 import Usuarios.Direccion;
+import Usuarios.Empleado;
 import Usuarios.TicketDeUsuarios;
 import Usuarios.Usuario;
 import java.sql.PreparedStatement;
@@ -51,7 +52,7 @@ public class ControladorDeBDD {
         } catch (SQLException ex) {
             System.out.println("Error al consultar usuario:"+ex.getMessage());
             return false;
-        }
+        }        
     }
 
     public TicketDeUsuarios ObtenerListaDeColaboradores(int LimiteDeRegistros) {
@@ -110,6 +111,17 @@ public class ControladorDeBDD {
         }
         return ResDB.getListaUsuarios();
     }
+    
+    public Empleado BuscarEmpleado(String IdUsuario){
+        try {
+            ResDB = new ResultsSetDB();
+            ResDB =  BuscarUsuario(IdUsuario,"x","x");
+            return ResDB.getCollaborator();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(ControladorDeBDD.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }        
+    }
 
     public ResultsSetDB BuscarUsuario(String Parametro, String Filtro, String ClienteEmpleado) throws ClassNotFoundException {
         ResDB = null;
@@ -138,6 +150,8 @@ public class ControladorDeBDD {
                 user.setEstatus(res.getInt(8));
                 //System.out.println(user.getTipo());
                 if (user.getTipo().equals("Colaborador")) {
+                    Empleado collaborator = new Empleado(user);
+                    
                     Query = "SELECT NivelAcceso FROM Usuarios inner join Empleados on Empleados.Idusuario = Usuarios.Idusuario WHERE Usuarios." + Filtro + " = \"" + Parametro + "\"; ";
                     //System.out.println("Empleado Encontrado, nuevo query generado: " + Query);
                     //System.out.println("Generando Nueva Conexion...");

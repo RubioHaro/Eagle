@@ -1,5 +1,7 @@
 package BD;
 
+import Usuarios.Cliente;
+import Usuarios.Empleado;
 import Usuarios.TicketDeUsuarios;
 import Usuarios.Usuario;
 
@@ -11,6 +13,8 @@ import Usuarios.Usuario;
 public class ResultsSetDB {
 
     private String Estaus;
+    private Empleado collaborator;
+    private Cliente client;
     private Usuario user;
     private TicketDeUsuarios ListaUsuarios;
     private Boolean condicion;
@@ -27,6 +31,7 @@ public class ResultsSetDB {
         this.Errores = 0;        
     }
 
+   
     public void CrearListaDeUsuarios(){
         this.ListaUsuarios = new TicketDeUsuarios();
     }
@@ -45,9 +50,23 @@ public class ResultsSetDB {
     public void setListaUsuarios(TicketDeUsuarios ListaUsuarios) {
         this.ListaUsuarios = ListaUsuarios;
     }
-    
-    
 
+    public Empleado getCollaborator() {
+        return collaborator;
+    }
+
+    public void setCollaborator(Empleado collaborator) {
+        this.collaborator = collaborator;
+    }
+
+    public Cliente getClient() {
+        return client;
+    }
+
+    public void setClient(Cliente client) {
+        this.client = client;
+    }
+    
     public void AgregarError() {
         this.Errores = Errores + 1;
     }

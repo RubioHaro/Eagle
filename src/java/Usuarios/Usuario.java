@@ -71,13 +71,6 @@ public class Usuario {
         this.Apellidom = Apellidom;
     }
 
-    public String getTipo() {
-        return Tipo;
-    }
-
-    public void setTipo(String Tipo) {
-        this.Tipo = Tipo;
-    }
 
     public int getNivelAcceso() {
         return NivelAcceso;
@@ -103,4 +96,11 @@ public class Usuario {
         this.mail = mail;
     }
 
+    public String getTipo() {
+        return Tipo;
+    }
+
+    public void setTipo(String Tipo) {
+        this.Tipo = Tipo;
+    }
 }
