@@ -10,6 +10,7 @@ import Catalogo.ListOfproducts;
 import Catalogo.Producto;
 import Servicios.ListaServicios;
 import Servicios.Servicio;
+import Usuarios.Cliente;
 import Usuarios.Direccion;
 import Usuarios.Empleado;
 import Usuarios.TicketDeUsuarios;
@@ -152,23 +153,48 @@ public class ControladorDeBDD {
                 if (user.getTipo().equals("Colaborador")) {
                     Empleado collaborator = new Empleado(user);
                     
-                    Query = "SELECT NivelAcceso FROM Usuarios inner join Empleados on Empleados.Idusuario = Usuarios.Idusuario WHERE Usuarios." + Filtro + " = \"" + Parametro + "\"; ";
+                    Query = "SELECT * FROM Empleados WHERE Idusuario = \"" + user.getIdusuario() + "\"; ";
                     //System.out.println("Empleado Encontrado, nuevo query generado: " + Query);
                     //System.out.println("Generando Nueva Conexion...");
                     //System.out.println("Conexion Generada");
                     try (ResultSet res2 = Control.SentenciaSQL(Query)) {
                         if (res2.next()) {
-                            user.setNivelAcceso(res2.getInt(1));
+                            //NO usamos el res.1 por que ya conocemos el id
+                            collaborator.setAntiguedad(res2.getString(2));
+                            collaborator.setPoscicion(res2.getString(3));
+                            collaborator.setSalario(res2.getInt(4));
+                            collaborator.setEdad(res2.getInt(5));
+                            collaborator.setSexo(res2.getString(6));                            
+                            user.setNivelAcceso(res2.getInt(7));
+                            ResDB.setCollaborator(collaborator);
+                            ResDB.setClient(null);
                             //System.out.println("User Getter");
                         }
 
                     }
                 } else if (user.getTipo().equals("Cliente")) {
                     user.setNivelAcceso(0);
+                    Cliente client = new Cliente(user);
+                    Query = "SELECT * FROM Clientes WHERE Idusuario = \"" + user.getIdusuario() + "\"; ";
+                    //System.out.println("Empleado Encontrado, nuevo query generado: " + Query);
+                    //System.out.println("Generando Nueva Conexion...");
+                    //System.out.println("Conexion Generada");
+                    try (ResultSet res2 = Control.SentenciaSQL(Query)) {
+                        if (res2.next()) {
+                            //NO usamos el res.1 por que ya conocemos el id
+                            client.setCliente(res2.getString(2));
+                            client.setFechaRegistro(res2.getString(3));                            
+                            ResDB.setClient(client);
+                            ResDB.setCollaborator(null);
+                            //System.out.println("User Getter");
+                        }
+
+                    }
                 }
 
                 ResDB.setCondicion(Boolean.TRUE);
                 ResDB.setEstaus("Usuario Obtenido");
+                
                 ResDB.setUser(user);
 
                 ResDB.CrearListaDeUsuarios();
@@ -176,9 +202,9 @@ public class ControladorDeBDD {
 
             }
             Control.CerrarConexion();
-            res.close();
-
+            res.close();            
         } catch (SQLException ex) {
+            System.out.println("Error: " + ex.toString() + ex.getLocalizedMessage());
             ResDB.setCondicion(Boolean.FALSE);
             ResDB.setEstaus("DB error: " + ex.toString());
             ResDB.AgregarError();

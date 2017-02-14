@@ -3,6 +3,8 @@
     Created on : 01-dic-2016, 5:03:32
     Author     : Rod e Hiram
 --%>
+<%@page import="Usuarios.Cliente"%>
+<%@page import="Usuarios.Empleado"%>
 <%@page import="BD.ControladorDeBDD"%>
 <%@page import="Usuarios.Usuario"%>
 <%@include file="../../WEB-INF/jspf/ValidadorDeSesion.jspf" %>
@@ -23,8 +25,10 @@
     <body>
         <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.html" %>
         <%            Usuario consulta = (Usuario) sesion.getAttribute("UsuarioConsultado");
+
             if (consulta != null) {
                 sesion.removeAttribute("UsuarioConsultado");
+
 
         %>
         <div class="container">
@@ -32,9 +36,14 @@
                 <div class="row">
                     <div class="col col-md-6">
                         <%                            if (consulta.getTipo().equals("Colaborador")) {
+                                Empleado collaborator = new Empleado();
+                                collaborator = (Empleado) sesion.getAttribute("Colaborador");
+
                         %>
                         <h2>Nombre:<%out.println(consulta.getNombre());%> <%out.println(consulta.getApellidop());%> <%out.println(consulta.getApellidom());%></h2>                        
-                        <h2>Identificador: <%out.println(consulta.getIdusuario());%>/<%out.println(consulta.getTipo());%> </h2>                        
+                        <h2>Identificador: <%out.println(consulta.getIdusuario());%>/<%out.println(consulta.getTipo());%> </h2>
+                        <h2>Antigüedad: <%out.println(collaborator.getAntiguedad());%>  </h2>
+                        <h2>Edad: <%out.println(collaborator.getEdad());%> Salario: $<%out.println(collaborator.getSalario());%></h2>
                         <div>
                             <form method="POST" action="/ModificarUsuarios">
                                 <button name="IDUsuario" value="<%out.println(consulta.getIdusuario());%>" class="btn btn-primary">
@@ -44,14 +53,22 @@
                                 </button>
                             </form>
 
-                            <button class="btn btn-danger">Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-                            <button class="btn btn-warning">Enviar Mensaje <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>                                
-                            <button class="btn btn-success">Pagar <span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>                                
+                            <button class=" btn btn-danger">Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                            <!--<button class="btn btn-warning">Enviar Mensaje <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>-->                                
+                            <!--<button class="btn btn-success">Pagar <span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>                                -->
                         </div>
                         <%
-                        } else {
-                            ControladorDeBDD control = new ControladorDeBDD();%>
-
+                            }
+                            if (consulta.getTipo().equals("Cliente")) {
+                                Cliente Client = new Cliente();
+                                try {
+                                    Client = (Cliente) sesion.getAttribute("Cliente");
+                                } catch (Exception e) {
+                                    out.println(e.getLocalizedMessage());
+                                }
+                        %>
+                        <h2>Cliente: <%out.println(Client.getCliente());%></h2>
+                        <h2>Fecha de Registro: <%out.println(Client.getFechaRegistro());%></h2>
                         <h2>Tipo: <%out.println(consulta.getTipo());%></h2>
                         <div>
                             <form method="POST" action="/ModificarUsuarios">
@@ -63,7 +80,7 @@
                             </form>
 
                             <button class="btn btn-danger">Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-                            <button class="btn btn-warning">Enviar Mensaje <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
+                            <!--<button class="btn btn-warning">Enviar Mensaje <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>-->
                                 <%
                                     if (consulta.getTipo().equals("Colaborador")) {
 
@@ -71,7 +88,6 @@
                                 %>
                             <button class="btn btn-success">Pagar <span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
                                 <%                                } else {
-
                                     }
                                 %>
                         </div>
@@ -90,6 +106,8 @@
             </div>
         </div>
         <%
+            sesion.removeAttribute("Colaborador");
+            sesion.removeAttribute("Cliente");
             consulta = null;
         } else {
         %>

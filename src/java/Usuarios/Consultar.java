@@ -1,6 +1,8 @@
 package Usuarios;
 
 import BD.ControladorDeBDD;
+import BD.ResultsSetDB;
+import com.sun.xml.ws.config.metro.parser.jsr109.ResAuthType;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -52,24 +54,31 @@ public class Consultar extends HttpServlet {
                 Value = request.getParameter("optradio");
                 User = request.getParameter("User");
                 Parametro = request.getParameter("Buscar");
-            }
+            }            
+            ResultsSetDB res = new ResultsSetDB();
             switch (Value) {
                 case "Correo":
-                    user = control.BuscarUsuario(Parametro, "Mail", User).getUser();
+                    res = control.BuscarUsuario(Parametro, "Mail", User);
                     break;
                 case "Id":
-                    user = control.BuscarUsuario(Parametro, "Idusuario", User).getUser();
+                    res = control.BuscarUsuario(Parametro, "Idusuario", User);
                     break;
                 case "Name":
-                    user = control.BuscarUsuario(Parametro, "Nombre", User).getUser();
+                    res = control.BuscarUsuario(Parametro, "Nombre", User);
                     break;
                 default:
-                    user = null;
                     sesion.setAttribute("Error", 1);
                     sesion.setAttribute("DescripcionError", "Parametros invaidos, ERROR LOGICO: USER-100");
                     break;
             }
+            user = res.getUser();
             sesion.setAttribute("UsuarioConsultado", user);
+            if(user.getTipo().equals("Colaborador")){
+                sesion.setAttribute("Colaborador", res.getCollaborator());
+            }
+            if(user.getTipo().equals("Cliente")){
+                sesion.setAttribute("Cliente", res.getClient());
+            }
             response.sendRedirect("/Empleados/Admin/Consultas.jsp");
         } catch (Exception e) {
             sesion.setAttribute("Error", 1);

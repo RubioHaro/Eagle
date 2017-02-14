@@ -17,8 +17,12 @@ public class Cliente extends Usuario {
     private String FechaRegistro;
 
     public Cliente() {
+        super();
     }
 
+    public Cliente(Usuario user) {
+        super(user.getIdusuario(), user.getNombre(), user.getApellidop(),user.getApellidom(),user.getTipo(),user.getNivelAcceso(),user.getEstatus(),user.getMail());
+    }
     public Cliente(String Cliente, String FechaRegistro) {        
         this.Cliente = Cliente;
         this.FechaRegistro = FechaRegistro;
