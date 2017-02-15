@@ -22,7 +22,8 @@
     </head>
     <body>
         <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.html" %>
-        <%            Usuario consulta = (Usuario) sesion.getAttribute("UsuarioConsultado");
+        <%  
+            Usuario consulta = (Usuario) sesion.getAttribute("UsuarioConsultado");
             if (consulta != null) {
                 sesion.removeAttribute("UsuarioConsultado");
 
@@ -31,20 +32,18 @@
             <div class="jumbotron">
                 <div class="row">
                     <div class="col col-md-6">
-                        <form method="POST" action="">
+                        <form method="POST" action="/ModificarUsuarios">
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="ID" class="control-label">Identificador de Usuario:</label>
-                                        <input value="ID: <%out.println(consulta.getIdusuario());%>" required class="form-control" id="disabledInput" type="text" disabled/>
-
+                                        <input name="ID" value="ID: <%out.println(consulta.getIdusuario());%>" required class="form-control" id="disabledInput" type="text" disabled/>
                                     </div>
-
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="Nombre">Nombre:</label>
-                                        <input value="<%out.println(consulta.getNombre());%>" type="text" required class="form-control" id="Nombre"/>
+                                        <input name="Nombre" value="<%out.println(consulta.getNombre());%>" type="text" required class="form-control" id="Nombre"/>
                                     </div>
                                 </div>
                             </div>
@@ -53,20 +52,24 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="ApellidoPaterno">Apellido Paterno:</label>
-                                        <input value="<%out.println(consulta.getApellidop());%>" type="text" required class="form-control" id="ApellidoPaterno"/>
+                                        <input name="ApellidoPaterno" value="<%out.println(consulta.getApellidop());%>" type="text" required class="form-control" id="ApellidoPaterno"/>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="ApellidoMaterno">Apellido Materno:</label>
-                                        <input value="<%out.println(consulta.getApellidom());%>" type="text" required class="form-control" id="ApellidoMaterno"/>
+                                        <input name="ApellidoMaterno" value="<%out.println(consulta.getApellidom());%>" type="text" required class="form-control" id="ApellidoMaterno"/>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="Email">Correo Electronico:</label>
-                                <input value="<%out.println(consulta.getMail());%>" type="mail" class="form-control" required id="Mail"/>
-                            </div>                            
+                                <input name="Email" value="<%out.println(consulta.getMail());%>" type="mail" class="form-control" required id="Mail"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="Password">Ingresa tu password para modificar:</label>
+                                <input name="Password" value="<%out.println(consulta.getMail());%>" type="password" class="form-control" required id="Password"/>
+                            </div>
                             <button type="submit" class="btn btn-default">Guardar</button>
                         </form>                        
                     </div>

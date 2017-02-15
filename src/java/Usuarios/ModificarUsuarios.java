@@ -35,11 +35,15 @@ public class ModificarUsuarios extends HttpServlet {
         HttpSession sesion = request.getSession();
         try (PrintWriter out = response.getWriter()) {
             /*Consulta al usuario jsp1*/
-            String IDUsuario = request.getParameter("IDUsuario");            
-            
-            Usuario user;
+            int IDUsuario = Integer.parseInt(request.getParameter("ID"));
+            Usuario user = (Usuario)sesion.getAttribute("IdUsuario");
+            int IDUsuarioModificador =  user.getIdusuario();
+            String Nombre = request.getParameter("Nombre");
+            String Paterno = request.getParameter("ApellidoPaterno");
+            String Materno = request.getParameter("ApellidoMaterno");
+            String Email = request.getParameter("Email");
             ControladorDeBDD control = new ControladorDeBDD();
-            user = control.BuscarUsuario(IDUsuario, "IdUsuario", "x").getUser();
+            control.ModificarUsuario(request.getParameter("Password"), IDUsuarioModificador, IDUsuario,Nombre, Paterno, Materno, Email);
             sesion.setAttribute("UsuarioConsultado", user);
 
         } catch (Exception e) {
