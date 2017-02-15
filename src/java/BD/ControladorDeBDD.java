@@ -213,7 +213,7 @@ public class ControladorDeBDD {
         return ResDB;
     }
 
-    public String ModificarUsuario(String PasswordModificador,int IdUsuario, String Nombre, String apellidoP, String apellidoM) throws ClassNotFoundException {
+    public String ModificarUsuario(String PasswordModificador,int IdUsuarioModificador,int IdUsuario, String Nombre, String apellidoP, String apellidoM, String Email) throws ClassNotFoundException {
         String mensj;
         try {
             Control.CrearConexion();
@@ -333,27 +333,27 @@ public class ControladorDeBDD {
         } else {
             Usuario Cliente;
             Cliente = ResDB.getUser();
-            mensaje = ActualizarUsuario(Cliente.getNombre(), Cliente.getApellidop(), Cliente.getApellidom(), Cliente.getMail(), 1);
+            mensaje = ActualizarUsuarioConMail(Cliente.getNombre(), Cliente.getApellidop(), Cliente.getApellidom(), Cliente.getMail(), 1);
         }
         return mensaje;
-    }
-
-    //ACTUALIZAR USUARIO
-    public String ActualizarUsuario(String Nombre, String apellidoP, String apellidoM, String Mail, int Estatus) throws ClassNotFoundException, SQLException {
+    }   
+    
+    public String ActualizarUsuarioConMail(String Nombre, String apellidoP, String apellidoM, String Mail, int Estatus) throws ClassNotFoundException, SQLException {
         try {
 
             Control.CrearConexion();
-            Query = "UPDATE Usuarios SET Nombre = ?,  ApellidoP = ?,  ApellidoM = ?,  Estatus = ?  WHERE Mail = ?;";
+            Query = "select ModificarUsuario(?,?,?,?,?,?);";            
             EstamentoPreparado = Control.StatmentAction(Query);
             EstamentoPreparado.setString(1, Nombre);
             EstamentoPreparado.setString(2, apellidoP);
             EstamentoPreparado.setString(3, apellidoM);
             EstamentoPreparado.setInt(4, Estatus);
             EstamentoPreparado.setString(5, Mail);
+            EstamentoPreparado.setString(6, Mail);
             EstamentoPreparado.executeUpdate();
             EstamentoPreparado.close();
             Control.CerrarConexion();
-            return "Usuario Registrado";
+            return "Usuario Actualizado";
 
         } catch (SQLException error) {
             return "Error:" + error.toString();

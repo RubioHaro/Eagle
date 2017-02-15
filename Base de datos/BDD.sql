@@ -307,6 +307,7 @@ call ProcedureAgregarServicio('Transporte ', '10-2-9', 20000, 2, 1, 2);
 call ProcedureAgregarServicio('Custodia ', '10-2-9', 20000, 2, 1, 2);
 call AgregarProducto('Transporte',20000,'Custodia de vehiculos');
 call GetServices('zazaBB@zazamail.com');
+
 call EliminarProducto(3);
 call AñadirHeader('Premium Services', '+options',1);
 select * from PageInfo_Catalogo;

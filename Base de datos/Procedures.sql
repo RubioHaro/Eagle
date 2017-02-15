@@ -71,7 +71,9 @@ delimiter ;
 /*		Procedimiento: Modificar al Empleado del registro 		*/
 drop procedure if exists ProcedureModificarEmpleado;
 delimiter **
-create procedure ProcedureModificarEmpleado(in Nombrer nvarchar(200),in Apellidopr nvarchar(200),in Apellidomr nvarchar(100),in mailr nvarchar (50))
+create procedure ProcedureModificarEmpleado(in Nombrer nvarchar(200),in Apellidopr nvarchar(200),
+in Apellidomr nvarchar(100),in mailr nvarchar (50),in Antiguedad date, in Poscicion nvarchar(100), in Salario int(10), in Edad int(2), in Sexo nvarchar(1
+))
 begin
 	declare msj nvarchar(100);	
 	if (idusr >= 0) then		
