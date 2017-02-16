@@ -1,5 +1,6 @@
 package BD;
 
+import Unidades.Unidad;
 import Usuarios.Cliente;
 import Usuarios.Empleado;
 import Usuarios.TicketDeUsuarios;
@@ -19,6 +20,15 @@ public class ResultsSetDB {
     private TicketDeUsuarios ListaUsuarios;
     private Boolean condicion;
     private int Errores;
+    private Unidad Unit;
+
+    public Unidad getUnit() {
+        return Unit;
+    }
+
+    public void setUnit(Unidad Unit) {
+        this.Unit = Unit;
+    }
 
     public ResultsSetDB() {
         

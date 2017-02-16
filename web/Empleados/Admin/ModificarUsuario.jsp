@@ -32,12 +32,13 @@
             <div class="jumbotron">
                 <div class="row">
                     <div class="col col-md-6">
-                        <form method="POST" action="/ModificarUsuarios">
+                        <form method="POST" action="/ActualizarUsuario">
+                            <input name="ID" value="<%out.println(consulta.getIdusuario());%>" style="visibility:hidden" class="form-control" id="disabledInput" type="text"/>
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="ID" class="control-label">Identificador de Usuario:</label>
-                                        <input name="ID" value="ID: <%out.println(consulta.getIdusuario());%>" required class="form-control" id="disabledInput" type="text" disabled/>
+                                        <input value="<%out.println(consulta.getIdusuario());%>" disabled required class="form-control" id="disabledInput" type="text"/>
                                     </div>
                                 </div>
                                 <div class="col-md-6">

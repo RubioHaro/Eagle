@@ -9,101 +9,92 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%            String title = "EAGLE VISION";
+        <%            String title = "Registrar Unidad";
             Usuario User = (Usuario) sesion.getAttribute("Usuario");
         %>
         <%@include file="../../WEB-INF/jspf/ModalError.jspf" %>        
 
         <%@include file="../../WEB-INF/jspf/Declaration.jspf" %>
         <%@include file="../../WEB-INF/jspf/Empleados/Admin/AllResourcesIndex_Admin.jspf" %>
+
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
     </head>
     <body>
-        <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.html" %>
-        <%            Usuario consulta = (Usuario) sesion.getAttribute("UsuarioConsultado");
-            if (consulta != null) {
-                sesion.removeAttribute("UsuarioConsultado");
-
-        %>
-        <div class="container">
-            <div class="jumbotron">
-                <div class="row">
-                    <div class="col col-md-6">
-                        <h1>Nombre: <%out.println(consulta.getNombre());%></h1>
-                        <h2>Apellido Paterno: <%out.println(consulta.getApellidop());%></h2>
-                        <h2>Apellido Materno: <%out.println(consulta.getApellidom());%></h2>
-                        <h2>Identificador: <%out.println(consulta.getIdusuario());%></h2>
-                        <h2>Tipo: <%out.println(consulta.getTipo());%></h2>
-                        <div>
-                            <button class="btn btn-primary">Modificar <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></button>
-                            <button class="btn btn-danger">Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
-                            <button class="btn btn-warning">Enviar Mensaje <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
-                                <%
-                                    if (consulta.getTipo().equals("Colaborador")) {
-
-
-                                %>
-                            <button class="btn btn-success">Pagar <span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
-                                <%                                } else {
-
-                                    }
-                                %>
+        <%@include file="../../WEB-INF/jspf/Empleados/Unidades/nvar.html" %>   
+        <h1>
+            <div class="container">
+                <div class="jumbotron">
+                    <h1>Registrar Unidades</h1>
+                    <form method="POST" action="/RegistroUnidad">
+                        <div class="form-group has-feedback">                            
+                            <input type="text" class="form-control"  name="Matricula" required  placeholder="Matricula" id="Matricula"/>                    
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <img alt="Foto Usuario" src="../../Img/SinImagen.png" class="img-responsive" />
-
-                    </div>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <input type="text" class="form-control"  name="Marca" required  placeholder="Marca" id="Marca"/>                    
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control"  name="Modelo" required  placeholder="Modelo"  id="Modelo"/>                    
+                            </div>
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6 selectContainer">
+                                <div class="form-group">
+                                    <select class="form-control" name="Puertas">
+                                        <option value="">Puertas</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <select class="form-control" name="Blindaje">
+                                        <option value="">Blindaje</option>
+                                        <option value="LVL2">Blindaje Nivel RB II</option>
+                                        <option value="LVL3">Blindaje Nivel RB III</option>
+                                        <option value="LVL4">Blindaje Nivel RB IV</option>
+                                        <option value="LVL5">Blindaje Nivel RB V</option>
+                                        <option value="LVL6">Blindaje Nivel RB VI</option>
+                                        <option value="LVL7">Blindaje Nivel RB VII</option>
+                                    </select>
+                                </div>
+                            </div>                    
+                        </div>
+                        <br>
+                        <div class="form-group has-feedback">                            
+                            <input type="numer" class="form-control"  name="Antiguedad" required  placeholder="Antiguedad" min="1990" max="2017" id="Antiguedad"/>                    
+                        </div>
+                        <br>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <select class="form-control" name="Tipo">
+                                        <option value="">Tipo</option>
+                                        <option value="Coche">Coche</option>
+                                        <option value="Camioneta">Camioneta</option>
+                                        <option value="Trailer1">Trailer 1 remolque</option>
+                                        <option value="Trailer2">Trailer 2 remolque</option>
+                                    </select>
+                                </div>                    
+                            </div>
+                            <div class="col-md-6">
+                                <input type="text" class="form-control"  name="Status" required  placeholder="Status"  id="Status"/>                    
+                            </div>
+                        </div>
+                        <br>
+                        <div class="form-group">                                                        
+                            <button class="btn btn-default center-block" onclick="return Validacion()" onsubmit="return Validacion()" type="submit" >Registrarse</button>
+                        </div> 
+                    </form>
                 </div>
-
-            </div>
-        </div>
-        <%
-            consulta = null;
-        } else {
-        %>
-        <div class="container">
-            <div class="jumbotron">
-                <h1>Buscar Usuario</h1>
-                <form method="post" action="/Consultar">
-                    <div class="input-group">
-                        <input required="" type="text" name="Buscar" class="form-control" placeholder="TERMINO DE BUSQUEDA">
-                        <div title="Buscar" class="input-group-btn">
-                            <button class="btn btn-default" type="submit">
-                                <i class="glyphicon glyphicon-search"></i>
-                            </button>
-                        </div>
-                    </div>                       
-                    <div class="row">
-                        <div class="col-md-6">
-                            <h3>Filtros de Busqueda</h3>
-                            <div title="Buscar con el Email" class="radio">
-                                <label><input type="radio" value="Name" name="optradio"/>Nombre o Apellidos</label>
-                            </div>                            
-                            <div title="Buscar con el Email" class="radio">
-                                <label><input type="radio" value="Correo" name="optradio">Correo Electronico</label>
-                            </div>
-                            <div title="Buscar con el Id"  class="radio">
-                                <label><input type="radio" checked value="Id" name="optradio">Identificador de Usuario</label>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <h3>Tipo de Usuario</h3>
-                            <div title="Colaborador" class="radio">
-                                <label><input type="radio" value="Empleado" name="User"/>Colaborador</label>
-                            </div>                            
-                            <div title="Cliente" class="radio">
-                                <label><input type="radio" checked value="Cliente" name="User">Cliente</label>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-        <%
-            }
-        %>
+        </h1>
         <%@include file="../../WEB-INF/jspf/ModalConfigClient.jspf" %> 
         <%@include file="../../WEB-INF/jspf/Empleados/Admin/ModalCerrarSesion.jsp" %> 
     </body>

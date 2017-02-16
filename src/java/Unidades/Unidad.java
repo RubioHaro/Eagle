@@ -1,5 +1,4 @@
 
-
 package Unidades;
 
 /**
@@ -13,7 +12,7 @@ private String Marca;
 private String Modelo;
 private String Tipo;
 private int Puertas;
-private String Clindaje;
+private String Blindaje;
 private String Antiguedad;
 private String Estatus;
 
@@ -27,7 +26,7 @@ private String Estatus;
         this.Modelo = Modelo;
         this.Tipo = Tipo;
         this.Puertas = Puertas;
-        this.Clindaje = Clindaje;
+        this.Blindaje = Clindaje;
         this.Antiguedad = Antiguedad;
         this.Estatus = Estatus;
     }
@@ -80,12 +79,12 @@ private String Estatus;
         this.Puertas = Puertas;
     }
 
-    public String getClindaje() {
-        return Clindaje;
+    public String getBlindaje() {
+        return Blindaje;
     }
 
-    public void setClindaje(String Clindaje) {
-        this.Clindaje = Clindaje;
+    public void setBlindaje(String Clindaje) {
+        this.Blindaje = Clindaje;
     }
 
     public String getAntiguedad() {
