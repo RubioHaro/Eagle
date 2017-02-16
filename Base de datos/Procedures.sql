@@ -160,3 +160,26 @@ begin
 	delete from bdatos.productos where idProducto = IdProductor;
 end; **
 delimiter ;
+
+/* Procedimiento: Eliminar Unidad */
+drop procedure EliminarUnidad;
+delimiter **
+create procedure EliminarUnidad(
+in IdUnidad int(100))
+begin
+	delete from bdatos.unidades where IdUnidad = IdUnidad;
+end; **
+delimiter ;
+
+/*		Procedimiento: Actualizar Usuario		*/
+drop procedure if exists ActualizarUsuario;
+delimiter **
+create procedure ActualizarUsuario(in IdUsuario int(255), in Nombrer nvarchar(200),in Apellidopr nvarchar(200),in Apellidomr nvarchar(100),in mailr nvarchar (50))
+begin
+	select ModificarUsuario( IdUsuario, Nombrer, Apellidopr, Apellidomr, mailr);	
+end; **
+delimiter ;
+
+
+
+

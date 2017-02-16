@@ -64,6 +64,26 @@
         <servlet-name>Finally</servlet-name>
         <servlet-class>Usuarios.ModificarUsuariosFinally</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ActualizarUsuario</servlet-name>
+        <servlet-class>Usuarios.ActualizarUsuario</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Registrar</servlet-name>
+        <servlet-class>Unidades.Registro</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Buscar</servlet-name>
+        <servlet-class>Unidades.Buscar</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EliminarUnidades</servlet-name>
+        <servlet-class>Unidades.EliminarUnidades</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RegistroUnidad</servlet-name>
+        <servlet-class>Unidades.RegistroUnidad</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -127,6 +147,26 @@
     <servlet-mapping>
         <servlet-name>Finally</servlet-name>
         <url-pattern>/Finally</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActualizarUsuario</servlet-name>
+        <url-pattern>/ActualizarUsuario</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Registrar</servlet-name>
+        <url-pattern>/Registrar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Buscar</servlet-name>
+        <url-pattern>/Buscar</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EliminarUnidades</servlet-name>
+        <url-pattern>/EliminarUnidades</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RegistroUnidad</servlet-name>
+        <url-pattern>/RegistroUnidad</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

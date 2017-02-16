@@ -69,13 +69,11 @@ delimiter ;
 
 drop function if exists ModificarUsuario;
 delimiter **
-create function ModificarUsuario (IdUsuarior int(255), Nombrer nvarchar(200),Apellidopr nvarchar(100),Apellidomr nvarchar(100),Tipor nvarchar (50),mailr nvarchar (50)) returns nvarchar (200) 
+create function ModificarUsuario (IdUsuarior int(255), Nombrer nvarchar(200),Apellidopr nvarchar(100),Apellidomr nvarchar(100), mailr nvarchar (50)) returns nvarchar (200) 
 begin
-	update Usuarios set Usuarios.Nombre = Nombrer, Usuarios.Apellidop = Apellidopr, Usuarios.Apellidom = Apellidomr, Usuarios.Tipo = Tipor, Usuarios.mail = mailr where Usuarios.Idusuario = IdUsuarior;
+	update Usuarios set Usuarios.Nombre = Nombrer, Usuarios.Apellidop = Apellidopr, Usuarios.Apellidom = Apellidomr, Usuarios.mail = mailr where Usuarios.Idusuario = IdUsuarior;
     return 1;
 end; **
 delimiter ;
-
-select ModificarUsuario(2,'Chencha', 'La puerca', 'Sykes', 'Cliente', 'chencha@mail.com');
 
 
