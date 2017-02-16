@@ -162,12 +162,22 @@ end; **
 delimiter ;
 
 /* Procedimiento: Eliminar Unidad */
-drop procedure EliminarUnidad;
+drop procedure if exists EliminarUnidad;
 delimiter **
-create procedure EliminarUnidad(
+create procedure  EliminarUnidad(
 in IdUnidad int(100))
 begin
 	delete from bdatos.unidades where IdUnidad = IdUnidad;
+end; **
+delimiter ;
+
+/* Procedimiento: Eliminar Usuario */
+drop procedure if exists EliminarUsuario;
+delimiter **
+create procedure EliminarUsuario(
+in IdUsuario int(100))
+begin
+	delete from bdatos.Usuario where Usuario = IdUsuario;
 end; **
 delimiter ;
 
