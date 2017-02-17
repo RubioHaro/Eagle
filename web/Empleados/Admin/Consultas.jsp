@@ -52,8 +52,12 @@
                                     </span>
                                 </button>
                             </form>
-
-                            <button class=" btn btn-danger">Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                            <form method="POST" action="/EliminarUsuario">
+                                <button name="IDUsuario" value="<%out.println(consulta.getIdusuario());%>" class="btn btn-primary">
+                                    Eliminar 
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </form>
                             <!--<button class="btn btn-warning">Enviar Mensaje <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>-->                                
                             <!--<button class="btn btn-success">Pagar <span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>                                -->
                         </div>
@@ -78,14 +82,18 @@
                                     </span>
                                 </button>
                             </form>
-
-                            <button class="btn btn-danger">Eliminar <span class="glyphicon glyphicon-trash" aria-hidden="true"></span></button>
+                            <form method="POST" action="/EliminarUsuario">
+                                <button name="IDUsuario" value="<%out.println(consulta.getIdusuario());%>" class="btn btn-primary">
+                                    Eliminar 
+                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                </button>
+                            </form>
                             <!--<button class="btn btn-warning">Enviar Mensaje <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>-->
-                                <%
-                                    if (consulta.getTipo().equals("Colaborador")) {
+                            <%
+                                if (consulta.getTipo().equals("Colaborador")) {
 
 
-                                %>
+                            %>
                             <button class="btn btn-success">Pagar <span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>
                                 <%                                } else {
                                     }

@@ -177,7 +177,7 @@ delimiter **
 create procedure EliminarUsuario(
 in IdUsuario int(100))
 begin
-	delete from bdatos.Usuario where Usuario = IdUsuario;
+	delete from Usuarios where Usuario.Idusuario = IdUsuario;
 end; **
 delimiter ;
 

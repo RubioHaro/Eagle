@@ -129,6 +129,24 @@ public class ControladorDeBDD {
             return "Error: " + error.toString();
         }
     }
+     public String EliminarUsuario(int ID) throws ClassNotFoundException, SQLException {
+        try {
+            Control.CrearConexion();
+            Query = "call EliminarUsuario(?);";
+            EstamentoPreparado = Control.StatmentAction(Query);
+            EstamentoPreparado.setInt(1, ID);
+            EstamentoPreparado.executeUpdate();
+            Control.CerrarConexion();
+            return "El usuario a sido eliminado";
+
+        } catch (SQLException error) {
+            System.out.println("Error: " + error.toString());
+            return "Error: " + error.toString();
+        } catch (ClassNotFoundException error) {
+            System.out.println("Error: " + error.getLocalizedMessage());
+            return "Error: " + error.toString();
+        }
+    }
      
     public boolean ConsultarExUser(int IdUsuario) throws ClassNotFoundException {
         //Revisa si el usuario si existe

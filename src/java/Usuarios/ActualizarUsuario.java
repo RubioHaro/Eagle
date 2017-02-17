@@ -55,7 +55,13 @@ public class ActualizarUsuario extends HttpServlet {
             out.println(Message);
             sesion.setAttribute("Error", 1);
             sesion.setAttribute("DescripcionError", Message);
+            String location = "/Empleados/Admin/Consultas.jsp";
+            response.sendRedirect(location);
         } catch (Error e) {
+            sesion.setAttribute("Error", 1);
+            sesion.setAttribute("DescripcionError", e.getLocalizedMessage());
+            String location = "/Empleados/Admin/Consultas.jsp";
+            response.sendRedirect(location);
             System.out.println(e.getLocalizedMessage());
         }
     }
