@@ -34,6 +34,10 @@ public class Mail {
                
         return mandaMAil(correo, "Activacion de cuenta", mensaje);
     }
+    public boolean mensajeAColaboradorRegistrado(String correo){
+        String mensaje = "!FELICIDADES¡ Has sido agregado como colaborador";
+        return mandaMAil(correo, "Registro EagleVision", mensaje);
+    }
     
     public boolean mandaMAil(String Para, String Titulo, String Msj) {
         boolean envio = false;

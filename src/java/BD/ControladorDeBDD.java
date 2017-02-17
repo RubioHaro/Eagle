@@ -342,6 +342,34 @@ public class ControladorDeBDD {
         }
         return mensj;
     }
+    
+    public String RegistrarColaborador(String Nombre, String apellidoP, String apellidoM,String antiguedad,String posicion,int Salario, int Edad, String Sexo, String Pass, String Mail) throws ClassNotFoundException {
+        String mensj;
+        try {
+            Control.CrearConexion();
+            Query = "call ProcedureGuardarEmpleado(?,?,?,?,?,?,?,?,?,?,null, null, null, null, null, null,1);";
+            EstamentoPreparado = Control.StatmentAction(Query);
+            EstamentoPreparado.setString(1, Nombre);
+            EstamentoPreparado.setString(2, apellidoP);
+            EstamentoPreparado.setString(3, apellidoM);
+            EstamentoPreparado.setString(4, antiguedad);
+            EstamentoPreparado.setString(5, posicion);
+            EstamentoPreparado.setInt(6, Salario);
+            EstamentoPreparado.setInt(7, Edad);
+            EstamentoPreparado.setString(8, Sexo);
+            EstamentoPreparado.setString(9, Pass);
+            EstamentoPreparado.setString(10, Mail);
+            EstamentoPreparado.executeUpdate();
+            EstamentoPreparado.close();
+            Control.CerrarConexion();
+            mensj = "El Colaborador a sido agregado a la nomina";
+            Mail correo = new Mail();
+            correo.mensajeAColaboradorRegistrado(Mail);
+        } catch (SQLException ex) {
+            mensj = "Ha ocurrido un error:" + ex.toString();
+        }
+        return mensj;
+    }
 
     public String RegistrarCliente(String Nombre, String apellidoP, String apellidoM, String Empresa, String Pass, String Mail, String colonia, int codigoPostal, int NumExt, int NumInt, String Calle, String delegacion) throws ClassNotFoundException {
         String mensj;

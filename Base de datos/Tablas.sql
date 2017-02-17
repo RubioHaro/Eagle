@@ -98,15 +98,15 @@ foreign key(IdUsuario) references Usuarios(Idusuario) on update cascade  on dele
 
 drop table if exists Direccion;
 create table Direccion(
-IdDireccion int(255) not null primary key,
-IdUsuario int(255) not null,
-Tipo nvarchar(50) not null,
-Colonia nvarchar(200) not null,
-CP int(5)not null,
-NumeroExt int(100) not null,
-NumeroInt int(100) not null,
-Calle nvarchar(200) not null,
-Delegacion nvarchar(200) not null,
+IdDireccion int(255)not null primary key,
+IdUsuario int(255)not null,
+Tipo nvarchar(50),
+Colonia nvarchar(200),
+CP int(5),
+NumeroExt int(100),
+NumeroInt int(100),
+Calle nvarchar(200),
+Delegacion nvarchar(200),
 foreign key(IdUsuario) references Usuarios(Idusuario) on update cascade  on delete cascade
 );
 
