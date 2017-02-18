@@ -150,6 +150,50 @@ begin
 end; **
 delimiter ;
 
+/*		Procedimiento: Contar Hombres		*/
+drop procedure if exists ContarColaboradoresHombres;
+delimiter **
+create procedure ContarColaboradoresHombres()
+begin
+	SELECT COUNT(Idusuario) FROM empleados where empleados.Sexo ='M' ;
+end; **
+delimiter ;
+
+/*		Procedimiento: Contar Mujeres		*/
+drop procedure if exists ContarColaboradoresMujeres;
+delimiter **
+create procedure ContarColaboradoresMujeres()
+begin
+	SELECT COUNT(Idusuario) FROM empleados where empleados.Sexo ='F' ;
+end; **
+delimiter ;
+
+/*		Procedimiento: Cotar las diferentes Edades		*/
+drop procedure if exists CountAges;
+delimiter **
+create procedure CountAges()
+begin
+	SELECT count(DISTINCT edad)  FROM Empleados;
+end; **
+delimiter ;
+
+/*		Procedimiento: Obtener diferentes edads		*/
+drop procedure if exists GetAges;
+delimiter **
+create procedure GetAges()
+begin
+	SELECT DISTINCT  edad FROM Empleados;
+end; **
+delimiter ;
+
+/*		Procedimiento: Obtener diferentes edads		*/
+drop procedure if exists CountColEdad;
+delimiter **
+create procedure CountColEdad(in edadr int(3))
+begin
+	SELECT count(edad)  FROM Empleados WHERE edad=edadr;
+end; **
+delimiter ;
 
 /*		Procedimiento: Eliminar producto 		*/
 drop procedure if exists EliminarProducto;

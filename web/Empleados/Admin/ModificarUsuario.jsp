@@ -19,6 +19,12 @@
         <%@include file="../../WEB-INF/jspf/Empleados/Admin/AllResourcesIndex_Admin.jspf" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script>
+            function confirmar(title){
+                var c = confirm('¿Estas seguro qué deseas ' + title + ' a este usuario?(Se registrara el cambio)');
+                return c;
+            }
+        </script>
     </head>
     <body>
         <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.html" %>
@@ -32,7 +38,7 @@
             <div class="jumbotron">
                 <div class="row">
                     <div class="col col-md-6">
-                        <form method="POST" action="/ActualizarUsuario">
+                        <form method="POST" onsubmit="return confirmar('Modificar')" action="/ActualizarUsuario">
                             <input name="ID" value="<%out.println(consulta.getIdusuario());%>" style="visibility:hidden" class="form-control" id="disabledInput" type="text"/>
                             <div class="row">
                                 <div class="col-md-6">

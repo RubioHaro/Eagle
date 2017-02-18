@@ -42,7 +42,7 @@ public class ControladorDeBDD {
         Control = new ControladorDeConexion();
         ResDB = new ResultsSetDB();
     }
-    
+
     public ResultsSetDB BuscarUnidad(String Parametro, String Filtro) throws ClassNotFoundException {
         ResDB = null;
         ResDB = new ResultsSetDB();
@@ -84,7 +84,7 @@ public class ControladorDeBDD {
         }
         return ResDB;
     }
-    
+
     public String RegistrarUnidad(String Matricula, String Marca, String Modelo, String Tipo, String Puertas, String Blindaje, String Antiguedad, String Status) throws ClassNotFoundException {
 
         String mensj;
@@ -111,7 +111,7 @@ public class ControladorDeBDD {
         return mensj;
     }
 
-     public String EliminarUnidad(int ID) throws ClassNotFoundException, SQLException {
+    public String EliminarUnidad(int ID) throws ClassNotFoundException, SQLException {
         try {
             Control.CrearConexion();
             Query = "call EliminarUnidad(?);";
@@ -129,7 +129,8 @@ public class ControladorDeBDD {
             return "Error: " + error.toString();
         }
     }
-     public String EliminarUsuario(int ID) throws ClassNotFoundException, SQLException {
+
+    public String EliminarUsuario(int ID) throws ClassNotFoundException, SQLException {
         try {
             Control.CrearConexion();
             Query = "call EliminarUsuario(?);";
@@ -147,7 +148,7 @@ public class ControladorDeBDD {
             return "Error: " + error.toString();
         }
     }
-     
+
     public boolean ConsultarExUser(int IdUsuario) throws ClassNotFoundException {
         //Revisa si el usuario si existe
         ResDB = null;
@@ -342,8 +343,8 @@ public class ControladorDeBDD {
         }
         return mensj;
     }
-    
-    public String RegistrarColaborador(String Nombre, String apellidoP, String apellidoM,String antiguedad,String posicion,int Salario, int Edad, String Sexo, String Pass, String Mail) throws ClassNotFoundException {
+
+    public String RegistrarColaborador(String Nombre, String apellidoP, String apellidoM, String antiguedad, String posicion, int Salario, int Edad, String Sexo, String Pass, String Mail) throws ClassNotFoundException {
         String mensj;
         try {
             Control.CrearConexion();
@@ -501,6 +502,7 @@ public class ControladorDeBDD {
 
         }
     }
+
     //INSERTAR USUARIO
     public String AgregarEmpleado(String Nombre, String apellidoP, String apellidoM, String Antiguedad, String Tipo, int salario, int Edad, String Sexo, String Pass, String Mail, String colonia, int codigoPostal, int NumExt, int NumInt, String Calle, String delegacion, int NivelAcceso) throws ClassNotFoundException, SQLException {
 
@@ -679,16 +681,88 @@ public class ControladorDeBDD {
         }
     }
 
-    public int ContarClientes() {
+    public int ContarColaboradores(String Genero) {
         try {
             Control.CrearConexion();
-            Query = "SELECT COUNT(*) FROM Clientes ";
+            Query = "call ContarColaboradores" + Genero;
             res = Control.SentenciaSQL(Query);
+            int i;
             if (res.next()) {
-                return res.getInt(1);
+                i = res.getInt(1);
+            } else {
+                i = 0;
             }
             Control.CerrarConexion();
+            return i;
+        } catch (SQLException error) {
+            System.out.println("Error: " + error.toString());
             return 0;
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error: " + e.getLocalizedMessage());
+            return 0;
+        }
+    }
+
+    public int ContarDiferentesEdades() {
+        try {
+            Control.CrearConexion();
+            Query = "call CountAges";
+            res = Control.SentenciaSQL(Query);
+            int i;
+            if (res.next()) {
+                i = res.getInt(1);
+            } else {
+                i = 0;
+            }
+            Control.CerrarConexion();
+            System.out.println("Edades dif: " + i);
+            return i;
+        } catch (SQLException error) {
+            System.out.println("Error: " + error.toString());
+            return 0;
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error: " + e.getLocalizedMessage());
+            return 0;
+        }
+    }
+
+    public int[] GetAges() {
+        try {
+
+            int Edades[] = new int[ContarDiferentesEdades()];
+            int i = 0;
+            Control.CrearConexion();
+            Query = "call GetAges";
+            res = Control.SentenciaSQL(Query);
+            while (res.next()) {
+                Edades[i] = res.getInt(1);
+                i++;
+            }
+            Control.CerrarConexion();
+            return Edades;
+        } catch (SQLException error) {
+            System.out.println("Error: " + error.toString());
+            return null;
+        } catch (ClassNotFoundException e) {
+            System.out.println("Error: " + e.getLocalizedMessage());
+            return null;
+        }
+    }
+
+    public int ContarColaboradoresPorEdad(int Edad) {
+        System.out.println("Edad:" + Edad);
+        try {
+            Control.CrearConexion();            
+            Query = "call CountColEdad('" + Edad + "');";
+            res = Control.SentenciaSQL(Query);
+            int i;
+            if (res.next()) {
+                i = res.getInt(1);
+            } else {
+                i = 0;
+            }
+            Control.CerrarConexion();
+            return i;
         } catch (SQLException error) {
             System.out.println("Error: " + error.toString());
             return 0;

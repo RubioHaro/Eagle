@@ -21,6 +21,12 @@
         <%@include file="../../WEB-INF/jspf/Empleados/Admin/AllResourcesIndex_Admin.jspf" %>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script>
+            function confirmar(title) {
+                var c = confirm('¿Estas seguro qué deseas ' + title + ' a este usuario?(Se registrara el cambio)');
+                return c;
+            }
+        </script>
     </head>
     <body>
         <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.html" %>
@@ -44,20 +50,30 @@
                         <h2>Identificador: <%out.println(consulta.getIdusuario());%>/<%out.println(consulta.getTipo());%> </h2>
                         <h2>Antigüedad: <%out.println(collaborator.getAntiguedad());%>  </h2>
                         <h2>Edad: <%out.println(collaborator.getEdad());%> Salario: $<%out.println(collaborator.getSalario());%></h2>
-                        <div>
-                            <form method="POST" action="/ModificarUsuarios">
-                                <button name="IDUsuario" value="<%out.println(consulta.getIdusuario());%>" class="btn btn-primary">
-                                    Modificar 
-                                    <span class="glyphicon glyphicon-wrench" aria-hidden="true">                                        
-                                    </span>
-                                </button>
-                            </form>
-                            <form method="POST" action="/EliminarUsuario">
-                                <button name="IDUsuario" value="<%out.println(consulta.getIdusuario());%>" class="btn btn-primary">
-                                    Eliminar 
-                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                </button>
-                            </form>
+                        <div class="row">
+                            <div class="col-md-6" >
+                                <form method="POST" action="/ModificarUsuarios">
+                                    <div class="form-group">
+                                        <button name="IDUsuario" value="<%out.println(consulta.getIdusuario());%>" class="btn btn-primary">
+                                            Modificar 
+                                            <span class="glyphicon glyphicon-wrench" aria-hidden="true">                                        
+                                            </span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-6" >
+                                <form onsubmit="return confirmar('Eliminar')" method="POST" action="/EliminarUsuario">
+                                    <div class="form-group">
+                                        <button name="IDUsuario" value="<%out.println(consulta.getIdusuario());%>" class="btn btn-danger">
+                                            Eliminar 
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
+
                             <!--<button class="btn btn-warning">Enviar Mensaje <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>-->                                
                             <!--<button class="btn btn-success">Pagar <span class="glyphicon glyphicon-usd" aria-hidden="true"></span></button>                                -->
                         </div>
@@ -74,20 +90,29 @@
                         <h2>Cliente: <%out.println(Client.getCliente());%></h2>
                         <h2>Fecha de Registro: <%out.println(Client.getFechaRegistro());%></h2>
                         <h2>Tipo: <%out.println(consulta.getTipo());%></h2>
-                        <div>
-                            <form method="POST" action="/ModificarUsuarios">
-                                <button name="IDUsuario" value="<%out.println(consulta.getIdusuario());%>" class="btn btn-primary">
-                                    Modificar 
-                                    <span class="glyphicon glyphicon-wrench" aria-hidden="true">                                        
-                                    </span>
-                                </button>
-                            </form>
-                            <form method="POST" action="/EliminarUsuario">
-                                <button name="IDUsuario" value="<%out.println(consulta.getIdusuario());%>" class="btn btn-primary">
-                                    Eliminar 
-                                    <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
-                                </button>
-                            </form>
+                        <div class="row">
+                            <div class="col-md-6" >
+                                <form method="POST" action="/ModificarUsuarios">
+                                    <div class="form-group">
+                                        <button name="IDUsuario" value="<%out.println(consulta.getIdusuario());%>" class="btn btn-primary">
+                                            Modificar 
+                                            <span class="glyphicon glyphicon-wrench" aria-hidden="true">                                        
+                                            </span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="col-md-6" >
+                                <form onsubmit="return confirmar('Eliminar')" method="POST" action="/EliminarUsuario">
+                                    <div class="form-group">
+                                        <button name="IDUsuario" value="<%out.println(consulta.getIdusuario());%>" class="btn btn-danger">
+                                            Eliminar 
+                                            <span class="glyphicon glyphicon-trash" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
+                                </form>
+                            </div>
+
                             <!--<button class="btn btn-warning">Enviar Mensaje <span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>-->
                             <%
                                 if (consulta.getTipo().equals("Colaborador")) {
@@ -107,7 +132,6 @@
                     </div>
                     <div class="col-md-6">
                         <img alt="Foto Usuario" src="../../Img/SinImagen.png" class="img-responsive" />
-
                     </div>
                 </div>
 
