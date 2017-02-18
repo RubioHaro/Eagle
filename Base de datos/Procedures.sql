@@ -88,6 +88,7 @@ begin
 end; **
 delimiter ;
 
+
 /*		Procedimiento: Agregar Cliente al catalogo de clientes 		*/
 drop procedure if exists ProcedureGuardarCliente;
 delimiter **
@@ -231,6 +232,15 @@ delimiter **
 create procedure ActualizarUsuario(in IdUsuario int(255), in Nombrer nvarchar(200),in Apellidopr nvarchar(200),in Apellidomr nvarchar(100),in mailr nvarchar (50))
 begin
 	select ModificarUsuario( IdUsuario, Nombrer, Apellidopr, Apellidomr, mailr);	
+end; **
+delimiter ;
+
+/*		Procedimiento: Actualizar Unidad		*/
+drop procedure if exists ActualizarUnidad;
+delimiter **
+create procedure ACtualizarUnidad(in IdUnidad int(255), in Matricular nvarchar(200),in Marcar nvarchar(200),in Modelor nvarchar(100),in Tipor nvarchar (50), in Puertasr int (50), in Blindajer nvarchar(50), in Antiguedadr year(50))
+begin
+	update Usuarios set Unidades.matricula = Matricular, Unidades.marca= Marcar, Unidades.modelo = Modelor, unidades.tipo= tipor, unidades.puertas = Puertasr, unidades.Blindaje=blindajer, unidades.Antiguedad=Antiguedadr   where Usuarios.Idusuario = IdUsuarior;
 end; **
 delimiter ;
 

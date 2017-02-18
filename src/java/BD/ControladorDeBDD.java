@@ -84,6 +84,7 @@ public class ControladorDeBDD {
         }
         return ResDB;
     }
+    
 
     public String RegistrarUnidad(String Matricula, String Marca, String Modelo, String Tipo, String Puertas, String Blindaje, String Antiguedad, String Status) throws ClassNotFoundException {
 
@@ -344,6 +345,32 @@ public class ControladorDeBDD {
         return mensj;
     }
 
+    public String ModificarUnidad(String IdUnidad, String Matricula, String Marca, String Modelo, String Tipo, String Puertas, String Blindaje, String Antiguedad) throws ClassNotFoundException {
+        String mensj;
+        try {
+            Control.CrearConexion();
+
+            Query = "call ActualizarUnidad(?,?,?,?,?,?,?,?)";
+            EstamentoPreparado = Control.StatmentAction(Query);
+            System.out.println(IdUnidad);
+            EstamentoPreparado.setInt(1, Integer.parseInt(IdUnidad));
+            EstamentoPreparado.setString(2, Matricula);
+            EstamentoPreparado.setString(3, Marca);
+            EstamentoPreparado.setString(4, Modelo);
+            EstamentoPreparado.setString(5, Tipo);
+            EstamentoPreparado.setString(6, Puertas);
+            EstamentoPreparado.setString(7, Blindaje);
+            EstamentoPreparado.setString(8, Antiguedad);
+            EstamentoPreparado.executeUpdate();
+            EstamentoPreparado.close();
+            Control.CerrarConexion();
+            mensj = "La unidad ha sido actualizado";
+        } catch (SQLException ex) {
+            mensj = "Ha ocurrido un error:" + ex.toString();
+        }
+        return mensj;
+    }
+    
     public String RegistrarColaborador(String Nombre, String apellidoP, String apellidoM, String antiguedad, String posicion, int Salario, int Edad, String Sexo, String Pass, String Mail) throws ClassNotFoundException {
         String mensj;
         try {

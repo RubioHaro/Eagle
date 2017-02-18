@@ -92,6 +92,14 @@
         <servlet-name>RegistrarColaborador</servlet-name>
         <servlet-class>Usuarios.RegistrarColaborador</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ActualizarUnidad</servlet-name>
+        <servlet-class>Unidades.ActualizarUnidad</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ModificarUnidades</servlet-name>
+        <servlet-class>Unidades.ModificarUnidades</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -183,6 +191,14 @@
     <servlet-mapping>
         <servlet-name>RegistrarColaborador</servlet-name>
         <url-pattern>/RegistrarColaborador</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActualizarUnidad</servlet-name>
+        <url-pattern>/ActualizarUnidad</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ModificarUnidades</servlet-name>
+        <url-pattern>/ModificarUnidades</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
