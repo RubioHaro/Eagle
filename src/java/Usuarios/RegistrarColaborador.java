@@ -5,12 +5,17 @@
  */
 package Usuarios;
 
+import BD.ControladorDeBDD;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -30,17 +35,42 @@ public class RegistrarColaborador extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet RegistrarColaborador</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet RegistrarColaborador at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        HttpSession sesion = request.getSession();
+        try (PrintWriter out = response.getWriter()) {            
+            Usuario user = (Usuario) sesion.getAttribute("Usuario");            
+            String IDUsuarioModificador = user.getIdusuario() + "";
+            String Nombre = request.getParameter("Nombre");
+            String Paterno = request.getParameter("ApellidoPaterno");
+            String Materno = request.getParameter("ApellidoMaterno");
+            String Email = request.getParameter("Email");
+            
+            String Antiguedad = request.getParameter("Antiguedad");
+            String Tipo = request.getParameter("Tipo");
+            String salario = request.getParameter("salario");
+            String Edad = request.getParameter("Edad");
+            String Sexo = request.getParameter("Sexo");
+            
+            
+            ControladorDeBDD control = new ControladorDeBDD();
+            String Message;  
+            try {
+                Message = control.AgregarEmpleado(Nombre, Paterno, Materno, Antiguedad, Tipo , salario, Edad, Sexo, request.getParameter("Password"), Email);
+            } catch (ClassNotFoundException | SQLException ex) {
+                Logger.getLogger(RegistrarColaborador.class.getName()).log(Level.SEVERE, null, ex);
+                Message = ex.getLocalizedMessage();
+            }
+            
+            out.println(Message);
+            sesion.setAttribute("Error", 1);
+            sesion.setAttribute("DescripcionError", Message);
+            String location = "/Empleados/Admin/Consultas.jsp";
+            response.sendRedirect(location);
+        } catch (Error e) {
+            sesion.setAttribute("Error", 1);
+            sesion.setAttribute("DescripcionError", e.getLocalizedMessage());
+            String location = "/Empleados/Admin/Consultas.jsp";
+            response.sendRedirect(location);
+            System.out.println(e.getLocalizedMessage());
         }
     }
 

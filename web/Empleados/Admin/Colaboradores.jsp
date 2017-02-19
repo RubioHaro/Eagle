@@ -178,42 +178,70 @@
                                             <form method="POST" onsubmit="return confirmar('Modificar')" action="/ActualizarUsuario">
                                                 <input name="ID" style="visibility:hidden" class="form-control" id="disabledInput" type="text"/>
                                                 <div class="row">
-                                                    <div class="col-md-12">
+                                                    <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="Nombre">Nombre:</label>
-                                                            <input name="Nombre" type="text" required class="form-control" id="Nombre"/>
+                                                            <label for="Email">Correo Electronico:</label>
+                                                            <input name="Email" type="mail" class="form-control" required id="Mail"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="Password">Ingresa una password:</label>
+                                                            <input name="Password" type="password" class="form-control" required id="Password"/>
                                                         </div>
                                                     </div>
                                                 </div>
-
+                                                <div class="form-group">
+                                                    <label for="Password">Ingresa una password:</label>
+                                                    <input name="Password" type="password" class="form-control" required id="Password"/>
+                                                </div>
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="ApellidoPaterno">Apellido Paterno:</label>
-                                                            <input name="ApellidoPaterno" type="text" required class="form-control" id="ApellidoPaterno"/>
+                                                            <label for="Edad">Edad:</label>
+                                                            <input name="Edad" type="number" min="18" max="99" class="form-control" required id="Edad"/>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <label for="ApellidoMaterno">Apellido Materno:</label>
-                                                            <input name="ApellidoMaterno" type="text" required class="form-control" id="ApellidoMaterno"/>
+                                                            <label for="Antigüedad:">Antigüedad:</label>
+                                                            <input name="Antiguedad" type="number"  min="0" max="60" class="form-control" required id="Antiguedad"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="Salario">Salario(x mes):</label>
+                                                            <input name="Salario" type="number" min="1000" max="999999" class="form-control" required id="Edad"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group">
+                                                            <label for="Salario">Sexo</label>
+                                                            <div class="radio">
+                                                                <label><input type="radio" name="optradio">Option 1</label>
+                                                            </div>
+                                                            <div class="radio">
+                                                                <label><input type="radio" name="optradio">Option 2</label>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="form-group">
-                                                    <label for="Email">Correo Electronico:</label>
-                                                    <input name="Email" type="mail" class="form-control" required id="Mail"/>
-                                                </div>
-                                                <div class="form-group">
                                                     <label for="Password">Ingresa una password:</label>
                                                     <input name="Password" type="password" class="form-control" required id="Password"/>
-                                                </div>
-                                                <div class="form-group">
-                                                    <label for="Password">Ingresa una password:</label>
-                                                    <input name="Password" type="password" class="form-control" required id="Password"/>
+                                                    <div class="form-group">
+                                                        <label for="sel1">Tipo de colaborador:</label>
+                                                        <select class="form-control" id="sel1">
+                                                            <option>Conductor</option>
+                                                            <option>Personal de Mantenimiento</option>
+                                                            <option>Administrador</option>
+                                                        </select>
+                                                    </div>
                                                 </div>
                                                 <button type="submit" class="btn btn-default">Guardar</button>
-                                            </form>                        
+                                            </form>
                                         </div>
                                         <div class="col-md-6">
                                             <img alt="Foto Usuario" src="../../Img/SinImagen.png" class="img-responsive" />

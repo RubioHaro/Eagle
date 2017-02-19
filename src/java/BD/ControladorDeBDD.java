@@ -531,7 +531,7 @@ public class ControladorDeBDD {
     }
 
     //INSERTAR USUARIO
-    public String AgregarEmpleado(String Nombre, String apellidoP, String apellidoM, String Antiguedad, String Tipo, int salario, int Edad, String Sexo, String Pass, String Mail, String colonia, int codigoPostal, int NumExt, int NumInt, String Calle, String delegacion, int NivelAcceso) throws ClassNotFoundException, SQLException {
+    public String AgregarEmpleado(String Nombre, String apellidoP, String apellidoM, String Antiguedad, String Tipo, String salario, String Edad, String Sexo, String Pass, String Mail) throws ClassNotFoundException, SQLException {
 
         try {
             Control.CrearConexion();
@@ -542,18 +542,11 @@ public class ControladorDeBDD {
             EstamentoPreparado.setString(3, apellidoM);
             EstamentoPreparado.setString(4, Antiguedad);
             EstamentoPreparado.setString(5, Tipo);
-            EstamentoPreparado.setInt(6, salario);
-            EstamentoPreparado.setInt(7, Edad);
+            EstamentoPreparado.setString(6, salario);
+            EstamentoPreparado.setString(7, Edad);
             EstamentoPreparado.setString(8, Sexo);
             EstamentoPreparado.setString(9, Pass);
             EstamentoPreparado.setString(10, Mail);
-            EstamentoPreparado.setString(11, colonia);
-            EstamentoPreparado.setInt(12, codigoPostal);
-            EstamentoPreparado.setInt(13, NumExt);
-            EstamentoPreparado.setInt(14, NumInt);
-            EstamentoPreparado.setString(15, Calle);
-            EstamentoPreparado.setString(16, delegacion);
-            EstamentoPreparado.setInt(17, NivelAcceso);
             EstamentoPreparado.executeUpdate();
             Control.CerrarConexion();
             return "Usuario Registrado";
