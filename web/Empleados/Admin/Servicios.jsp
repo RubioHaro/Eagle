@@ -1,9 +1,13 @@
 <%-- 
-    Document   : AgregarUsuarios
-    Created on : 01-dic-2016, 5:03:23
-    Author     : Rod y Miguel
+    Document   : Servicios
+    Created on : 19-feb-2017, 18:26:40
+    Author     : Rod
 --%>
 
+<%@page import="Catalogo.ListOfproducts"%>
+<%@page import="Usuarios.Direccion"%>
+<%@page import="Servicios.Servicio"%>
+<%@page import="Servicios.ListaServicios"%>
 <%@page import="Usuarios.TicketDeUsuarios"%>
 <%@page import="BD.ControladorDeBDD"%>
 <%@page import="Usuarios.Usuario"%>
@@ -12,7 +16,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%            String title = "Colaboradores";
+        <%            String title = "Servicios";
             Usuario User = (Usuario) sesion.getAttribute("Usuario");
 
         %>
@@ -27,80 +31,34 @@
             google.charts.load("current", {packages: ['corechart']});
             google.charts.setOnLoadCallback(drawChart);
             function drawChart() {
-            <%                    ControladorDeBDD control = new ControladorDeBDD();
-                out.println(control.ContarColaboradores("Hombres"));
 
+                // Create the data table.
+                var data = new google.visualization.DataTable();
+                data.addColumn('string', 'Topping');
+                data.addColumn('number', 'Slices');
+                data.addRows([
+            <%                ControladorDeBDD control = new ControladorDeBDD();
+                ListOfproducts list = control.getProductList();
+                int tam = list.getTamañoLista();
+                for (int i = 0; i < tam; ++i) {
+                    out.println("['" + list.GetService(i).getNombreProducto() + "', " + control.ContarProductoEnServicio(list.GetService(i).getNombreProducto()) + "],");
+                }
             %>
 
-                //Grafica 1
-                var data = google.visualization.arrayToDataTable([
-                    ["Element", "Colaboradores", {role: "style"}],
-                    ["Hombres", <%out.println(control.ContarColaboradores("Hombres"));%>, "skyblue"],
-                    ["Mujeres", <%out.println(control.ContarColaboradores("Mujeres"));%>, "pink"]
                 ]);
 
-                var view = new google.visualization.DataView(data);
-                view.setColumns([0, 1, {calc: "stringify", sourceColumn: 1, type: "string", role: "annotation"}, 2]);
+                // Set chart options
+                var options = {'title': 'Servicios',
+                    'width': 600,
+                    is3D: true,
+                    'height': 300};
 
-                var options = {
-                    title: "Relacion hombres-mujeres como Colaboradores",
-                    width: 400,
-                    height: 300,
-                    bar: {groupWidth: "95%"},
-                    legend: {position: "none"}
-                };
-                var chart = new google.visualization.ColumnChart(document.getElementById("columnchart_values"));
-                chart.draw(view, options);
+
+                // Instantiate and draw our chart, passing in some options.
+                var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
             }
-        </script>
-        <script>
-            google.charts.load("current", {packages: ['corechart']});
-            google.charts.setOnLoadCallback(drawChart);
-            function drawChart() {
-                //Grafica 2
-
-                var data2 = google.visualization.arrayToDataTable([
-                    ["Element", "Colaboradores", {role: "style"}],<%
-                        int[] Edades = control.GetAges();
-                        int limiter = Edades.length;
-                        for (int i = 0; i < limiter; ++i) {
-                            int col = control.ContarColaboradoresPorEdad(Edades[i]);
-                            String message;
-                            String color;
-                            if (Edades[i] < 35) {
-                                color = "LimeGreen";
-                            } else if (Edades[i] > 35 && Edades[i] < 45) {
-                                color = "DarkCyan";
-                            } else if (Edades[i] > 45) {
-                                color = "Maroon";
-                            } else {
-                                color = "gray";
-                            }
-
-                            if ((limiter - 1) == i) {
-                                message = "['" + Edades[i] + "'," + col + ", '" + color + "']";
-                            } else {
-                                message = "['" + Edades[i] + "', " + col + ", '" + color + "'],";
-                            }
-                            System.out.println(message);
-                            out.print(message);
-                        }
-            %>
-                ]);
-                var view2 = new google.visualization.DataView(data2);
-                view2.setColumns([0, 1, {calc: "stringify", sourceColumn: 1, type: "string", role: "annotation"}, 2]);
-
-                var options2 = {
-                    title: "Edad de los colaboradores",
-                    width: 400,
-                    height: 300,
-                    bar: {groupWidth: "95%"},
-                    legend: {position: "none"}
-                };
-                var chart = new google.visualization.ColumnChart(document.getElementById("GraficaEdades"));
-                chart.draw(view2, options2);
-            }
-        </script>
+        </script>        
 
         <script>
             $(document).ready(function () {
@@ -108,7 +66,7 @@
             }
         </script>
 
-        <title>Usuarios</title>
+        <title>Servicios</title>
     </head>
     <body>
         <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.html" %>
@@ -118,55 +76,59 @@
                     <div class="jumbotron">
                         <!-- Nav tabs --><div class="card">
                             <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#1" style="color: white; background-color: #ababab"  aria-controls="home" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp;Lista Colaboradores</a></li>
-                                <li role="presentation"><a style="color: white; background-color: #ababab" href="#2" aria-controls="profile" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Agregar Colaborador</a></li>
+                                <li role="presentation" class="active"><a href="#1" style="color: white; background-color: #ababab"  aria-controls="home" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp;Lista de Servicios</a></li>
+                                <li role="presentation"><a style="color: white; background-color: #ababab" href="#2" aria-controls="profile" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Agregar Servicio</a></li>
                                 <li role="presentation"><a style="color: white; background-color: #ababab" href="#3" aria-controls="messages" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span>&nbsp;Estadisticas</a></li>                                
                             </ul>
-
+                            
                             <!-- Tab panes -->
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane active" id="1">
                                     <div>
-                                        <h2>Lista de colaboradores</h2>
+                                        <h2>Lista de servicios</h2>
                                         <p class="text-justify">
                                             La informacion aqui proporcionada es de caracter confidencial y esta estrictamente prohibido su uso sin autorizacion asi como la copia o descarga de la misma por parte de la empresa.
                                         </p>
                                         <table id="table_id"  class="table">
                                             <thead>
                                                 <tr>
-                                                    <th>Nombre</th>
-                                                    <th>Apellidos</th>
-                                                    <th>Correo</th>
-                                                    <th>Identificador</th>
+                                                    <th>Folio Servicio</th>
                                                     <th>Estado</th>
-                                                    <th>Opciones</th>
+                                                    <th>Nombre</th>
+                                                    <th>Descripcion</th>
+                                                    <th>Fecha Solicitud</th>
+                                                    <th>Costo</th>
+                                                    <th>Direccion</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <%
-                                                    TicketDeUsuarios ListaUsers = control.ObtenerListaDeColaboradores(50);
-                                                    int lim = ListaUsers.getTamañoTicket();
-                                                    if (lim > 0) {
-                                                        for (int i = 0; i < lim; ++i) {
+                                                    ListaServicios ServicesList = control.getLas50History();
+                                                    int TamañoLista = ServicesList.getTamañoLista();
+                                                    if (TamañoLista > 0) {
+                                                        for (int i = 0; i < TamañoLista; ++i) {
+                                                            Servicio InstService = ServicesList.GetService(i);
+                                                            Direccion DirInst = InstService.getDir();
 
                                                 %>
                                                 <tr>
-                                                    <td>
-                                                        <%out.println(ListaUsers.GetUser(i).getNombre());%></td>
-                                                    <td><%out.println(ListaUsers.GetUser(i).getApellidop() + " " + ListaUsers.GetUser(i).getApellidom());%></td>
-                                                    <td><a style="color: white" href="mailto:<%out.println(ListaUsers.GetUser(i).getMail());%>"><%out.println(ListaUsers.GetUser(i).getMail());%></a> </td>
-                                                    <td><%out.println(ListaUsers.GetUser(i).getIdusuario());%></td>
-                                                    <td><%out.println(ListaUsers.GetUser(i).getEstatus());%></td>                                    
+                                                    <td>Folio de servicio:<%out.println(InstService.getIdServicio());%></td>
+                                                    <td>En espera</td>
+                                                    <td><%out.println(InstService.getNombre());%></td>
+                                                    <td><%out.println(InstService.getDescripcionDeServicio());%></td>
+                                                    <td><%out.println(InstService.getFechaSolicitud());%></td>
+                                                    <td>$<%out.println(InstService.getCosto());%></td>
+
                                                     <th>
                                                         <form method="POST" action="/Consultar">
-                                                            <button class="btn btn-default" name="IDColaborador" value="<%out.println(ListaUsers.GetUser(i).getIdusuario());%>" type="submit">Ver Perfil</button>
+                                                            <button class="btn btn-default" name="IDColaborador" value="<%out.println(DirInst.getIdDireccion());%>" type="submit">Ver Direccion</button>
                                                         </form>
                                                     </th>
                                                 </tr>
                                                 <%
                                                         }
                                                     }
-                                                %>
+                                                    %>
                                             </tbody>
                                         </table>
                                     </div>
@@ -251,10 +213,7 @@
                                     <br>
                                     <div class="row">
                                         <div class="col-md-6">
-                                            <div id="columnchart_values" style="width: 900px; height: 300px;"></div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div id="GraficaEdades" style="width: 900px; height: 300px;"></div>
+                                            <div id="chart_div" style="width: 900px; height: 300px;"></div>
                                         </div>
                                     </div>
 

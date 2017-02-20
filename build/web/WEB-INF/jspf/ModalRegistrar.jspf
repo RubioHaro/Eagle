@@ -2,7 +2,6 @@
 <%@ page pageEncoding="UTF-8" %>
 <div id="PopWindowRegistrarse" class="modal">
     <form class="modal-content animate" name="Registrarse" method="POST" action="RegistroCliente">
-        <div class="g-recaptcha" data-sitekey="your_site_key"></div>
         <div class="panel">
             <div class="panel-heading">
                 Registrarse

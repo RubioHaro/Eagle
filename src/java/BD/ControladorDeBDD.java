@@ -818,7 +818,6 @@ public class ControladorDeBDD {
             res = Control.SentenciaSQL(Query);
             if (res.next()) {
                 return res.getInt(1);
-
             }
             Control.CerrarConexion();
             return 0;
