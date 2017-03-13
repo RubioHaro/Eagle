@@ -1,32 +1,26 @@
-/*DIGITAL LEARNING*/
+.PestañaDeNav{
+    background-color: #3b4148;
+    color: #eee;
+}
+.PestañaDeNav:hover{
+    background-color: #f1410b !important;
+    color: white;
+}
 
-.azul{
-    color: whitesmoke !important;
+.btn{
+    background-color: #3b4148;
+    color: #eee;
 }
-.btn-file {
-    position: relative;
-    overflow: hidden;
-}
-.btn-file input[type=file] {
-    position: absolute;
-    top: 0;
-    right: 0;
-    min-width: 100%;
-    min-height: 100%;
-    font-size: 100px;
-    text-align: right;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    outline: none;
-    background: white;
-    cursor: inherit;
-    display: block;
+.btn:hover{
+    background-color: #f1410b;
+    color: white;
 }
 
 body {    
-    background-image: url('../Img/Backgrounds/background-grey.jpg');
+    background-image: url('../Img/Backgrounds/abstract-template.jpg');
     background-size: cover; 
     background-attachment: fixed;
+    color: white;
 }
 
 .jumbotron{
@@ -34,30 +28,30 @@ body {
     color: white !important;
 }
 .panel{    
-    opacity: .69 !important;
+    opacity: .80 !important;
 }
 .panel-heading{
-    background-color: #666666;
-    color: white;
+    background-color:  #f1410b !important ;
+    color: white !important;
+    font-weight: bold;
 }
 .panel-footer{
-    background-color: #cccccc !important;
+    background-color: #3b4148 !important;
 }
 .panel-body{
-    background-color: #cccccc !important;
+    background-color: #3b4148 !important;
 
 }
 
-
 .navbar{
-    background-color: #666666;
+    background-color: #3b4148;
 }
 
 .navbar-brand:link, .navbar-brand:visited {
-    color:white !important;
+    color: white !important;
 }
 .navbar-brand:hover, .navbar-brand:active {
-    color: #cccccc   !important;
+    color: #eee   !important;
 }
 
 #navbar li a:link, #navbar li a:visited{
@@ -65,26 +59,31 @@ body {
 }
 
 #navbar li a:hover, #navbar li a:active{
-    color: #cccccc ;
+    color: #eee ;
 }
 
 .dropdown-menu{
-    background-color: #666666 ;
+    background-color: #3b4148 ;
 }
 
-navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover, .navbar-default .navbar-nav > .open > a:focus {
-    color: #cccccc;
-    background-color: #666666;
+navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover{
+    color: #3b4148;
+    background-color: #3b4148;
+}
+
+.navbar-default .navbar-nav > .open > a:focus {
+    color: white;
+    background-color: #f1410b;
 }
 
 #navbar .dropdown-menu li a:link, #navbar .dropdown-menu li a:visited{
-    background-color:  #666666;
+    background-color:  #3b4148 ;
     color: white ;
 }
 
 #navbar .dropdown-menu li a:hover, #navbar .dropdown-menu li a:active{
-    background-color: #666666;
-    color:  #cccccc ;
+    background-color: #3b4148;
+    color:  white;
 }
 
 /*RUBIO HARO RODRIGO RODOLFO */

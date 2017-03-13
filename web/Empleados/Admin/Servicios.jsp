@@ -76,9 +76,9 @@
                     <div class="jumbotron">
                         <!-- Nav tabs --><div class="card">
                             <ul class="nav nav-tabs" role="tablist">
-                                <li role="presentation" class="active"><a href="#1" style="color: white; background-color: #ababab"  aria-controls="home" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp;Lista de Servicios</a></li>
-                                <li role="presentation"><a style="color: white; background-color: #ababab" href="#2" aria-controls="profile" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Agregar Servicio</a></li>
-                                <li role="presentation"><a style="color: white; background-color: #ababab" href="#3" aria-controls="messages" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span>&nbsp;Estadisticas</a></li>                                
+                                <li role="presentation" class="active"><a href="#1" class="PestañaDeNav" aria-controls="home" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp;Lista de Servicios</a></li>
+                                <li role="presentation"><a class="PestañaDeNav" href="#2" aria-controls="profile" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Agregar Servicio</a></li>
+                                <li role="presentation"><a class="PestañaDeNav" href="#3" aria-controls="messages" role="tab" data-toggle="tab"><span class="glyphicon glyphicon-stats" aria-hidden="true"></span>&nbsp;Estadisticas</a></li>                                
                             </ul>
                             
                             <!-- Tab panes -->

@@ -24,7 +24,7 @@
             <div class="jumbotron">
                 <div class="row">
                     <div class="col-md-6">
-                        <img alt="Logo" src="Img/Logo/seg.jpg" class="img-responsive" />
+                        <img alt="Logo" src="Img/Logo/EagleVision-Logo.png" class="img-responsive" />
                         <h2 class="azul text-center"><em>"Lighting the way"</em></h2>
                     </div>
                     <div class="col-md-6">
