@@ -31,12 +31,14 @@ import java.util.logging.Logger;
 public class ControladorDeBDD {
 
     private Usuario user;
+    private Empleado Collaborator;
     private String Query;
     private Unidad Unit;
     private ResultSet res;
     private ResultsSetDB ResDB;
     private final ControladorDeConexion Control;
     private PreparedStatement EstamentoPreparado;
+    String mensj;
 
     public ControladorDeBDD() {
         Control = new ControladorDeConexion();
@@ -84,11 +86,8 @@ public class ControladorDeBDD {
         }
         return ResDB;
     }
-    
 
     public String RegistrarUnidad(String Matricula, String Marca, String Modelo, String Tipo, String Puertas, String Blindaje, String Antiguedad, String Status) throws ClassNotFoundException {
-
-        String mensj;
         try {
             Control.CrearConexion();
             Query = "call ProcedureCrearNuevaUnidad(?,?,?,?,?,?,?,?);";
@@ -222,10 +221,10 @@ public class ControladorDeBDD {
         return ResDB.getListaUsuarios();
     }
 
-    public Empleado BuscarEmpleado(String IdUsuario) {
+    public Empleado BuscarEmpleado(int IdUsuario) {
         try {
             ResDB = new ResultsSetDB();
-            ResDB = BuscarUsuario(IdUsuario, "x", "x");
+            ResDB = BuscarUsuario(IdUsuario+"", "x", "x");
             return ResDB.getCollaborator();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ControladorDeBDD.class.getName()).log(Level.SEVERE, null, ex);
@@ -322,8 +321,32 @@ public class ControladorDeBDD {
         return ResDB;
     }
 
+    public String ModificarContraseña(int idUsuario, String NuevaContraseña, String AntiguaContraseña) {
+        ResDB = null;
+        if (VerificarPassword(idUsuario, AntiguaContraseña)) {
+            try {
+                Control.CrearConexion();
+                Query = "call ActualizarContraseña(?,?); ";
+                EstamentoPreparado = Control.StatmentAction(Query);
+                EstamentoPreparado.setInt(1, idUsuario);
+                EstamentoPreparado.setString(2, NuevaContraseña);
+                EstamentoPreparado.executeUpdate();
+                EstamentoPreparado.close();
+                Control.CerrarConexion();
+                mensj = "El usuario ha sido actualizado";
+            } catch (ClassNotFoundException | SQLException ex) {
+                mensj = ex.toString();
+                Logger.getLogger(ControladorDeBDD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            mensj = "contraseña Incorrecta";
+        }
+
+        return mensj;
+    }
+
     public String ModificarUsuario(String PasswordModificador, String IdUsuarioModificador, String IdUsuario, String Nombre, String apellidoP, String apellidoM, String Email) throws ClassNotFoundException {
-        String mensj;
+
         try {
             Control.CrearConexion();
 
@@ -346,7 +369,6 @@ public class ControladorDeBDD {
     }
 
     public String ModificarUnidad(String IdUnidad, String Matricula, String Marca, String Modelo, String Tipo, String Puertas, String Blindaje, String Antiguedad) throws ClassNotFoundException {
-        String mensj;
         try {
             Control.CrearConexion();
 
@@ -370,9 +392,9 @@ public class ControladorDeBDD {
         }
         return mensj;
     }
-    
+
     public String RegistrarColaborador(String Nombre, String apellidoP, String apellidoM, String antiguedad, String posicion, int Salario, int Edad, String Sexo, String Pass, String Mail) throws ClassNotFoundException {
-        String mensj;
+
         try {
             Control.CrearConexion();
             Query = "call ProcedureGuardarEmpleado(?,?,?,?,?,?,?,?,?,?,null, null, null, null, null, null,1);";
@@ -400,7 +422,7 @@ public class ControladorDeBDD {
     }
 
     public String RegistrarCliente(String Nombre, String apellidoP, String apellidoM, String Empresa, String Pass, String Mail, String colonia, int codigoPostal, int NumExt, int NumInt, String Calle, String delegacion) throws ClassNotFoundException {
-        String mensj;
+
         try {
             Control.CrearConexion();
             Query = "call ProcedureGuardarCliente(?,?,?,?,?,?,?,?,?,?,?,?);";
@@ -429,63 +451,91 @@ public class ControladorDeBDD {
         return mensj;
     }
 
-    //Para Iniciar sesion
-    public ResultsSetDB IniciarSesion(String Mail, String Pass) throws ClassNotFoundException {
-        ResDB = null;
+    public boolean VerificarPassword(int IdUsuario, String Pass) {
+        ResDB = new ResultsSetDB();
+        boolean c = false;
         try {
-            ResDB = new ResultsSetDB();
-            ResDB.setCondicion(Boolean.FALSE);
-            ResDB.setEstaus("");
             Control.CrearConexion();
-            Query = "SELECT * FROM Usuarios WHERE mail = \"" + Mail + " \"; ";
+            Query = "call ValidarPassword(" + IdUsuario + ",\"" + Pass + "\");";
             res = Control.SentenciaSQL(Query);
-            user = new Usuario();
             if (res.next()) {
-                user.setIdusuario(res.getInt(1));
-                user.setNombre(res.getString(2));
-                user.setApellidop(res.getString(3));
-                user.setApellidom(res.getString(4));
-                user.setTipo(res.getString(5));
-                user.setMail(res.getString(6));
-                user.setEstatus(res.getInt(8));
-
-                if (user.getEstatus() != 1) {
-                    ResDB.setEstaus("Activa tu cuenta (revisa tu email o consulta con el administrador)");
-                    ResDB.AgregarError();
-                } else if (Pass.equals(res.getString("Pass"))) {
-                    ResDB.setCondicion(Boolean.TRUE);
-                    ResDB.setEstaus("Iniciando Sesion...");
-                    ResDB.setUser(user);
-                } else {
-                    ResDB.setEstaus("Contraseña Incorrecta");
-                    ResDB.AgregarError();
-                }
-                //Se cierra Aqeui para abrir una nueva conexion con otra sentencia
+                c = res.getInt(1) == 1; // retornara Numero 1 si es la contraseña correcta, Numero 0 si no lo es.
                 res.close();
                 Control.CerrarConexion();
-                //Para definir el Nivel de Acceso
-                if (user.getTipo().equals("Colaborador")) {
-                    Control.CrearConexion();
-                    Query = "SELECT NivelAcceso FROM Usuarios inner join Empleados on Empleados.Idusuario = Usuarios.Idusuario WHERE mail = \"" + Mail + " \"; ";
-                    res = Control.SentenciaSQL(Query);
-                    if (res.next()) {
-                        user.setNivelAcceso(res.getInt(1));
-                    }
-                    Control.CerrarConexion();
-                } else {
-                    user.setNivelAcceso(0);
-                }
-
-            } else {
-                ResDB.setEstaus("Usuario NO encontrado");
-                ResDB.AgregarError();
-                Control.CerrarConexion();
             }
-
-        } catch (SQLException ex) {
+        } catch (ClassNotFoundException | SQLException ex) {
             ResDB.setEstaus("DB error: " + ex.toString());
             ResDB.AgregarError();
             Logger.getLogger(ControladorDeBDD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return c;
+    }
+
+    //Para Iniciar sesion
+    public ResultsSetDB IniciarSesion(String Mail, String Pass) {
+        ResDB = null;
+        ResDB = new ResultsSetDB();
+        ResDB.setCondicion(Boolean.FALSE);
+        ResDB.setEstaus("");
+        if (VerificarPassword(GetIdUsuarioPorEmail(Mail), Pass)) {
+            try {
+                Control.CrearConexion();
+                Query = "SELECT * FROM Usuarios WHERE mail = \"" + Mail + " \"; ";
+                res = Control.SentenciaSQL(Query);
+                user = new Usuario();
+                if (res.next()) {
+                    user.setIdusuario(res.getInt(1));
+                    user.setNombre(res.getString(2));
+                    user.setApellidop(res.getString(3));
+                    user.setApellidom(res.getString(4));
+                    user.setTipo(res.getString(5));
+                    user.setMail(res.getString(6));
+                    user.setEstatus(res.getInt(8));
+                    if (user.getEstatus() != 1) {
+                        ResDB.setEstaus("Activa tu cuenta (revisa tu email o consulta con el administrador)");
+                        ResDB.AgregarError();
+                    }
+                    //Se cierra Aqeui para abrir una nueva conexion con otra sentencia
+                    Control.CerrarConexion();
+                    //Para definir el Nivel de Acceso
+                    if (user.getTipo().equals("Colaborador")) {
+                        Control.CrearConexion();
+                        Query = "call GetEmpleado(\"" + user.getMail() + "\"); ";
+                        res = Control.SentenciaSQL(Query);
+                        
+                        if (res.next()) {
+
+                            Collaborator = new Empleado(user);
+                            Collaborator.setAntiguedad(res.getString(2));
+                            Collaborator.setTipo(res.getString(3));
+                            Collaborator.setSalario(res.getInt(4));
+                            Collaborator.setEdad(res.getInt(5));
+                            Collaborator.setSexo(res.getString(6));
+                            user.setNivelAcceso(res.getInt(7));
+                            ResDB.setUser(user);
+                            ResDB.setCollaborator(Collaborator);
+                        }
+                        
+                        ResDB.setCondicion(Boolean.TRUE);
+                        Control.CerrarConexion();
+                    } else {
+                        user.setNivelAcceso(0);
+                    }
+                } else {
+                    ResDB.setEstaus("Usuario NO encontrado");
+                    ResDB.AgregarError();
+                    Control.CerrarConexion();
+                }
+
+            } catch (ClassNotFoundException | SQLException ex) {
+                ResDB.setEstaus("DB error: " + ex.toString());
+                ResDB.AgregarError();
+                Logger.getLogger(ControladorDeBDD.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } else {
+            ResDB.setEstaus("Datos Invalidos, porfavor verificalos y vuelve a intentar.");
+            ResDB.AgregarError();
         }
 
         return ResDB;
@@ -769,10 +819,26 @@ public class ControladorDeBDD {
         }
     }
 
-    public int ContarColaboradoresPorEdad(int Edad) {
-        System.out.println("Edad:" + Edad);
+    public int GetIdUsuarioPorEmail(String Email) {
+        int IdUsuario = 0;
         try {
-            Control.CrearConexion();            
+            Control.CrearConexion();
+            Query = "call GetIdByEmail(\"" + Email + "\");";
+            res = Control.SentenciaSQL(Query);
+            if (res.next()) {
+                IdUsuario = res.getInt(1);
+            }
+            Control.CerrarConexion();
+        } catch (SQLException | ClassNotFoundException error) {
+            System.out.println("Crasheo: " + error.toString());
+            Logger.getLogger(ControladorDeBDD.class.getName()).log(Level.SEVERE, null, error);
+        }
+        return IdUsuario;
+    }
+
+    public int ContarColaboradoresPorEdad(int Edad) {
+        try {
+            Control.CrearConexion();
             Query = "call CountColEdad('" + Edad + "');";
             res = Control.SentenciaSQL(Query);
             int i;
@@ -783,11 +849,7 @@ public class ControladorDeBDD {
             }
             Control.CerrarConexion();
             return i;
-        } catch (SQLException error) {
-            System.out.println("Error: " + error.toString());
-            return 0;
-        } catch (ClassNotFoundException e) {
-            System.out.println("Error: " + e.getLocalizedMessage());
+        } catch (SQLException | ClassNotFoundException error) {
             return 0;
         }
     }

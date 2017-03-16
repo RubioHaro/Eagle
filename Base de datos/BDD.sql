@@ -35,12 +35,16 @@ call ProcedureCrearNuevaUnidad('CDM198','volkswagen','Passat','coche',4,'39mm',1
 call ProcedureAgregarServicio('Transporte ', '10-2-9', 20000, 2, 1, 2);
 call ProcedureAgregarServicio('Custodia ', '10-2-9', 20000, 2, 1, 2);
 call AgregarProducto('Transporte',20000,'Custodia de vehiculos');
+call ActualizarContraseña(1,123);
 call GetServices('zazaBB@zazamail.com');
 call ContarColaboradoresHombres;
 call ContarColaboradoresMujeres;
 call EliminarProducto(3);
 call AñadirHeader('Premium Services', '+options',1);
 call GetAges;
+call GetEmpleado('zazabb@gmail.com');
+call ValidarPassword(1,'123');
+call GetIdByEmail('micky90210@hotmail.com');
 select * from PageInfo_Catalogo;
 select * from Usuarios;
 select * from Empleados;
@@ -50,5 +54,5 @@ select * from Unidades;
 select * from Servicios;
 select * from Productos;
 SELECT count(DISTINCT edad)  FROM Empleados;
-
+SELECT * FROM Empleados WHERE Idusuario =  1;
 SELECT * FROM Usuarios WHERE mail = 'zazabb@gmail.com';

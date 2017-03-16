@@ -64,7 +64,7 @@ Apellidop nvarchar(100) not null,
 Apellidom nvarchar(100) not null,
 Tipo nvarchar(50) not null,
 mail nvarchar (50) not null,
-Pass nvarchar(200) not null,
+Pass nvarchar(32) not null,
 Estatus int(1)not null
 );
 

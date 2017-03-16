@@ -47,6 +47,23 @@ begin
 end; **
 delimiter ;
 
+/*		Procedimiento: Validar password del Usuario		*/
+drop procedure if exists ValidarPassword;
+delimiter **
+create procedure ValidarPassword(in IdUsuarior int(255), in Passr nvarchar(32))
+begin
+	declare RespestaDeValidacion int(1);
+	declare UserPass nvarchar(100);
+	set UserPass = (select Pass from Usuarios where Usuarios.Idusuario = IdUsuarior);
+    if (UserPass = Passr)then
+		set RespestaDeValidacion = 1;
+    else
+		set RespestaDeValidacion = 0;
+    end if;
+    select RespestaDeValidacion as 'Validacion';
+end; **
+delimiter ;
+
 
 /*		Procedimiento: Agregar Empleado al registro 		*/
 drop procedure if exists ProcedureGuardarEmpleado;
@@ -178,6 +195,17 @@ begin
 end; **
 delimiter ;
 
+/*		Procedimiento: Obtener Empleado con Email		*/
+drop procedure if exists GetEmpleado;
+delimiter **
+create procedure GetEmpleado(mailr nvarchar(200))
+begin
+	SELECT usuarios.Estatus, Empleados.Antigüedad, Empleados.Tipo, Empleados.Salario, Empleados.Edad, Empleados.Sexo, Empleados.NivelAcceso FROM Usuarios inner join Empleados on Empleados.Idusuario = Usuarios.Idusuario WHERE mail = mailr;
+end; **
+delimiter ;
+
+call GetEmpleado('zazabb@gmail.com');
+
 /*		Procedimiento: Obtener diferentes edads		*/
 drop procedure if exists GetAges;
 delimiter **
@@ -186,6 +214,16 @@ begin
 	SELECT DISTINCT  edad FROM Empleados;
 end; **
 delimiter ;
+
+/*		Procedimiento: Obtener el identificadro del usuario mediante su email	*/
+drop procedure if exists GetIdByEmail;
+delimiter **
+create procedure GetIdByEmail(in Emailr nvarchar(50))
+begin
+	SELECT Idusuario FROM usuarios where usuarios.mail = Emailr;
+end; **
+delimiter ;
+
 
 /*		Procedimiento: Obtener diferentes edads		*/
 drop procedure if exists CountColEdad;
@@ -235,10 +273,19 @@ begin
 end; **
 delimiter ;
 
+/*		Procedimiento: Actualizar Usuario		*/
+drop procedure if exists ActualizarContraseña;
+delimiter **
+create procedure ActualizarContraseña(in IdUsuarior int(255), in Passr nvarchar(32))
+begin
+	update Usuarios set Usuarios.Pass = Passr where Usuarios.Idusuario = IdUsuarior;
+end; **
+delimiter ;
+
 /*		Procedimiento: Actualizar Unidad		*/
 drop procedure if exists ActualizarUnidad;
 delimiter **
-create procedure ACtualizarUnidad(in IdUnidad int(255), in Matricular nvarchar(200),in Marcar nvarchar(200),in Modelor nvarchar(100),in Tipor nvarchar (50), in Puertasr int (50), in Blindajer nvarchar(50), in Antiguedadr year(50))
+create procedure ACtualizarUnidad(in IdUnidad int(255), in Matricular nvarchar(200),in Marcar nvarchar(200),in Modelor nvarchar(100),in Tipor nvarchar (50), in Puertasr int (50), in Blindajer nvarchar(50), in Antiguedadr year(4))
 begin
 	update Usuarios set Unidades.matricula = Matricular, Unidades.marca= Marcar, Unidades.modelo = Modelor, unidades.tipo= tipor, unidades.puertas = Puertasr, unidades.Blindaje=blindajer, unidades.Antiguedad=Antiguedadr   where Usuarios.Idusuario = IdUsuarior;
 end; **

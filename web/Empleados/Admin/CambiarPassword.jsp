@@ -20,16 +20,8 @@
         <title>JSP Page</title>
         <script>
             function confirmar(title) {
-                var c = confirm('¿Estas seguro qué deseas ' + title + '?(Se registrara el cambio)');
+                var c = confirm('¿Estas seguro qué deseas ' + title + ' la contraseña?(Se registrara el cambio)');
                 return c;
-            }
-        </script>
-        <script>
-            function Validar1pass(Password1){
-                if(Password1.value !== null){
-                    alert(Password1.value);
-                    document.getElementById('SpanP1').classList.add('glyphicon-ok');
-                }
             }
         </script>
     </head>
@@ -37,7 +29,7 @@
         <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.html" %>
         <div class="container">
             <div class="jumbotron">
-                <form method="POST" onsubmit="return confirmar('Modificar')" action="/ActualizarUsuario">                                        
+                <form method="POST" onsubmit="return confirmar('Modificar')" action="/CambiarPassword">                                        
                     <div class="row">
                         <div class="col-md-6">
                             <div class="form-group has-feedback">
@@ -57,7 +49,7 @@
                         <label for="Password3">Ingresa tu password para modificar:</label>
                         <input name="Password3" type="password" placeholder="INGRESA TU CONTRASEÑA ANTERIOR" class="form-control" required id="Password"/>
                     </div>
-                    <button type="submit" class="btn btn-default">Cambiar Password</button>
+                    <button type="submit" class="btn btn-default center-block">Cambiar Password</button>
                 </form>  
             </div>
         </div>

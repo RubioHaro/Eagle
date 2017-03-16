@@ -23,7 +23,7 @@ public class Usuario {
         -------------------------------------------------------------
     */
     private int Estatus;
-    private String mail;
+    private String mail;    
 
     public Usuario() {
     }

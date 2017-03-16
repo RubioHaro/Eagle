@@ -13,7 +13,7 @@ import Usuarios.Usuario;
  */
 public class ResultsSetDB {
 
-    private String Estaus;
+    private String Estaus ="";
     private Empleado collaborator;
     private Cliente client;
     private Usuario user;

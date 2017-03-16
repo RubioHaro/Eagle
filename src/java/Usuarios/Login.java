@@ -1,4 +1,3 @@
-
 package Usuarios;
 
 import BD.ControladorDeBDD;
@@ -32,36 +31,39 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
-
+        HttpSession sesion = request.getSession();
         try (PrintWriter out = response.getWriter()) {
-            HttpSession sesion = request.getSession();
+            System.out.println("Jala1");
             String User = request.getParameter("Usuario");
             String Pass = request.getParameter("Pass");
-            if (User != null && Pass != null && !User.equals("") && !Pass.equals("")) {
-                ControladorDeBDD control = new ControladorDeBDD();
-                ResultsSetDB res = control.IniciarSesion(User, Pass);                
-                if (res != null && res.getErrores() == 0 && res.getCondicion() && (res.getUser().getTipo().equals("Colaborador") || res.getUser().getTipo().equals("Cliente"))) {
-                    Usuario user = res.getUser();
+            System.out.println("Jala2");
+            ControladorDeBDD control = new ControladorDeBDD();
+            System.out.println("Jala3");
+            ResultsSetDB res = control.IniciarSesion(User, Pass);
+            System.out.println("Jala4");
+            if (res != null && res.getErrores() == 0 && res.getCondicion() && (res.getUser().getTipo().equals("Colaborador") || res.getUser().getTipo().equals("Cliente"))) {
+                Usuario user = res.getUser();
+                String Tipo = user.getTipo();
+                if (Tipo.equals("Colaborador")) {
+                    user = res.getCollaborator();
                     sesion.setAttribute("Usuario", user);
-                    String Tipo = user.getTipo();                    
-                    if (Tipo.equals("Colaborador")) {
-                        response.sendRedirect("/Empleados/Admin/AdminIndex.jsp");
-                    }
-                    if (Tipo.equals("Cliente")) {
-                        response.sendRedirect("/Clientes/IndexClient.jsp");
-                    }                
-                } else {
-                    sesion.setAttribute("Error", 1);
-                    sesion.setAttribute("DescripcionError", res.getEstaus());                                        
-                    response.sendRedirect("/Index.jsp");
+                    response.sendRedirect("/Empleados/Admin/AdminIndex.jsp");
+                    System.out.println("Jala3");
+                }
+                if (Tipo.equals("Cliente")) {
+                    user = res.getClient();
+                    sesion.setAttribute("Usuario", user);
+                    response.sendRedirect("/Clientes/IndexClient.jsp");
+                    System.out.println("Jala4");
                 }
             } else {
                 sesion.setAttribute("Error", 1);
-                sesion.setAttribute("DescripcionError", "DatosInvalidos");
+                sesion.setAttribute("DescripcionError", res.getEstaus());
                 response.sendRedirect("/Index.jsp");
+                System.out.println("Jala");
             }
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 

@@ -42,7 +42,7 @@ delimiter ;
 
 drop function if exists CrearUsuario;
 delimiter **
-create function CrearUsuario (Nombrer nvarchar(200),Apellidopr nvarchar(100),Apellidomr nvarchar(100),Tipor nvarchar (50),mailr nvarchar (50),Passr nvarchar (200),Estatusr int (1),DirColoniar nvarchar(200),DirCPr int(5),DirNumeroExtr int(100),DirNumeroIntr int(100),DirCaller nvarchar(200),DirDelegacionr nvarchar(200)) returns int (20) 
+create function CrearUsuario (Nombrer nvarchar(200),Apellidopr nvarchar(100),Apellidomr nvarchar(100),Tipor nvarchar (50),mailr nvarchar (50),Passr nvarchar (32),Estatusr int (1),DirColoniar nvarchar(200),DirCPr int(5),DirNumeroExtr int(100),DirNumeroIntr int(100),DirCaller nvarchar(200),DirDelegacionr nvarchar(200)) returns int (20) 
 begin
 	declare existe int;
 	declare idusr int(255);
@@ -66,7 +66,6 @@ begin
 end; **
 delimiter ;
 
-
 drop function if exists ModificarUsuario;
 delimiter **
 create function ModificarUsuario (IdUsuarior int(255), Nombrer nvarchar(200),Apellidopr nvarchar(100),Apellidomr nvarchar(100), mailr nvarchar (50)) returns nvarchar (200) 
@@ -75,5 +74,6 @@ begin
     return 1;
 end; **
 delimiter ;
+
 
 
