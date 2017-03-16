@@ -27,52 +27,21 @@
                 <div class="jumbotron">
                     <h1>Registrar Unidades</h1>
                     <form method="POST" action="/RegistroUnidad">
-                        <div class="form-group has-feedback">                            
+                        <div class="form-group has-feedback">
                             <input type="text" class="form-control"  name="Matricula" required  placeholder="Matricula" id="Matricula"/>                    
                         </div>
-                        <div class="row">
+                        <div class="form-group row">
                             <div class="col-md-6">
                                 <input type="text" class="form-control"  name="Marca" required  placeholder="Marca" id="Marca"/>                    
                             </div>
                             <div class="col-md-6">
                                 <input type="text" class="form-control"  name="Modelo" required  placeholder="Modelo"  id="Modelo"/>                    
                             </div>
-                        </div>
-                        <br>
-                        <div class="row">
-                            <div class="col-md-6 selectContainer">
-                                <div class="form-group">
-                                    <select class="form-control" name="Puertas">
-                                        <option value="">Puertas</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="4">4</option>
-                                        <option value="5">5</option>
-                                        <option value="6">6</option>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-group">
-                                    <select class="form-control" name="Blindaje">
-                                        <option value="">Blindaje</option>
-                                        <option value="LVL2">Blindaje Nivel RB II</option>
-                                        <option value="LVL3">Blindaje Nivel RB III</option>
-                                        <option value="LVL4">Blindaje Nivel RB IV</option>
-                                        <option value="LVL5">Blindaje Nivel RB V</option>
-                                        <option value="LVL6">Blindaje Nivel RB VI</option>
-                                        <option value="LVL7">Blindaje Nivel RB VII</option>
-                                    </select>
-                                </div>
-                            </div>                    
-                        </div>
-                        <br>
+                        </div>                        
                         <div class="form-group has-feedback">                            
                             <input type="numer" class="form-control"  name="Antiguedad" required  placeholder="Antiguedad" min="1990" max="2017" id="Antiguedad"/>                    
                         </div>
-                        <br>
-                        <div class="row">
+                        <div class="form-group row">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <select class="form-control" name="Tipo">
@@ -88,7 +57,30 @@
                                 <input type="text" class="form-control"  name="Status" required  placeholder="Status"  id="Status"/>                    
                             </div>
                         </div>
-                        <br>
+                        <div class="form-group row">
+                            <div class="col-md-6 ">
+                                <select class="form-control" name="Puertas">
+                                    <option value="">Puertas</option>
+                                    <option value="1">1</option>
+                                    <option value="2">2</option>
+                                    <option value="3">3</option>
+                                    <option value="4">4</option>
+                                    <option value="5">5</option>
+                                    <option value="6">6</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <select class="form-control" name="Blindaje">
+                                    <option value="">Blindaje</option>
+                                    <option value="LVL2">Blindaje Nivel RB II</option>
+                                    <option value="LVL3">Blindaje Nivel RB III</option>
+                                    <option value="LVL4">Blindaje Nivel RB IV</option>
+                                    <option value="LVL5">Blindaje Nivel RB V</option>
+                                    <option value="LVL6">Blindaje Nivel RB VI</option>
+                                    <option value="LVL7">Blindaje Nivel RB VII</option>
+                                </select>
+                            </div>                    
+                        </div>
                         <div class="form-group">                                                        
                             <button class="btn btn-default center-block" onclick="return Validacion()" onsubmit="return Validacion()" type="submit" >Registrarse</button>
                         </div> 

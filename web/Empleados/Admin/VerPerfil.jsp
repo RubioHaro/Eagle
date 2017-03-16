@@ -11,7 +11,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <%            String title = "Cambiar Password";
+        <%            String title = "Perfil";
                       Empleado User = (Empleado) sesion.getAttribute("Usuario");
                       ControladorDeBDD control = new  ControladorDeBDD();
                       control.BuscarEmpleado(User.getIdusuario());
@@ -26,6 +26,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.html" %>
         <div class="container">
             <div class="jumbotron">
                 <div class="row">
