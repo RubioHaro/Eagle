@@ -21,12 +21,7 @@
     </head>
     <body>
         <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.html" %> 
-        <h1>
-            Bienvenido Cliente:  
-            <%                
-                out.println(User.getNombre());
-            %>
-        </h1>
+        
         <%@include file="../../WEB-INF/jspf/ModalConfigClient.jspf" %> 
         <%@include file="../../WEB-INF/jspf/Empleados/Admin/ModalCerrarSesion.jsp" %> 
     </body>
