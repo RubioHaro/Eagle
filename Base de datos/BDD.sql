@@ -53,6 +53,7 @@ select * from Clientes;
 select * from Unidades;
 select * from Servicios;
 select * from Productos;
+
 SELECT count(DISTINCT edad)  FROM Empleados;
 SELECT * FROM Empleados WHERE Idusuario =  1;
 SELECT * FROM Usuarios WHERE mail = 'zazabb@gmail.com';
