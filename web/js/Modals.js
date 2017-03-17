@@ -18,26 +18,29 @@ window.onclick = function (event) {
 /**
  * click en barra de navegacion
  */
-function ClickError() {    
-    document.getElementById('PopWindowError').style.display='block';
-}
+
 
 /**
  * Para cualquier modal:
  */
-function ClickOpensModal(title,id) {
+function ClickOpensModal(title, id) {
     //alert(id);
-    document.getElementById(id).style.display='block';
+    document.getElementById(id).style.display = 'block';
     TitleChange(title);
 }
 
-function ClickIniciarSesion(title) {    
-    document.getElementById('PopWindowIniciar').style.display='block';
+function ClickIniciarSesion(title) {
+    document.getElementById('PopWindowIniciar').style.display = 'block';
     TitleChange(title);
 }
 
-function ClickRegistrarse(title) {    
-    document.getElementById('PopWindowRegistrarse').style.display='block';
+function ClickContacto(title) {
+    document.getElementById('PopWindowContacto').style.display = 'block';
+    TitleChange(title);
+}
+
+function ClickRegistrarse(title) {
+    document.getElementById('PopWindowRegistrarse').style.display = 'block';
     TitleChange(title);
 }
 /**
@@ -57,15 +60,15 @@ function TitleChange(title) {
  * Comment
  */
 function Configuracion(title) {
-    document.getElementById('PopWindowConfig').style.display='block';
+    document.getElementById('PopWindowConfig').style.display = 'block';
     TitleChange(title);
 }
 function LogOut(title) {
-    document.getElementById('PopWindowCerrarSesion').style.display='block';
+    document.getElementById('PopWindowCerrarSesion').style.display = 'block';
     TitleChange(title);
 }
 function EncabezadoCatalogo(title) {
-    document.getElementById('PopWindowTitleCatalogo').style.display='block';
+    document.getElementById('PopWindowTitleCatalogo').style.display = 'block';
     TitleChange(title);
 }
 
@@ -75,4 +78,7 @@ function EncabezadoCatalogo(title) {
 function ClickBorrarProducto() {
     var x = confirm('Estas seguro que deseas borrar el producto?');
     return x;
+}
+function ClickError() {
+    document.getElementById('PopWindowError').style.display = 'block';
 }

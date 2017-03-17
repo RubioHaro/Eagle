@@ -14,11 +14,14 @@
 
         %>
         <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+        <script>
+            
+        </script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">                
         <%@include file="WEB-INF/jspf/Declaration.jspf" %>
         <%@include file="WEB-INF/jspf/AllResourcesIndex.jspf" %>        
     </head>
-    <body>
+    <body onload="ClickContacto('Contacto')">
         <%@include file="WEB-INF/jspf/BarraDeNavegacionIndex.html" %>
         <div class="container">
             <div class="jumbotron">
@@ -49,7 +52,7 @@
                                     <h1>Nosotros te protegemos</h1>        
                                     <h3>Custodia, Intramuros, traslados, patrullas...</h3>
                                 </hgroup>       
-                                <button class="btn btn-hero btn-lg" role="button">¡A por ello!</button>
+                                <button onclick="ClickContacto('Contacto');" class="btn btn-hero btn-lg" role="button">¡A por ello!</button>
                             </div>
                         </div>
                         <div class="item slides">
@@ -59,7 +62,7 @@
                                     <h1>Somos los mejores</h1>        
                                     <h3>Mejor equipo, mejor tecnologia, mejor precio ;)</h3>
                                 </hgroup>
-                                <button onclick="ClickRegistrarse('Registrarse')" class="btn btn-hero btn-lg" role="button">Contactar</button>
+                                <button  class="btn btn-hero btn-lg" role="button">Contactar</button>
                             </div>
                         </div>
                     </div> 
@@ -69,9 +72,10 @@
 
             </div>
         </div>
-
+        
         <%@include file="WEB-INF/jspf/ModalError.jspf" %>
         <%@include file="WEB-INF/jspf/ModalIniciarSesion.jspf" %>
         <%@include file="WEB-INF/jspf/ModalRegistrar.jspf" %>
+        <%@include file="WEB-INF/jspf/ModalContacto.jspf" %>
     </body>
 </html>
