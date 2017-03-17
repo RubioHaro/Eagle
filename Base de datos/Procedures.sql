@@ -16,6 +16,16 @@ begin
 end; **
 delimiter ;
 
+/*		Procedimiento: Activar Cliente 			*/
+drop procedure if exists ActivarCliente;
+delimiter **
+create procedure ActivarCliente(IdUsuarior nvarchar(100))
+begin
+		update Usuarios set Estatus = 1 where Usuarios.Idusuario = IdUsuarior;
+end; **
+delimiter ;
+
+
 /*		Procedimiento: Agregar Vehiculo al inventario 		*/
 drop procedure if exists ProcedureCrearNuevaUnidad;
 delimiter **

@@ -21,7 +21,7 @@
         <%@include file="WEB-INF/jspf/Declaration.jspf" %>
         <%@include file="WEB-INF/jspf/AllResourcesIndex.jspf" %>        
     </head>
-    <body onload="ClickContacto('Contacto')">
+    <body>
         <%@include file="WEB-INF/jspf/BarraDeNavegacionIndex.html" %>
         <div class="container">
             <div class="jumbotron">
@@ -40,7 +40,7 @@
                             <div class="slide-1"></div>
                             <div class="hero">
                                 <hgroup>
-                                    <img alt="Logo" src="Img/Logo/EagleVision-Logo.png" class="img-responsive center-block LogoPrincipal" />
+                                    <img alt="Logo"  src="Img/Logo/EagleVision-Logo.png" class="img-responsive center-block LogoPrincipal" />
                                     <h1 class="text-center">Bienvenidos</h1>
                                 </hgroup>
                             </div>
@@ -52,7 +52,7 @@
                                     <h1>Nosotros te protegemos</h1>        
                                     <h3>Custodia, Intramuros, traslados, patrullas...</h3>
                                 </hgroup>       
-                                <button onclick="ClickContacto('Contacto');" class="btn btn-hero btn-lg" role="button">¡A por ello!</button>
+                                <button onclick="ClickRegistrarse('Registrarse');"  class="btn btn-hero btn-lg" role="button">¡A por ello!</button>
                             </div>
                         </div>
                         <div class="item slides">
@@ -62,7 +62,7 @@
                                     <h1>Somos los mejores</h1>        
                                     <h3>Mejor equipo, mejor tecnologia, mejor precio ;)</h3>
                                 </hgroup>
-                                <button  class="btn btn-hero btn-lg" role="button">Contactar</button>
+                                <button onclick="ClickContacto('Contacto');"  class="btn btn-hero btn-lg" role="button">Contactar</button>
                             </div>
                         </div>
                     </div> 

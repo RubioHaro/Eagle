@@ -224,7 +224,7 @@ public class ControladorDeBDD {
     public Empleado BuscarEmpleado(int IdUsuario) {
         try {
             ResDB = new ResultsSetDB();
-            ResDB = BuscarUsuario(IdUsuario+"", "x", "x");
+            ResDB = BuscarUsuario(IdUsuario + "", "x", "x");
             return ResDB.getCollaborator();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(ControladorDeBDD.class.getName()).log(Level.SEVERE, null, ex);
@@ -503,7 +503,7 @@ public class ControladorDeBDD {
                         Control.CrearConexion();
                         Query = "call GetEmpleado(\"" + user.getMail() + "\"); ";
                         res = Control.SentenciaSQL(Query);
-                        
+
                         if (res.next()) {
 
                             Collaborator = new Empleado(user);
@@ -516,7 +516,7 @@ public class ControladorDeBDD {
                             ResDB.setUser(user);
                             ResDB.setCollaborator(Collaborator);
                         }
-                        
+
                         ResDB.setCondicion(Boolean.TRUE);
                         Control.CerrarConexion();
                     } else {
@@ -544,40 +544,31 @@ public class ControladorDeBDD {
     public String ActivarUsuario(String Mail) throws ClassNotFoundException, SQLException {
         String mensaje;
         ResDB = null;
-        ResDB = BuscarUsuario(Mail, "Mail", "Empleado");
+        ResDB = BuscarUsuario(Mail, "Mail", "Cliente");
         if (ResDB.getErrores() != 0) {
             mensaje = ResDB.getEstaus();
         } else {
             Usuario Cliente;
             Cliente = ResDB.getUser();
-            mensaje = ActualizarUsuarioConMail(Cliente.getNombre(), Cliente.getApellidop(), Cliente.getApellidom(), Cliente.getMail(), 1);
+            try {
+
+                Control.CrearConexion();
+                Query = "call ActivarCliente(?);";
+                EstamentoPreparado = Control.StatmentAction(Query);
+                EstamentoPreparado.setInt(1, Cliente.getIdusuario());
+                EstamentoPreparado.executeUpdate();
+                EstamentoPreparado.close();
+                Control.CerrarConexion();
+                mensaje = "Usuario Actualizado";
+
+            } catch (SQLException error) {
+                mensaje = "Error:" + error.toString();
+            } catch (ClassNotFoundException e) {
+                mensaje = "Error:" + e.getLocalizedMessage();
+
+            }
         }
         return mensaje;
-    }
-
-    public String ActualizarUsuarioConMail(String Nombre, String apellidoP, String apellidoM, String Mail, int Estatus) throws ClassNotFoundException, SQLException {
-        try {
-
-            Control.CrearConexion();
-            Query = "select ModificarUsuario(?,?,?,?,?,?);";
-            EstamentoPreparado = Control.StatmentAction(Query);
-            EstamentoPreparado.setString(1, Nombre);
-            EstamentoPreparado.setString(2, apellidoP);
-            EstamentoPreparado.setString(3, apellidoM);
-            EstamentoPreparado.setInt(4, Estatus);
-            EstamentoPreparado.setString(5, Mail);
-            EstamentoPreparado.setString(6, Mail);
-            EstamentoPreparado.executeUpdate();
-            EstamentoPreparado.close();
-            Control.CerrarConexion();
-            return "Usuario Actualizado";
-
-        } catch (SQLException error) {
-            return "Error:" + error.toString();
-        } catch (ClassNotFoundException e) {
-            return "Error:" + e.getLocalizedMessage();
-
-        }
     }
 
     //INSERTAR USUARIO

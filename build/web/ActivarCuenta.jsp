@@ -19,6 +19,7 @@
             try {
                 
                 String Mail = request.getParameter("Correo");
+                System.out.println(Mail);
                 ControladorDeBDD Control = new ControladorDeBDD();
                 out.println(Control.ActivarUsuario(Mail));
                 sesion.setAttribute("Error", 1);
