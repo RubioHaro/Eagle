@@ -34,6 +34,13 @@ public class Mail {
                
         return mandaMAil(correo, "Activacion de cuenta", mensaje);
     }
+    
+    public boolean mensajeConPass(String correo, String Password){
+        String mensaje = "<img src=\"http://i64.tinypic.com/sls681.jpg\" border=\"0\" style=\"height: 300px; width: 300px\" alt=\"Eagle Vision\"><br/>Correo:" + correo + "<br/> Contraseña: " + Password  + "<br/> EAGLE VISION <br/> New Lights 2017" ;
+               
+        return mandaMAil(correo, "Solicitud de contraseña", mensaje);
+    }
+    
     public boolean mensajeAColaboradorRegistrado(String correo){
         String mensaje = "!FELICIDADES¡ Has sido agregado como colaborador";
         return mandaMAil(correo, "Registro EagleVision", mensaje);

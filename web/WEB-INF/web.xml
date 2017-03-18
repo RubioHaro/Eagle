@@ -104,6 +104,10 @@
         <servlet-name>CambiarPassword</servlet-name>
         <servlet-class>Usuarios.CambiarPassword</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>RecuperarPass</servlet-name>
+        <servlet-class>Activacion.RecuperarPass</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -207,6 +211,10 @@
     <servlet-mapping>
         <servlet-name>CambiarPassword</servlet-name>
         <url-pattern>/CambiarPassword</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RecuperarPass</servlet-name>
+        <url-pattern>/RecuperarPass</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

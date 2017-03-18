@@ -50,17 +50,11 @@ public class ControladorDeBDD {
         ResDB = null;
         ResDB = new ResultsSetDB();
 
-        System.out.println("Generando Query...");
-
         Query = "SELECT * FROM Unidades  WHERE Unidades." + Filtro + " = '" + Parametro + "'; ";
-
-        System.out.println("Query Generado Con exito: " + Query);
         try {
-            System.out.print("Generado conexion:");
             Control.CrearConexion();
             res = Control.SentenciaSQL(Query);
             Unit = new Unidad();
-            System.out.print("MySQL server connected");
             if (res.next()) {
                 Unit.setIdUnidad(res.getInt(1));
                 Unit.setMatricula(res.getString(2));
@@ -78,7 +72,6 @@ public class ControladorDeBDD {
             }
             Control.CerrarConexion();
             res.close();
-            System.out.println("Conexiones Finalizadas con exito");
         } catch (SQLException ex) {
             ResDB.setCondicion(Boolean.FALSE);
             ResDB.setEstaus("DB error: " + ex.toString());
@@ -353,7 +346,6 @@ public class ControladorDeBDD {
 
             Query = "call ActualizarUsuario(?,?,?,?,?)";
             EstamentoPreparado = Control.StatmentAction(Query);
-            System.out.println(IdUsuario);
             EstamentoPreparado.setInt(1, Integer.parseInt(IdUsuario));
             EstamentoPreparado.setString(2, Nombre);
             EstamentoPreparado.setString(3, apellidoP);
@@ -375,7 +367,6 @@ public class ControladorDeBDD {
 
             Query = "call ActualizarUnidad(?,?,?,?,?,?,?,?)";
             EstamentoPreparado = Control.StatmentAction(Query);
-            System.out.println(IdUnidad);
             EstamentoPreparado.setInt(1, Integer.parseInt(IdUnidad));
             EstamentoPreparado.setString(2, Matricula);
             EstamentoPreparado.setString(3, Marca);
@@ -528,7 +519,7 @@ public class ControladorDeBDD {
                             }
 
                             Control.CerrarConexion();
-                            
+
                         }
                         ResDB.setCondicion(Boolean.TRUE);
                         ResDB.setUser(user);
@@ -583,6 +574,27 @@ public class ControladorDeBDD {
             }
         }
         return mensaje;
+    }
+
+    public String EnviarPassByEmail(String Mail) {
+        try {
+            ResDB = null;
+            int IdUsuario = GetIdUsuarioPorEmail(Mail);
+            Control.CrearConexion();
+            Query = "call GetPassword(" + IdUsuario + ");";
+            res = Control.SentenciaSQL(Query);
+            if (res.next()) {
+                mensj = "Email enviado, reisa tu correo electronico";
+                Mail Correo = new Mail();
+                Correo.mensajeConPass(Mail, res.getString(1));
+            } else {
+                mensj = "No se ha podido encontrar el usuario";
+            }
+        } catch (ClassNotFoundException | SQLException ex) {
+            Logger.getLogger(ControladorDeBDD.class.getName()).log(Level.SEVERE, null, ex);
+            mensj = "Ha ocurrido un error al proceder solicitud: " + ex.toString();
+        }
+        return mensj;
     }
 
     //INSERTAR USUARIO
@@ -791,7 +803,6 @@ public class ControladorDeBDD {
                 i = 0;
             }
             Control.CerrarConexion();
-            System.out.println("Edades dif: " + i);
             return i;
         } catch (SQLException error) {
             System.out.println("Error: " + error.toString());

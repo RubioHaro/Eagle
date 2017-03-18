@@ -159,6 +159,16 @@ begin
 end; **
 delimiter ;
 
+/*		Procedimiento: Obtener la contraseña mediante el id 		*/
+drop procedure if exists GetPassword;
+delimiter **
+create procedure GetPassword(
+in Id int(255))
+begin
+	SELECT Usuarios.Pass FROM Usuarios  WHERE usuarios.Idusuario = Id;
+end; **
+delimiter ;
+
 /*		Procedimiento: Contar los servicios 		*/
 drop procedure if exists GetCountservice;
 delimiter **
