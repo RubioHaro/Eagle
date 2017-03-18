@@ -32,6 +32,7 @@ public class ControladorDeBDD {
 
     private Usuario user;
     private Empleado Collaborator;
+    private Cliente client;
     private String Query;
     private Unidad Unit;
     private ResultSet res;
@@ -495,33 +496,46 @@ public class ControladorDeBDD {
                     if (user.getEstatus() != 1) {
                         ResDB.setEstaus("Activa tu cuenta (revisa tu email o consulta con el administrador)");
                         ResDB.AgregarError();
+                    } else {
+
+                        if (user.getTipo().equals("Colaborador")) {
+                            Control.CrearConexion();
+                            Query = "call GetEmpleado(\"" + user.getMail() + "\"); ";
+                            res = Control.SentenciaSQL(Query);
+                            if (res.next()) {
+                                Collaborator = new Empleado(user);
+                                Collaborator.setAntiguedad(res.getString(2));
+                                Collaborator.setTipo(res.getString(3));
+                                Collaborator.setSalario(res.getInt(4));
+                                Collaborator.setEdad(res.getInt(5));
+                                Collaborator.setSexo(res.getString(6));
+                                user.setNivelAcceso(res.getInt(7));
+                                ResDB.setCollaborator(Collaborator);
+                            }
+
+                            Control.CerrarConexion();
+
+                        } else if (user.getTipo().equals("Cliente")) {
+                            Control.CrearConexion();
+                            Query = "call GetClient(\"" + user.getMail() + "\"); ";
+                            res = Control.SentenciaSQL(Query);
+                            if (res.next()) {
+                                client = new Cliente(user);
+                                client.setCliente(res.getString(1));
+                                client.setFechaRegistro(res.getString(2));
+                                ResDB.setClient(client);
+                                user.setNivelAcceso(0);
+                            }
+
+                            Control.CerrarConexion();
+                            
+                        }
+                        ResDB.setCondicion(Boolean.TRUE);
+                        ResDB.setUser(user);
                     }
                     //Se cierra Aqeui para abrir una nueva conexion con otra sentencia
                     Control.CerrarConexion();
                     //Para definir el Nivel de Acceso
-                    if (user.getTipo().equals("Colaborador")) {
-                        Control.CrearConexion();
-                        Query = "call GetEmpleado(\"" + user.getMail() + "\"); ";
-                        res = Control.SentenciaSQL(Query);
-
-                        if (res.next()) {
-
-                            Collaborator = new Empleado(user);
-                            Collaborator.setAntiguedad(res.getString(2));
-                            Collaborator.setTipo(res.getString(3));
-                            Collaborator.setSalario(res.getInt(4));
-                            Collaborator.setEdad(res.getInt(5));
-                            Collaborator.setSexo(res.getString(6));
-                            user.setNivelAcceso(res.getInt(7));
-                            ResDB.setUser(user);
-                            ResDB.setCollaborator(Collaborator);
-                        }
-
-                        ResDB.setCondicion(Boolean.TRUE);
-                        Control.CerrarConexion();
-                    } else {
-                        user.setNivelAcceso(0);
-                    }
                 } else {
                     ResDB.setEstaus("Usuario NO encontrado");
                     ResDB.AgregarError();
@@ -727,6 +741,7 @@ public class ControladorDeBDD {
                 direc.setCalle(res.getString(12));
                 direc.setNumeroExt(res.getInt(13));
                 direc.setNumeroInt(res.getInt(14));
+                service.setEstatus(res.getString(15));
                 service.setDir(direc);
                 ServicesList.AñadirALista(service);
             }

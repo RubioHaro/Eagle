@@ -53,7 +53,7 @@ begin
 	declare msj nvarchar(100);
 	declare IdUnidad int(255);    
 	insert into Servicios (DescripcionServicio, FechaSolicitud, FechaEntrega, Costo, IdCliente, IdUnidad, IdDireccion, Estatus)
-    values(DescripcionServicior, now(), FechaEntregar, Costor, IdClienter, IdUnidadr, IdDireccionr, 0);
+    values(DescripcionServicior, now(), FechaEntregar, Costor, IdClienter, IdUnidadr, IdDireccionr, 'En proceso de validacion');
 end; **
 delimiter ;
 
@@ -155,7 +155,7 @@ delimiter **
 create procedure GetServices(
 in Mail nvarchar(50))
 begin
-	SELECT Usuarios.Idusuario,Usuarios.Nombre,Usuarios.mail,Servicios.IdServicios,Servicios.DescripcionServicio,FechaSolicitud,FechaEntrega,Costo,Direccion.Delegacion,Direccion.Colonia,Direccion.CP,Direccion.Calle,Direccion.NumeroExt,Direccion.NumeroInt FROM Usuarios inner join Servicios on  Servicios.IdCliente = Usuarios.Idusuario inner join Direccion on  Direccion.Idusuario = Usuarios.Idusuario WHERE mail = Mail;
+	SELECT Usuarios.Idusuario,Usuarios.Nombre,Usuarios.mail,Servicios.IdServicios,Servicios.DescripcionServicio,FechaSolicitud,FechaEntrega,Costo,Direccion.Delegacion,Direccion.Colonia,Direccion.CP,Direccion.Calle,Direccion.NumeroExt,Direccion.NumeroInt, servicios.Estatus FROM Usuarios inner join Servicios on  Servicios.IdCliente = Usuarios.Idusuario inner join Direccion on  Direccion.Idusuario = Usuarios.Idusuario WHERE mail = Mail;
 end; **
 delimiter ;
 
@@ -214,7 +214,14 @@ begin
 end; **
 delimiter ;
 
-call GetEmpleado('zazabb@gmail.com');
+/*		Procedimiento: Obtener Cliente con Email		*/
+drop procedure if exists GetClient;
+delimiter **
+create procedure GetClient(mailr nvarchar(200))
+begin
+	SELECT clientes.NombreEmpresa, clientes.FechaRegistro FROM clientes inner join usuarios on clientes.Idusuario = Usuarios.Idusuario WHERE mail = mailr;
+end; **
+delimiter ;
 
 /*		Procedimiento: Obtener diferentes edads		*/
 drop procedure if exists GetAges;

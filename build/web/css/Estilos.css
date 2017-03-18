@@ -1,3 +1,9 @@
+.link{
+    color:white;
+}
+.link:hover{
+    color:#f1410b;
+}
 .VerticalCenter{
     padding-top: 25%;
     
@@ -21,11 +27,18 @@
     color: white;
 }
 
+
+@font-face {
+    font-family: "jaapokki" !important;
+    src: url(../fonts/LatoFont.woff2) format('woff2');
+}
+
 body {    
     background-image: url('../Img/Backgrounds/abstract-template.jpg');
     background-size: cover; 
     background-attachment: fixed;
     color: white;
+    font-family: "jaapokki";
 }
 
 .jumbotron{

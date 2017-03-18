@@ -127,7 +127,7 @@ Costo int(100) not null,
 IdCliente int(255) not null,
 IdUnidad int(255) not null,
 IdDireccion int(255)not null,
-Estatus int(1)not null,
+Estatus nvarchar(100)not null,
 foreign key(IdCliente) references Usuarios(Idusuario) on update cascade  on delete cascade,
 foreign key(IdUnidad) references Unidades(IdUnidad) on update cascade  on delete cascade,
 foreign key(IdDireccion) references Direccion(IdDireccion) on update cascade  on delete cascade);

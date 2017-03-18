@@ -37,15 +37,18 @@ public class Login extends HttpServlet {
             String Pass = request.getParameter("Pass");
             ControladorDeBDD control = new ControladorDeBDD();
             ResultsSetDB res = control.IniciarSesion(User, Pass);
-            if (res != null && res.getErrores() == 0 && res.getCondicion() && (res.getUser().getTipo().equals("Colaborador") || res.getUser().getTipo().equals("Cliente"))) {
-                Usuario user = res.getUser();
+            
+            if (res.getErrores() == 0 && res.getCondicion() && (res.getUser().getTipo().equals("Colaborador") || res.getUser().getTipo().equals("Cliente"))) {                
+                Usuario user = res.getUser();               
                 String Tipo = user.getTipo();
                 if (Tipo.equals("Colaborador")) {
+                    System.out.println("Cola");
                     user = res.getCollaborator();
                     sesion.setAttribute("Usuario", user);
                     response.sendRedirect("/Empleados/Admin/AdminIndex.jsp");
                 }
                 if (Tipo.equals("Cliente")) {
+                    System.out.println("Client");
                     user = res.getClient();
                     sesion.setAttribute("Usuario", user);
                     response.sendRedirect("/Clientes/IndexClient.jsp");

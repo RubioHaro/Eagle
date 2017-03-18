@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col-md-8">
                         <h3>Mapa de Unidades</h3>
-                        <div id="map" style="width:100vh;height:60vh; color: #000"></div>
+                        <div id="map" style="width:100vh;height:45vh; color: #000"></div>
                         <script>
                             function myMap() {
                                 var mapCanvas = document.getElementById("map");

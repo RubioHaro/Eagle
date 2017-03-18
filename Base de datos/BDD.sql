@@ -43,6 +43,7 @@ call EliminarProducto(3);
 call AñadirHeader('Premium Services', '+options',1);
 call GetAges;
 call GetEmpleado('zazabb@gmail.com');
+call GetClient('chavo0022009@hotmail.com');
 call ValidarPassword(1,'123');
 call GetIdByEmail('micky90210@hotmail.com');
 select * from PageInfo_Catalogo;

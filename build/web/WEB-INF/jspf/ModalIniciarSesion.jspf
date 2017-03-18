@@ -7,8 +7,7 @@
                 Iniciar Sesion
                 <span onclick="ClickCerrarModal('PopWindowIniciar')" class="close" title="Close Modal">&times;</span>
             </div>
-            <div class="panel-body">
-                
+            <div class="panel-body">                
                 <div class="form-group has-feedback">                            
                     <input type="text" class="form-control"  name="Usuario" required  placeholder="Usuario" id="Usuario"/>                    
                 </div>
@@ -18,6 +17,9 @@
                 <div class="form-group">                                                        
                     <button class="btn btn-default center-block" onclick="return Validacion()" onsubmit="return Validacion()" type="submit" >Iniciar Sesión</button>
                 </div> 
+                <div class="form-group" style="text-align: center;">
+                    <a class="link center-block" href="#">Recuperar password</a>
+                </div>
             </div>
         </div> 
     </form>
