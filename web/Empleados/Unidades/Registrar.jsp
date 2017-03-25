@@ -3,12 +3,12 @@
     Created on : 01-dic-2016, 5:03:32
     Author     : Rod e Hiram
 --%>
+<%@page import="java.util.Hashtable"%>
 <%@page import="Usuarios.Usuario"%>
-<%@page language="java" import="javazoom.upload.*" %>
+<%@page language="java" import=" javazoom.upload.*  " %>
 <%@include file="../../WEB-INF/jspf/ValidadorDeSesion.jspf" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%
-    String direccion = request.getSession().getServletContext().getRealPath("imagenesDB/");
+<%    String direccion = request.getSession().getServletContext().getRealPath("imagenesDB/");
 %>
 
 <jsp:useBean id="upBean" scope="page" class="javazoom.upload.UploadBean" >
@@ -41,7 +41,7 @@
             <div class="container">
                 <div class="jumbotron">
                     <h1>Registrar Unidades</h1>
-                    <form method="POST" action="/RegistroUnidad">
+                    <form enctype="multipart/form-data" method="POST" action="/RegistroUnidad">
                         <div class="row">
                             <div class="col-md-8">
                                 <div class="form-group has-feedback">
@@ -105,12 +105,44 @@
                             </div>
                             <div class="col-md-4 ">
                                 <label class="control-label">Select File</label>
-                                
+
                                 <img alt="Imagen de Unidad" class=" img-responsive ImagenUnidad" src="../../Img/SinImagen.png"/>
                                 <input id="file-0c" class="file" type="file"  data-allowed-file-extensions='["png", "jpg"]' data-min-file-count="3">
                             </div>
                         </div>
                     </form>
+                    <%                        
+                        if (MultipartFormDataRequest.isMultipartFormData(request)) {
+                            MultipartFormDataRequest mrequest = new MultipartFormDataRequest(request);
+                            String todo = null;
+                            if (mrequest != null) {
+                                todo = mrequest.getParameter("todo");
+                            }
+                            if ((todo != null) && (todo.equalsIgnoreCase("upload"))) {
+                                Hashtable files = mrequest.getFiles();
+                                if ((files != null) && (!files.isEmpty())) {
+                                    java.text.SimpleDateFormat formato = new java.text.SimpleDateFormat("yyMMddHHmmss");
+                                    String archivo = ((UploadFile) mrequest.getFiles().get("uploadfile")).getFileName();
+                                    int posicionPunto = archivo.indexOf(".");
+                                    String nombreImagen = archivo.substring(0, posicionPunto);
+                                    String extension = archivo.substring(posicionPunto);
+                                    nombreImagen = nombreImagen + formato.format(new java.util.Date());
+                                    nombreImagen = nombreImagen + extension;
+                                    ((UploadFile) mrequest.getFiles().get("uploadfile")).setFileName(nombreImagen);
+                                    UploadFile file = (UploadFile) files.get("uploadfile");
+                                    if (file != null) {
+                                        out.println("El archivo: " + file.getFileName() + " se subio correctamente");
+                                    }
+                                    upBean.store(mrequest, "uploadfile");
+                                } else {
+                                    out.println("Archivos no subidos");
+                                }
+                            } else {
+                                out.println("<BR> todo=" + todo);
+                            }
+                        }
+                    %>
+
                 </div>
         </h1>
         <%@include file="../../WEB-INF/jspf/ModalConfigClient.jspf" %> 
