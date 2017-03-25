@@ -40,6 +40,14 @@ Estatus int (1)not null,
 Costo int (100)not null,
 Descripcion nvarchar(200) not null);
 
+drop table if exists Productos;
+create table Productos(
+IdProducto int(10)auto_increment primary key ,
+Nombre nvarchar(100) not null,
+Estatus int (1)not null,
+Costo int (100)not null,
+Descripcion nvarchar(200) not null);
+
 drop table if exists Unidades;
 create table Unidades(
 IdUnidad int(255) not null primary key,
