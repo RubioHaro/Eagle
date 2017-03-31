@@ -104,10 +104,8 @@
 
                             </div>
                             <div class="col-md-4 ">
-                                <label class="control-label">Select File</label>
-
-                                <img alt="Imagen de Unidad" class=" img-responsive ImagenUnidad" src="../../Img/SinImagen.png"/>
-                                <input id="file-0c" class="file" type="file"  data-allowed-file-extensions='["png", "jpg"]' data-min-file-count="3">
+                                <label class="control-label">Subir Imagen</label>
+                                <input id="file-0c" class="file" type="file"  data-allowed-file-extensions='["png", "jpg"]' data-min-file-count="1">
                             </div>
                         </div>
                     </form>

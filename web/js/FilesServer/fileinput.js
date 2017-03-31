@@ -241,9 +241,7 @@
             self.$element.removeClass('file-loading');
         }
     };
-    FileInput.prototype = {
-        constructor: FileInput,
-        _init: function (options) {
+    FileInput.prototype = {constructor: FileInput, _init: function (options) {
             var self = this, $el = self.$element, $cont, t;
             self.options = options;
             $.each(options, function (key, value) {
@@ -395,7 +393,7 @@
                 '    <div class="file-footer-caption" title="{caption}">{caption}<br>{size}</div>\n' +
                 '    {progress} {actions}\n' +
                 '</div>';
-            tActions = '<div class="file-upload-indicator" title="{indicatorTitle}">{indicator}</div>\n' +
+            tActions = '<div class="file-upload-indicator" style="display:none;" title="{indicatorTitle}">{indicator}</div>\n' +
                 '{drag}\n' +
                 '<div class="file-actions">\n' +
                 '    <div class="file-footer-buttons">\n' +
@@ -408,7 +406,7 @@
                 'title="{removeTitle}" {dataUrl}{dataKey}>{removeIcon}</button>\n';
             tActionUpload = '<button type="button" class="kv-file-upload {uploadClass}" title="{uploadTitle}">' +
                 '{uploadIcon}</button>';
-            tActionZoom = '<button type="button" class="kv-file-zoom {zoomClass}" ' +
+            tActionZoom = '<button type="button" style="display:none;" class="kv-file-zoom {zoomClass}" ' +
                 'title="{zoomTitle}">{zoomIcon}</button>';
             tActionDrag = '<span class="file-drag-handle {dragClass}" title="{dragTitle}">{dragIcon}</span>';
             tTagBef = '<div class="file-preview-frame {frameClass}" id="{previewId}" data-fileindex="{fileindex}"' +
@@ -3367,10 +3365,10 @@
             if (!data) {
                 if (theme) {
                     t = $.fn.fileinputThemes[theme] || {};
-                }
+                }/*
                 if (lang !== 'en' && !$h.isEmpty($.fn.fileinputLocales[lang])) {
                     l = $.fn.fileinputLocales[lang] || {};
-                }
+                }*/
                 opt = $.extend(true, {}, $.fn.fileinput.defaults, t, $.fn.fileinputLocales.en, l, options, self.data());
                 data = new FileInput(this, opt);
                 self.data('fileinput', data);
@@ -3395,8 +3393,8 @@
         showCaption: true,
         showBrowse: true,
         showPreview: true,
-        showRemove: true,
-        showUpload: true,
+        showRemove: false,
+        showUpload: false,
         showCancel: true,
         showClose: true,
         showUploadedThumbs: true,

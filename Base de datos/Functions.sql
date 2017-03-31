@@ -1,3 +1,4 @@
+
 /* 
 	TIPO: SCRIPT DE SQL
 		//NEW LIGTHS\\
