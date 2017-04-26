@@ -20,7 +20,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     </head>
     <body>
-        <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.html" %>
+        <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.jspf" %>
         <div class="container">
 
             <div class="jumbotron">

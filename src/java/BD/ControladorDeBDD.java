@@ -16,6 +16,7 @@ import Usuarios.Direccion;
 import Usuarios.Empleado;
 import Usuarios.TicketDeUsuarios;
 import Usuarios.Usuario;
+import WebChat.Message;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -1019,4 +1020,53 @@ public class ControladorDeBDD {
         }
     }
 
+    public int EnviarMensajeAGrupo(Message mensaje) {
+        try {
+            Control.CrearConexion();
+            Query = "insert into dldb.mensajesforo(Mensaje,IdUsuario,IdForo) values(?,?,?)";
+            EstamentoPreparado = Control.StatmentAction(Query);
+            EstamentoPreparado.setString(1, mensaje.getMensaje());
+            EstamentoPreparado.setInt(2, mensaje.getIdUsuario());
+            EstamentoPreparado.setInt(3, mensaje.getIdTeam());
+            EstamentoPreparado.setInt(4, mensaje.getIdDestinatarioUsuario());
+            EstamentoPreparado.setString(5, "Enviado");
+            EstamentoPreparado.executeUpdate();
+            Control.CerrarConexion();
+            return 1;
+
+        } catch (SQLException | ClassNotFoundException error) {
+            return 0;
+        }
+    }
+
+    public ResultsSetDB DesplegarMensajes(int IdEquipo) {
+        try {
+            Control.CrearConexion();
+            ResDB = null;
+            ResDB = new ResultsSetDB();
+            Query = "select * from dldb.mensajesforo WHERE IdForo=" + IdEquipo;
+            res = Control.SentenciaSQL(Query);
+            ArrayList<Message> ListaMensajes = new ArrayList();
+            while (res.next()) {
+                Message Mensaje = new Message();
+                Mensaje.setIdmensaje(res.getInt(1));
+                Mensaje.setMensaje(res.getString(2));
+                Mensaje.setIdUsuario(res.getInt(3));
+                Mensaje.setIdTeam(res.getInt(4));
+                ListaMensajes.add(Mensaje);
+            }
+            ResDB.setCondicion(Boolean.TRUE);
+            ResDB.setEstaus("Mensajes Obtenidos");
+            ResDB.setMessages(ListaMensajes);
+
+            Control.CerrarConexion();
+            res.close();
+        } catch (SQLException | ClassNotFoundException ex) {
+            ResDB.setCondicion(Boolean.FALSE);
+            ResDB.setEstaus("DB error: " + ex.toString());
+            ResDB.AgregarError();
+            Logger.getLogger(ControladorDeBDD.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ResDB;
+    }
 }

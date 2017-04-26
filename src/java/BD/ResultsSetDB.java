@@ -5,6 +5,8 @@ import Usuarios.Cliente;
 import Usuarios.Empleado;
 import Usuarios.TicketDeUsuarios;
 import Usuarios.Usuario;
+import WebChat.Message;
+import java.util.ArrayList;
 
 /**
  * JAVA CLASS
@@ -18,10 +20,22 @@ public class ResultsSetDB {
     private Cliente client;
     private Usuario user;
     private TicketDeUsuarios ListaUsuarios;
+    private ArrayList<Message> Messages;
     private Boolean condicion;
     private int Errores;
     private Unidad Unit;
 
+    public ResultsSetDB(Empleado collaborator, Cliente client, Usuario user, TicketDeUsuarios ListaUsuarios, ArrayList<Message> Messages, Boolean condicion, int Errores, Unidad Unit) {
+        this.collaborator = collaborator;
+        this.client = client;
+        this.user = user;
+        this.ListaUsuarios = ListaUsuarios;
+        this.Messages = Messages;
+        this.condicion = condicion;
+        this.Errores = Errores;
+        this.Unit = Unit;
+    }
+      
     public Unidad getUnit() {
         return Unit;
     }
@@ -41,7 +55,14 @@ public class ResultsSetDB {
         this.Errores = 0;        
     }
 
-   
+    public ArrayList<Message> getMessages() {
+        return Messages;
+    }
+
+    public void setMessages(ArrayList<Message> Messages) {
+        this.Messages = Messages;
+    }  
+    
     public void CrearListaDeUsuarios(){
         this.ListaUsuarios = new TicketDeUsuarios();
     }
@@ -100,7 +121,7 @@ public class ResultsSetDB {
 
     public ResultsSetDB(Boolean condicion) {
         this.condicion = condicion;
-        this.Errores = 0;
+        this.Errores = 0;        
     }
 
     public int getErrores() {

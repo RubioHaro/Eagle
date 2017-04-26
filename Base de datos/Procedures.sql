@@ -318,6 +318,45 @@ begin
 end; **
 delimiter ;
 
+#Agregar Usuario a foro
+delimiter //
+create procedure AgregarUsuarioAEquipo(in IdUsuario nvarchar (50),IdEquipo varchar(50))
+begin
+insert into Rel (IdUsuario,IdEquipo) values (IdUsuario,IdEquipo);
+end//
+delimiter ;
 
+#Eliminar Usuario de Foro
+delimiter //
+create procedure EliminarUsuarioDeEquipo(in IdUsuarior int(10))
+begin
+delete  from Rel where IdUsuario=IdUsuarior;
+end//
+delimiter ;
+
+#Agregar Foro
+drop procedure if exists AgregarEquipo ;
+delimiter //
+create procedure AgregarEquipo(in Nombre nvarchar (30),idUsuarioCreador int(10),Temita nvarchar(20))
+begin
+insert into Equipo (Nombre,idUsuarioCreador,Tema) values (Nombre,idUsuarioCreador,Temita);
+end//
+delimiter ;
+
+#AlumnoForo
+drop procedure if exists BuscarEquiposDeUsuario ;
+delimiter //
+create procedure BuscarEquiposDeUsuario(in IdUsuarior int(10))
+begin
+SELECT * FROM rel INNER JOIN Equipo WHERE Rel.IdUsuario=IdUsuarior and rel.IdEquipo=Equipo.IdEquipo;
+end//
+delimiter ;
+
+#Eliminar Foro
+delimiter //
+create procedure EliminarEquipo(in IdEquipor int(5))
+begin delete from Equipo where IdEquipo=IdEquipor;
+end//
+delimiter ;
 
 

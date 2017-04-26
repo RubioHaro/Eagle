@@ -139,3 +139,35 @@ Estatus nvarchar(100)not null,
 foreign key(IdCliente) references Usuarios(Idusuario) on update cascade  on delete cascade,
 foreign key(IdUnidad) references Unidades(IdUnidad) on update cascade  on delete cascade,
 foreign key(IdDireccion) references Direccion(IdDireccion) on update cascade  on delete cascade);
+
+
+create table Equipo (
+IdEquipo int(5) auto_increment primary key,
+Nombre varchar(30),
+idUsuarioCreador int(5),
+Estado int(5),
+Tema varchar(20),
+FechaCreacion TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+foreign key (idUsuarioCreador) references Usuarios(IdUsuario));
+
+create table Rel (
+IdRel int(5) auto_increment primary key,
+IdUsuario int(5),
+IdEquipo int(5),
+foreign key (IdUsuario) references Usuarios(IdUsuario)
+on delete cascade on update cascade, 
+foreign key (IdEquipo) references Equipo(IdEquipo) on delete cascade on update cascade); 
+
+create table DocumentosEquipo (IdRel int(5) , 
+URL varchar(50), 
+IdUsuario int(5), 
+IdEquipo int(5), 
+foreign key (IdEquipo) references Equipo (IdEquipo)on delete cascade on update cascade, 
+foreign key (IdRel) references Rel(IdRel) on delete cascade on update cascade);
+
+create table MensajesEquipo (
+Mensaje varchar(400), 
+IdUsuario int(5), 
+IdEquipo int(5), 
+IdMensaje int(5) auto_increment primary key, 
+foreign key (IdEquipo) references Equipo (IdEquipo) on delete cascade on update cascade);

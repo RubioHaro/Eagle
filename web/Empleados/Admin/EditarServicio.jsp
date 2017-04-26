@@ -24,7 +24,7 @@
 
     </head>
     <body>
-        <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.html" %> 
+        <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.jspf" %> 
 
         <div id="Precios" class="container-fluid text-center">
             <div class="text-center">

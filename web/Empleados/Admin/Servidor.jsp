@@ -22,7 +22,7 @@
 
     </head>
     <body>
-        <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.html" %> 
+        <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.jspf" %> 
         <h1>
             Servidor de comunicacion:
         </h1>

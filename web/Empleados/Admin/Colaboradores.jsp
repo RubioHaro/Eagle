@@ -111,7 +111,7 @@
         <title>Usuarios</title>
     </head>
     <body>
-        <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.html" %>
+        <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.jspf" %>
         <div class="container">
             <div class="row">
                 <div class="col-md-12 col-xs-12">

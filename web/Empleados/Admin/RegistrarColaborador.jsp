@@ -20,7 +20,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.html" %>
+        <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.jspf" %>
         <div class="container">
             <div class="jumbotron">
                 <div class="row">

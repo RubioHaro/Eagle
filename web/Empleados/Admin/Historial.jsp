@@ -26,7 +26,7 @@
 
     </head>
     <body>      
-        <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.html" %> 
+        <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.jspf" %> 
         <h1>50 registros recientes</h1>
         <table class="table table-responsive table-striped" style="color: white;background-color: rgba(125,125,125,.5)">
             <thead>

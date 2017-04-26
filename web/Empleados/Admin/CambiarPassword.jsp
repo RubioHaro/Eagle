@@ -26,7 +26,7 @@
         </script>
     </head>
     <body>
-        <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.html" %>
+        <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.jspf" %>
         <div class="container">
             <div class="jumbotron">
                 <form method="POST" onsubmit="return confirmar('Modificar')" action="/CambiarPassword">                                        

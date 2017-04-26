@@ -29,7 +29,7 @@
         </script>
     </head>
     <body>
-        <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.html" %>
+        <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.jspf" %>
         <%            Usuario consulta = (Usuario) sesion.getAttribute("UsuarioConsultado");
 
             if (consulta != null) {

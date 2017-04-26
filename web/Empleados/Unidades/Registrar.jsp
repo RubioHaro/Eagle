@@ -8,7 +8,7 @@
 <%@page language="java" import=" javazoom.upload.*  " %>
 <%@include file="../../WEB-INF/jspf/ValidadorDeSesion.jspf" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%    String direccion = request.getSession().getServletContext().getRealPath("imagenesDB/");
+<%    String direccion = request.getSession().getServletContext().getRealPath("../../Img/profiloUtentiImage/");
 %>
 
 <jsp:useBean id="upBean" scope="page" class="javazoom.upload.UploadBean" >
