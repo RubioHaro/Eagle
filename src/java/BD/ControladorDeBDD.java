@@ -362,20 +362,23 @@ public class ControladorDeBDD {
         return mensj;
     }
 
-    public String ModificarUnidad(String IdUnidad, String Matricula, String Marca, String Modelo, String Tipo, String Puertas, String Blindaje, String Antiguedad) throws ClassNotFoundException {
+    public String ModificarUnidad(int IdUnidad, String Matricula, String Marca, String Modelo, String Tipo, String Puertas, String Blindaje, String Antiguedad, String Estatus) throws ClassNotFoundException {
         try {
             Control.CrearConexion();
 
-            Query = "call ActualizarUnidad(?,?,?,?,?,?,?,?)";
+            Query = "call ActualizarUnidad(?,?,?,?,?,?,?,?,?)";
+            System.out.println("Query asodm");
+            System.out.println(Query);
             EstamentoPreparado = Control.StatmentAction(Query);
-            EstamentoPreparado.setInt(1, Integer.parseInt(IdUnidad));
+            EstamentoPreparado.setInt(1, IdUnidad);
             EstamentoPreparado.setString(2, Matricula);
             EstamentoPreparado.setString(3, Marca);
             EstamentoPreparado.setString(4, Modelo);
             EstamentoPreparado.setString(5, Tipo);
             EstamentoPreparado.setString(6, Puertas);
             EstamentoPreparado.setString(7, Blindaje);
-            EstamentoPreparado.setString(8, Antiguedad);
+            EstamentoPreparado.setString(8, Antiguedad.substring(0, 4));                                
+            EstamentoPreparado.setString(9, Estatus);
             EstamentoPreparado.executeUpdate();
             EstamentoPreparado.close();
             Control.CerrarConexion();

@@ -1,5 +1,5 @@
 <!--
-        ADMIN
+        UNIDADES
 -->
 <%@ page pageEncoding="UTF-8" %>
 <nav class="navbar navbar-default navbar-static-top">
@@ -18,22 +18,22 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-folder-close" aria-hidden="true"></span> Servicios<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="Servicios.jsp"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp;Servicios</a></li>
+                        <li><a href="../Admin/Servicios.jsp"><span class="glyphicon glyphicon-folder-open" aria-hidden="true"></span>&nbsp;Servicios</a></li>
                         <li class="divider"></li>
-                        <li><a href="Catalogo.jsp"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp;Cat&aacute;logo</a></li>
+                        <li><a href="../Admin/Catalogo.jsp"><span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>&nbsp;Cat&aacute;logo</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-user" aria-hidden="true"></span> Usuarios<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a href="Clientes.jsp">
+                            <a href="../Admin/Clientes.jsp">
                                 <span class="glyphicon glyphicon-heart-empty" aria-hidden="true"></span>&nbsp;Clientes
                             </a>
                         </li>
                         <li class="divider"></li>
                         <li>
-                            <a href="Colaboradores.jsp">
+                            <a href="../Admin/Colaboradores.jsp">
                                 <span class="glyphicon glyphicon-briefcase" aria-hidden="true"></span>&nbsp;Colaboradores
                             </a>
                         </li>
@@ -44,9 +44,9 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-road" aria-hidden="true"></span> Unidades<span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
-                        <li><a href="../Unidades/Registrar.jsp"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Registrar</a></li>
+                        <li><a href="../../../../Empleados/Unidades/Registrar.jsp"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span>&nbsp;Registrar</a></li>
                         <li class="divider"></li>
-                        <li><a href="../Unidades/Consultar.jsp"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Consultas</a></li>
+                        <li><a href="../../../../Empleados/Unidades/Consultar.jsp"><span class="glyphicon glyphicon-search" aria-hidden="true"></span>&nbsp;Consultas</a></li>
                     </ul>
                 </li>
 

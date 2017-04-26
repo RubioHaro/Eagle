@@ -309,15 +309,18 @@ begin
 end; **
 delimiter ;
 
+
 /*		Procedimiento: Actualizar Unidad		*/
+
 drop procedure if exists ActualizarUnidad;
 delimiter **
-create procedure ACtualizarUnidad(in IdUnidad int(255), in Matricular nvarchar(200),in Marcar nvarchar(200),in Modelor nvarchar(100),in Tipor nvarchar (50), in Puertasr int (50), in Blindajer nvarchar(50), in Antiguedadr year(4))
+create procedure ActualizarUnidad( in IdUnidadr int(255), in  matricular nvarchar(6), in marcar nvarchar(100), in modelor nvarchar(100), in tipor nvarchar(100), in puertasr int(1), in Blindajer nvarchar(100), in Antiguedadr year,  in Estatusr int(1))
 begin
-	update Usuarios set Unidades.matricula = Matricular, Unidades.marca= Marcar, Unidades.modelo = Modelor, unidades.tipo= tipor, unidades.puertas = Puertasr, unidades.Blindaje=blindajer, unidades.Antiguedad=Antiguedadr   where Usuarios.Idusuario = IdUsuarior;
+	select ModificarUnidad( IdUnidadr, matricular, marcar, modelor, tipor,puertasr, Blindajer, Antiguedadr, Estatusr);	
 end; **
 delimiter ;
 
+drop procedure if exists AgregarUsuarioAEquipo;
 #Agregar Usuario a foro
 delimiter //
 create procedure AgregarUsuarioAEquipo(in IdUsuario nvarchar (50),IdEquipo varchar(50))
@@ -326,6 +329,7 @@ insert into Rel (IdUsuario,IdEquipo) values (IdUsuario,IdEquipo);
 end//
 delimiter ;
 
+drop procedure if exists EliminarUsuarioDeEquipo;
 #Eliminar Usuario de Foro
 delimiter //
 create procedure EliminarUsuarioDeEquipo(in IdUsuarior int(10))
@@ -334,6 +338,7 @@ delete  from Rel where IdUsuario=IdUsuarior;
 end//
 delimiter ;
 
+drop procedure if exists AgregarEquipo;
 #Agregar Foro
 drop procedure if exists AgregarEquipo ;
 delimiter //
@@ -342,6 +347,7 @@ begin
 insert into Equipo (Nombre,idUsuarioCreador,Tema) values (Nombre,idUsuarioCreador,Temita);
 end//
 delimiter ;
+
 
 #AlumnoForo
 drop procedure if exists BuscarEquiposDeUsuario ;
@@ -352,6 +358,8 @@ SELECT * FROM rel INNER JOIN Equipo WHERE Rel.IdUsuario=IdUsuarior and rel.IdEqu
 end//
 delimiter ;
 
+
+drop procedure if exists EliminarEquipo ;
 #Eliminar Foro
 delimiter //
 create procedure EliminarEquipo(in IdEquipor int(5))

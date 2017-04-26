@@ -21,7 +21,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <%@include file="../../WEB-INF/jspf/Empleados/Unidades/nvar.html" %>
+        <%@include file="../../WEB-INF/jspf/Empleados/Unidades/nvar.jspf" %>
         <%            Unidad consulta = (Unidad) sesion.getAttribute("Unidad Consultada");
             if (consulta != null) { %>
   
@@ -42,7 +42,7 @@
                         <h2>Antiguedad: <%out.println(consulta.getAntiguedad());%></h2>
                         <h2>Estatus: <%out.println(consulta.getEstatus());%></h2>
                         <div>
-                            <form method="POST" action="/ModiUnidades" >
+                            <form method="POST" action="/ModificarUnidades" >
                             <button class="btn btn-primary" value="<%out.println(consulta.getIdUnidad());%>" name="IdUnidad" >Modificar <span class="glyphicon glyphicon-wrench" aria-hidden="true"></span></button>
                             </form>
                             <form method="POST" action="/EliminarUnidades">

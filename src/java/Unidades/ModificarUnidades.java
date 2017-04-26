@@ -6,9 +6,10 @@
 package Unidades;
 
 import BD.ControladorDeBDD;
-import Usuarios.Usuario;
+import BD.ResultsSetDB;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -36,19 +37,23 @@ public class ModificarUnidades extends HttpServlet {
         HttpSession sesion = request.getSession();
         try (PrintWriter out = response.getWriter()) {
             /*Consulta al usuario jsp1*/
-            String IDUsuario = request.getParameter("IDUsuario");
+            String IdUnidad = request.getParameter("IdUnidad");
+            
             ControladorDeBDD control = new ControladorDeBDD();
-            Usuario user = control.BuscarUsuario(IDUsuario, "x", "x").getUser();
-            sesion.setAttribute("UsuarioConsultado", user);
-
+            ResultsSetDB rs = control.BuscarUnidad(IdUnidad, "IdUnidad");
+            Unidad Unit=rs.getUnit();
+            sesion.setAttribute("UnidadConsultada", Unit);
+response.sendRedirect("/Empleados/Unidades/Modificar.jsp");
         } catch (Exception e) {
             sesion.setAttribute("Error", 1);
             sesion.setAttribute("DescripcionError", e.toString());
+            response.sendRedirect("/Empleados/Unidades/Modificar.jsp");
+        
         }
 
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+   // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

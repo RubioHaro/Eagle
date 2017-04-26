@@ -6,8 +6,6 @@
 package Unidades;
 
 import BD.ControladorDeBDD;
-import Usuarios.Usuario;
-import Unidades.Unidad;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.logging.Level;
@@ -39,24 +37,23 @@ public class ActualizarUnidad extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession sesion = request.getSession();
         try (PrintWriter out = response.getWriter()) {
-            Unidad unit = (Unidad) sesion.getAttribute("Unidad");
-            String IDUnidad = request.getParameter("IDUnidad");
+                             
+            int IDUnidad = Integer.parseInt(request.getParameter("ID"));      
+            System.out.println("hasta aqui");
             
-            Usuario user = (Usuario) sesion.getAttribute("Usuario");
-            String IDUsuarioModificador = user.getIdusuario()+"";
-            
-            String Matricula = request.getParameter("matricula");
-            String Marca = request.getParameter("marca");
-            String Modelo = request.getParameter("modelo");
-            String Tipo = request.getParameter("tipo");
+            String Matricula = request.getParameter("Matricula");
+            String Marca = request.getParameter("Marca");
+            String Modelo = request.getParameter("Modelo");
+            String Tipo = request.getParameter("Tipo");
             String Puertas = request.getParameter("Puertas");
             String Blindaje = request.getParameter("Blindaje");
-            String Antiguedad = request.getParameter("Antiguedad");            
-                        
+            String Antiguedad = request.getParameter("Antiguedad"); 
+            String Estatus = request.getParameter("Estatus");  
+            
             ControladorDeBDD control = new ControladorDeBDD();
             String Message;
             try {
-                Message = control.ModificarUnidad(IDUnidad, Matricula, Marca, Modelo, Tipo, Puertas,Blindaje,Antiguedad);               
+                Message = control.ModificarUnidad(IDUnidad, Matricula, Marca, Modelo, Tipo, Puertas,Blindaje,Antiguedad, Estatus);               
             } catch (ClassNotFoundException ex) {
                 Logger.getLogger(ActualizarUnidad.class.getName()).log(Level.SEVERE, null, ex);
                 Message = ex.toString();

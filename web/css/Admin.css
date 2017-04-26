@@ -1,5 +1,9 @@
 @import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic);
 
+/*ORANGE COLOR: #f1410b */
+/*GRAY COLOR: #3b4148 */
+
+
 /*
  * EAGLE VISION FOR TRANSPORTS
  * -------------------------
@@ -1542,7 +1546,7 @@ a:focus {
     position: relative;
     border-radius: 3px;
     background: #ffffff;
-    border-top: 3px solid #d2d6de;
+    /*border-top: 3px solid #d2d6de;*/
     margin-bottom: 20px;
     width: 100%;
     box-shadow: 0 1px 1px rgba(0, 0, 0, 0.1);
@@ -1602,11 +1606,11 @@ a:focus {
 .box.box-solid.box-default > .box-header {
     color: #444444;
     background: #d2d6de;
-    background-color: #f1410b ;
+    background-color: #f1410b !important ;
 }
 .box.box-solid.box-default > .box-header a,
 .box.box-solid.box-default > .box-header .btn {
-    color: #444444;
+    color: #444444;   
 }
 .box.box-solid.box-primary {
     border: 1px solid #3c8dbc;
@@ -1614,7 +1618,7 @@ a:focus {
 .box.box-solid.box-primary > .box-header {
     color: #ffffff;
     background: #3c8dbc;
-    background-color: #3c8dbc;
+    background-color: #f1410b;
 }
 .box.box-solid.box-primary > .box-header a,
 .box.box-solid.box-primary > .box-header .btn {
@@ -1734,6 +1738,7 @@ a:focus {
     display: block;
     padding: 10px;
     position: relative;
+    background-color: #3b4148 ;
 }
 .box-header.with-border {
     border-bottom: 1px solid #f4f4f4;
@@ -1749,6 +1754,7 @@ a:focus {
     font-size: 18px;
     margin: 0;
     line-height: 1;
+    color: white;
 }
 .box-header > .fa,
 .box-header > .glyphicon,

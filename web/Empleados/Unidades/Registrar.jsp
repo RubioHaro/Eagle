@@ -8,15 +8,6 @@
 <%@page language="java" import=" javazoom.upload.*  " %>
 <%@include file="../../WEB-INF/jspf/ValidadorDeSesion.jspf" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%    String direccion = request.getSession().getServletContext().getRealPath("../../Img/profiloUtentiImage/");
-%>
-
-<jsp:useBean id="upBean" scope="page" class="javazoom.upload.UploadBean" >
-    <jsp:setProperty name="upBean" property="folderstore" value="<%= direccion%>" />
-    <jsp:setProperty name="upBean" property="whitelist" value="*.jpg,*.gif" />
-    <jsp:setProperty name="upBean" property="overwritepolicy" value="nametimestamp"/>
-</jsp:useBean>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -36,7 +27,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <%@include file="../../WEB-INF/jspf/Empleados/Unidades/nvar.html" %>   
+        <%@include file="../../WEB-INF/jspf/Empleados/Unidades/nvar.jspf" %>   
         <h1>
             <div class="container">
                 <div class="jumbotron">
@@ -109,38 +100,6 @@
                             </div>
                         </div>
                     </form>
-                    <%                        
-                        if (MultipartFormDataRequest.isMultipartFormData(request)) {
-                            MultipartFormDataRequest mrequest = new MultipartFormDataRequest(request);
-                            String todo = null;
-                            if (mrequest != null) {
-                                todo = mrequest.getParameter("todo");
-                            }
-                            if ((todo != null) && (todo.equalsIgnoreCase("upload"))) {
-                                Hashtable files = mrequest.getFiles();
-                                if ((files != null) && (!files.isEmpty())) {
-                                    java.text.SimpleDateFormat formato = new java.text.SimpleDateFormat("yyMMddHHmmss");
-                                    String archivo = ((UploadFile) mrequest.getFiles().get("uploadfile")).getFileName();
-                                    int posicionPunto = archivo.indexOf(".");
-                                    String nombreImagen = archivo.substring(0, posicionPunto);
-                                    String extension = archivo.substring(posicionPunto);
-                                    nombreImagen = nombreImagen + formato.format(new java.util.Date());
-                                    nombreImagen = nombreImagen + extension;
-                                    ((UploadFile) mrequest.getFiles().get("uploadfile")).setFileName(nombreImagen);
-                                    UploadFile file = (UploadFile) files.get("uploadfile");
-                                    if (file != null) {
-                                        out.println("El archivo: " + file.getFileName() + " se subio correctamente");
-                                    }
-                                    upBean.store(mrequest, "uploadfile");
-                                } else {
-                                    out.println("Archivos no subidos");
-                                }
-                            } else {
-                                out.println("<BR> todo=" + todo);
-                            }
-                        }
-                    %>
-
                 </div>
         </h1>
         <%@include file="../../WEB-INF/jspf/ModalConfigClient.jspf" %> 

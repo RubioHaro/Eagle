@@ -76,5 +76,14 @@ begin
 end; **
 delimiter ;
 
+drop function if exists ModificarUnidad;
+delimiter **
+create function ModificarUnidad (IdUnidadr int(255),matricular nvarchar(6), marcar nvarchar(100), modelor nvarchar(100), tipor nvarchar(100), puertasr int(1),Blindajer nvarchar(100), Antiguedadr year,  Estatusr int(1)) returns nvarchar (200) 
+begin
+	update Unidades set Unidades.IdUnidad = IdUnidadr, Unidades.matricula = matricular, Unidades.marca = marcar, Unidades.modelo = modelor, Unidades.tipo = tipor, Unidades.puertas = puertasr, Unidades.Blindaje = Blindajer, Unidades.Antiguedad = Antiguedadr, Unidades.Estatus = Estatusr   where Unidades.IdUnidad = IdUnidadr;
+    return 1;
+end; **
+delimiter ;
+
 
 

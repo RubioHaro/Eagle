@@ -106,7 +106,7 @@
                                     </div>
                                     <!-- /.col -->
                                     <div class="col-md-3 col-sm-4">
-                                        <div class="pad box-pane-right bg-green" style="min-height: 280px">
+                                        <div class="pad box-pane-right bg-gray" style="min-height: 280px">
                                             <div class="description-block margin-bottom">
                                                 <div class="sparkbar pad" data-color="#fff">90,70,90,70,75,80,70</div>
                                                 <h5 class="description-header">40 unidades</h5>
