@@ -9,3 +9,4 @@
 <script src="../../js/Validacion.js" ></script>
 <script src="../../js/Modals.js" ></script>
 <script src="../../js/fastclick.min.js"></script>
+<script src="../../js/app.min.js"></script>

@@ -18,7 +18,7 @@
         <%@include file="../../WEB-INF/jspf/Declaration.jspf" %>
         <%@include file="../../WEB-INF/jspf/Empleados/Admin/AllResourcesIndex_Admin.jspf" %>
         <!-- Ionicons -->
-        
+
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
         <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.jspf" %>
@@ -34,7 +34,7 @@
                                 <div class="box-tools pull-right">
                                     <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="glyphicon glyphicon-minus"></i>
                                     </button>
-                                    <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="glyphicon glyphicon-remove"></i></button>
+                                    <!--<button type="button" class="btn btn-box-tool" data-widget="remove"><i class="glyphicon glyphicon-remove"></i></button>-->
                                 </div>
                             </div>
                             <!-- /.box-header -->
@@ -134,6 +134,7 @@
                             <!-- /.box-body -->
                         </div>
                     </div>
+                    
                 </div>
                 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBclln4gWIxJu6PglA4qEwAyfyGTPMKu1c&callback=myMap"></script>
             </div>
