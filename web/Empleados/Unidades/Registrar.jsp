@@ -5,7 +5,7 @@
 --%>
 <%@page import="java.util.Hashtable"%>
 <%@page import="Usuarios.Usuario"%>
-<%@page language="java" import=" javazoom.upload.*  " %>
+<%@page language="java" import=" javazoom.upload.*" %>
 <%@include file="../../WEB-INF/jspf/ValidadorDeSesion.jspf" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -21,10 +21,12 @@
         <link href="../../css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="../../js/FilesServer/plugins/sortable.js" type="text/javascript"></script>
-        <script src="../../js/FilesServer/fileinput.js" type="text/javascript"></script>
+        <link href="../../css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+        <script src="../../js/input.js" type="text/javascript"></script>
         <script src="../../js/FilesServer/locales/es.js" type="text/javascript"></script>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        
     </head>
     <body>
         <%@include file="../../WEB-INF/jspf/Empleados/Unidades/nvar.jspf" %>   
