@@ -108,6 +108,10 @@
         <servlet-name>RecuperarPass</servlet-name>
         <servlet-class>Activacion.RecuperarPass</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ProfileChange</servlet-name>
+        <servlet-class>BD.ProfileChange</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
         <url-pattern>/Login</url-pattern>
@@ -215,6 +219,10 @@
     <servlet-mapping>
         <servlet-name>RecuperarPass</servlet-name>
         <url-pattern>/RecuperarPass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileChange</servlet-name>
+        <url-pattern>/ProfileChange</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

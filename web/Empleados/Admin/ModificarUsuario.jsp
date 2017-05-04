@@ -37,7 +37,7 @@
         <div class="container">
             <div class="jumbotron">
                 <div class="row">
-                    <div class="col col-md-6">
+                    <div class="col col-md-12">
                         <form method="POST" onsubmit="return confirmar('Modificar')" action="/ActualizarUsuario">
                             <input name="ID" value="<%out.println(consulta.getIdusuario());%>" style="visibility:hidden" class="form-control" id="disabledInput" type="text"/>
                             <div class="row">
@@ -79,9 +79,6 @@
                             </div>
                             <button type="submit" class="btn btn-default">Guardar</button>
                         </form>                        
-                    </div>
-                    <div class="col-md-6">
-                        <img alt="Foto Usuario" src="../../Img/SinImagen.png" class="img-responsive" />
                     </div>
                 </div>
 

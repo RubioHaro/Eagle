@@ -32,10 +32,13 @@ Nivel 0: Sin acceso.
 
 ##						*********TABLAS*************
 
-drop table if exists Productos;
-create table Productos(
-IdProducto int(10)auto_increment primary key ,
-Nombre nvarchar(100) not null,
+
+
+
+drop table if exists Imagenes;
+create table Imagenes(
+IdImagen int(10)auto_increment primary key ,
+IdUsuario nvarchar(100) not null,
 Estatus int (1)not null,
 Costo int (100)not null,
 Descripcion nvarchar(200) not null);

@@ -3,6 +3,7 @@
     Created on : 13/03/2017, 08:30:07 AM
     Author     : CECyT9
 --%>
+<%@page import="java.io.File"%>
 <%@page import="BD.ControladorDeBDD"%>
 <%@page import="Usuarios.Empleado"%>
 <%@page import="Usuarios.Usuario"%>
@@ -12,18 +13,23 @@
 <html>
     <head>
         <%            String title = "Perfil";
-                      Empleado User = (Empleado) sesion.getAttribute("Usuario");
-                      ControladorDeBDD control = new  ControladorDeBDD();
-                      control.BuscarEmpleado(User.getIdusuario());
-                      
-                      
+            Empleado User = (Empleado) sesion.getAttribute("Usuario");
+            ControladorDeBDD control = new ControladorDeBDD();
+            control.BuscarEmpleado(User.getIdusuario());
+
+
         %>
         <%@include file="../../WEB-INF/jspf/ModalError.jspf" %>        
 
         <%@include file="../../WEB-INF/jspf/Declaration.jspf" %>
         <%@include file="../../WEB-INF/jspf/Empleados/Admin/AllResourcesIndex_Admin.jspf" %>
+        
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
+        <script src="../../js/FilesServer/plugins/sortable.js" type="text/javascript"></script>
+        <link href="../../css/fileinput.css" media="all" rel="stylesheet" type="text/css"/>
+        <script src="../../js/input.js" type="text/javascript"></script>
+        <script src="../../js/FilesServer/locales/es.js" type="text/javascript"></script>
     </head>
     <body>
         <%@include file="../../WEB-INF/jspf/Empleados/Admin/nvar.jspf" %>
@@ -55,7 +61,24 @@
 
                     </div>
                     <div class="col-md-6">
-                        <img alt="Foto Usuario" src="../../Img/SinImagen.png" class="img-responsive" />
+                        <form action="/ProfileChange">
+                            <label class="control-label">Subir Imagen</label>
+                            <input id="file-0c" class="file" type="file"  data-allowed-file-extensions='["png", "jpg"]' data-min-file-count="1">
+                                <%
+                                    String DireccionImagen = "C:\\Users\\CECyT9\\Documents\\Eagle\\web\\Img";
+                                    File fichero = new File(DireccionImagen);
+                                    if (fichero.exists()) {
+                                %>
+                                <img alt="Foto Usuario" src="../../Img/profiloUtentiImage/User_<%out.print(User.getIdusuario());%>.jpg" class="img-responsive" />
+                                <%
+                                } else {
+                                %><img alt="Foto Usuario" src="../../Img/SinImagen.png" class="img-responsive" />
+                                <%
+                                    }
+                                %>                                 
+                        </form>
+
+
                     </div>
 
                 </div>

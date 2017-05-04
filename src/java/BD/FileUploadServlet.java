@@ -31,7 +31,7 @@ public class FileUploadServlet extends HttpServlet {
 
   @Override
   protected void doGet(HttpServletRequest request, 
-      HttpServletResponse response) throws ServletException, IOException { 
+      HttpServletResponse response) throws ServletException, IOException {
     for (Part part : request.getParts()) { 
       //logger.info(part.getName()); 
         try (InputStream is = request.getPart(part.getName()).getInputStream()) {
