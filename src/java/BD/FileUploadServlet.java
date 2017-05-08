@@ -1,3 +1,5 @@
+package BD;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -32,7 +34,7 @@ public class FileUploadServlet extends HttpServlet {
   @Override
   protected void doGet(HttpServletRequest request, 
       HttpServletResponse response) throws ServletException, IOException {
-    for (Part part : request.getParts()) { 
+    for (Part part : request.getParts()) {
       //logger.info(part.getName()); 
         try (InputStream is = request.getPart(part.getName()).getInputStream()) {
             int i = is.available();
@@ -41,7 +43,7 @@ public class FileUploadServlet extends HttpServlet {
             //logger.log(Level.INFO, "Length : {0}", b.length);
             String fileName = getFileName(part);
             //logger.log(Level.INFO, "File name : {0}", fileName);
-            FileOutputStream os = new FileOutputStream("C:\\Users\\chavo\\Desktop/" + fileName);
+            FileOutputStream os = new FileOutputStream("C:\\Users\\CECyT9\\Documents\\NetBeansProjects\\Eagle\\web\\Img\\profiloUtentiImage/User_" + fileName);
             os.write(b);
         } 
     }
@@ -62,7 +64,7 @@ public class FileUploadServlet extends HttpServlet {
 
   @Override
   protected void doPost(HttpServletRequest request, 
-      HttpServletResponse response) throws ServletException, IOException { 
+      HttpServletResponse response) throws ServletException, IOException {
     doGet(request, response); 
   }
 
