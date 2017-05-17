@@ -319,3 +319,13 @@ img.avatar {
   height: 300px;
   width: 400px;
 }
+
+.footer {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  padding: 1rem;
+  background-color: #efefef;
+  text-align: center;
+}
