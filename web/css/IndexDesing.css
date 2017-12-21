@@ -104,7 +104,7 @@ body {
 	position: absolute;
 	top: 0;
 	transition: all .5 linear;
-	width: 1%;
+	width: 2%;
 	z-index: 9;
 }
 
