@@ -17,7 +17,7 @@
         <link rel="stylesheet" href="css/font-awesome.min.css" type="text/css"/>
         <link href='http://fonts.googleapis.com/css?family=Titillium+Web:400,600,300,200&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
         <link rel="prefetch" href="images/zoom.png">
-        <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>  
+        <link rel="stylesheet" type="text/css" href="css/bootstrap.css"/>  
         <link rel="stylesheet" href="css/IndexDesing.css" type="text/css"/>
 
 
